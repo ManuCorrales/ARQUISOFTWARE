@@ -92,6 +92,7 @@ func (s *userService) InsertUser(userDto dto.UserDto) (dto.UserDto, errors.ApiEr
 	return userDto, nil
 }
 
+// agregar un teléfono a un usuario existente
 func (s *userService) AddUserTelephone(telephoneDto dto.TelephoneDto) (dto.UserDetailDto, errors.ApiError) {
 	telephone := model.Telephone{
 		Code:   telephoneDto.Code,
@@ -102,7 +103,7 @@ func (s *userService) AddUserTelephone(telephoneDto dto.TelephoneDto) (dto.UserD
 
 	user, err := user.GetUserById(telephoneDto.UserId)
 	if err != nil {
-		return dto.UserDetailDto{}, errors.NewBadRequestApiError("user not found")
+		return dto.UserDetailDto{}, errors.NewBadRequestApiError("user not found") // Si no se encuentra el usuario, devuelve un error
 	}
 
 	userDetailDto := dto.UserDetailDto{
@@ -112,6 +113,7 @@ func (s *userService) AddUserTelephone(telephoneDto dto.TelephoneDto) (dto.UserD
 		Number:   user.Address.Number,
 	}
 
+	// Recorre los teléfonos del usuario y los agrega al DTO de detalle de usuario
 	for _, telephone := range user.Telephones {
 		dtoTelephone := dto.TelephoneDto{
 			Code:   telephone.Code,
