@@ -9,8 +9,8 @@ type User struct {
 	Password string `gorm:"type:varchar(150);not null"`
 	IsAdmin  bool   `gorm:"default:false"`
 
-	Address   Address `gorm:"foreignkey:AddressId"`
+	//Address   Address `gorm:"foreignkey:AddressId"`
 	AddressId int
 
-	Telephones Telephone `gorm:"foreignKey:UserId"`
+	//Telephones Telephones `gorm:"foreignKey:UserId"`
 }
