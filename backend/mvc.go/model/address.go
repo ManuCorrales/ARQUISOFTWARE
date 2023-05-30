@@ -1,5 +1,6 @@
 package model
 
+//información de una dirección
 type Address struct {
 	Id      int    `gorm:"primaryKey"`
 	Street  string `gorm:"type:varchar(350);not null"`
