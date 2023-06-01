@@ -10,5 +10,5 @@ type User struct {
 	Password string `gorm:"type:varchar(150);not null"`
 	IsAdmin  bool   `gorm:"default:false"`
 
-	//Reserva Reserva `gorm:"foreignKey:userId"`
+	Reserva Reserva `gorm:"foreignKey:userId"`
 }

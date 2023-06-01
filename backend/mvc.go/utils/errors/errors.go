@@ -3,7 +3,6 @@ package errors
 import (
 	"fmt"
 	"net/http"
-	//json "github.com/json-iterator/go"
 )
 
 type CauseList []interface{}
@@ -91,8 +90,8 @@ func NewConflictApiError(id string) ApiError {
 	return apiErr{"Can't update " + id + " due to a conflict error", "conflict_error", http.StatusConflict, CauseList{}}
 }
 
-/*func NewApiErrorFromBytes(data []byte) (ApiError, error) {
+func NewApiErrorFromBytes(data []byte) (ApiError, error) {
 	err := apiErr{}
 	//e := json.Unmarshal(data, &err)
 	//return err, e
-}*/
+}

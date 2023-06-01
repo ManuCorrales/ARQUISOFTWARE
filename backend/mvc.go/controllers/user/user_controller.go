@@ -1,14 +1,13 @@
 package userController
 
-/*import (
+import (
 	"net/http"
 	"strconv"
 
 	"github.com/gin-gonic/gin"
-	"mvc.go/dto"
-	services "mvc.go/services"
-	model "mvc.go/model"
 	log "github.com/sirupsen/logrus"
+	model "mvc.go/model"
+	services "mvc.go/services"
 )
 
 type UserController struct {
@@ -35,7 +34,7 @@ func (c *UserController) GetUserByID(c *gin.Context) {
 
 	// el user service se encarga de buscar y devolver el usuario correspondiente al ID proporcionado
 	user, err := c.userService.GetUserByID(userID) // la variable user contiene el usuario obtenido y err contiene cualquier error
-	if err != nil { //verifica si el usuario se encuentra o no
+	if err != nil {                                //verifica si el usuario se encuentra o no
 		c.JSON(http.StatusNotFound, gin.H{"error": "Usuario no encontrado"})
 		return
 	}
@@ -93,4 +92,4 @@ func (c *UserController) CreateUser(c *gin.Context) {
 
 	// Devolver el usuario creado en formato JSON
 	c.JSON(http.StatusCreated, createdUser)
-}*/
+}
