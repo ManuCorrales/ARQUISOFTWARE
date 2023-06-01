@@ -1,6 +1,6 @@
 package main
 
-/*import (
+import (
 	"mvc-go/app"
 	"mvc-go/db"
 )
@@ -8,4 +8,4 @@ package main
 func main() {
 	db.StartDbEngine()
 	app.StartRoute()
-}*/
+}

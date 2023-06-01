@@ -1,14 +1,13 @@
 package hotel
 
-/*import (
-	"mvc.go/model"
+import (
 	"github.com/jinzhu/gorm"
 	log "github.com/sirupsen/logrus"
 )
 
 var Db *gorm.DB
 
-func GetHotelById(id int) model.User {
+func GetHotelById(id int) model.hotel {
 	var hotel model.hotel
 
 	Db.Where("id = ?", id).Preload("reserva").First(&hotel)
@@ -16,7 +15,7 @@ func GetHotelById(id int) model.User {
 
 	return hotel
 }
-func GetUsers() model.Users {
+func Gethotels() model.hotels {
 	var hotel model.hotel
 	Db.Preload("Hotel").Preload("reserva").Find(&hotel)
 
@@ -25,7 +24,7 @@ func GetUsers() model.Users {
 	return hotel
 }
 
-func InsertUser(hotel model.hotel) model.hotel {
+func Inserthotel(hotel model.hotel) model.hotel {
 	result := Db.Create(&hotel)
 
 	if result.Error != nil {
@@ -34,4 +33,4 @@ func InsertUser(hotel model.hotel) model.hotel {
 	}
 	log.Debug("hotel Created: ", hotel.Id)
 	return hotel
-}*/
+}

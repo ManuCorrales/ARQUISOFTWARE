@@ -3,6 +3,8 @@ package errors
 import (
 	"fmt"
 	"net/http"
+
+	json "github.com/json-iterator/go"
 )
 
 type CauseList []interface{}
@@ -92,6 +94,6 @@ func NewConflictApiError(id string) ApiError {
 
 func NewApiErrorFromBytes(data []byte) (ApiError, error) {
 	err := apiErr{}
-	//e := json.Unmarshal(data, &err)
-	//return err, e
+	e := json.Unmarshal(data, &err)
+	return err, e
 }

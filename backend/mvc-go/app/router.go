@@ -1,6 +1,6 @@
 package app
 
-/*import (
+import (
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	log "github.com/sirupsen/logrus"
@@ -21,4 +21,4 @@ func StartRoute() {
 	log.Info("Starting server")
 	router.Run(":8090")
 
-}*/
+}

@@ -1,6 +1,6 @@
 package user
 
-/*import (
+import (
 	"mvc.go/model"
 
 	"github.com/jinzhu/gorm"
@@ -20,7 +20,6 @@ func GetUserById(id int) model.User {
 
 func GetUserByUsername(username string) model.User {
 	var user model.User
-
 
 	Db.Where("username = ?", username).Preload("reserva").First(&user)
 
@@ -47,4 +46,4 @@ func InsertUser(user model.User) model.User {
 	}
 	log.Debug("User Created: ", user.Id)
 	return user
-}*/
+}
