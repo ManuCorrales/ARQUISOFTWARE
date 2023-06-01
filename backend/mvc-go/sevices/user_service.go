@@ -3,6 +3,7 @@ package services
 import (
 	userCliente "mvc-go/clients/user"
 	"mvc-go/dto"
+	"mvc-go/model"
 	e "mvc-go/utils/errors"
 )
 
