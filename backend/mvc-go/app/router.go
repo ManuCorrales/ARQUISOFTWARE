@@ -20,5 +20,14 @@ func StartRoute() {
 
 	log.Info("Starting server")
 	router.Run(":8090")
+}
 
+func mapUrls() {
+	// Aca mapear las rutas de la app
+	// Utilizar router.GET, router.POST, etc. para definir las rutas y los controladores correspondientes
+	// Por ejemplo:
+	// router.GET("/hotels", controllers.GetHotels)
+	// router.POST("/reservation", controllers.CreateReservation)
+	// router.GET("/reservations", controllers.GetReservations)
+	// ...
 }

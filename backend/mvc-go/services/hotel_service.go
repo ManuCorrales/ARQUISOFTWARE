@@ -1,99 +1,70 @@
 package services
 
 import (
-	hotelClient "mvc-go/Clients/hotel"
-
-	"mvc-go/dto"
-	"mvc-go/model"
-	e "mvc-go/utils/errors"
+	"backend\mvc-go\utils\errors"
+	"backend\mvc-go\clients"
+	"backend\mvc-go\model"
 )
 
-type hotelService struct{}
-
-type hotelServiceInterface interface {
-	GetHotelById(id int) (dto.HotelDto, e.ApiError)
-	GetHotels() (dto.HotelsDto, e.ApiError)
-	InsertHotel(hotelDto dto.HotelDto) (dto.HotelDto, e.ApiError)
+type HotelService struct {
+	hotelClient *hotel.Client
 }
 
-var (
-	HotelService hotelServiceInterface
-)
-
-func init() {
-	HotelService = &hotelService{}
-}
-
-func (h *hotelService) GetHotelById(id int) (dto.HotelDto, e.ApiError) {
-
-	var hotel model.Hotel = hotelClient.GetHotelById(id)
-	var hotelDto dto.HotelDto
-
-	if hotel.ID == 0 {
-		return hotelDto, e.NewBadRequestApiError("no se encontro la reserva")
+func NewHotelService(client *hotel.Client) *HotelService {
+	return &HotelService{
+		hotelClient: client,
 	}
-	hotelDto.ID = hotel.ID
-	hotelDto.Name = hotel.Name
-	hotelDto.Availability = hotel.Availability
-	hotelDto.Description = hotel.Description
-	hotelDto.Email = hotel.Email
-	hotelDto.Telephone = hotel.Telephone
-	hotelDto.Rooms = hotel.Rooms
-	hotelDto.Image = hotel.Image
+}
 
-	for _, reserva := range hotel.Reservas {
-		var dtoreserva dto.ReservaDto
+// busca un hotel por su ID
+func (s *HotelService) GetHotelByID(id int) (*model.Hotel, error) {
+	return s.hotelClient.GetHotelById(id)
+}
 
-		dtoreserva.DateFrom = reserva.DateFrom
-		dtoreserva.DateTo = reserva.DateTo
-		dtoreserva.Duracion = reserva.Duracion
-		dtoreserva.Precio = reserva.Precio
-		dtoreserva.HotelId = reserva.HotelId
+// devuelve todos los hoteles disponibles
+func (s *HotelService) GetAllHotels() (model.Hotels, error) {
+	return s.hotelClient.GetHotels()
+}
 
-		hotelDto.ReservasDto = append(hotelDto.ReservasDto, dtoreserva)
+// crea un nuevo hotel
+func (s *HotelService) CreateHotel(hotel *model.Hotel) error {
+	return s.hotelClient.InsertHotel(hotel)
+}
+
+// actualiza la información de un hotel existente
+func (s *HotelService) UpdateHotel(updatedHotel *model.Hotel) error {
+	// Primero, busca el hotel existente por su ID
+	hotelExistente, err := s.hotelClient.GetHotelByID(updatedHotel.ID)
+	if err != nil {
+		return err
 	}
 
-	return hotelDto, nil
-}
+	// Actualiza los campos necesarios del hotel existente con los valores de updatedHotel
+	hotelExistente.Name = updatedHotel.Name
+	hotelExistente.Description = updatedHotel.Description
+	hotelExistente.Email = updatedHotel.Email
+	hotelExistente.Telephone = updatedHotel.Telephone
+	hotelExistente.Rooms = updatedHotel.Rooms
+	hotelExistente.Image = updatedHotel.Image
+	hotelExistente.Availability = updatedHotel.Availability
 
-func (h *hotelService) GetHotels() (dto.HotelsDto, e.ApiError) {
-
-	var hotels model.Hotels = hotelClient.Gethotels()
-	var hotelsDto dto.HotelsDto
-
-	for _, hotel := range hotels {
-		var hotelDto dto.HotelDto
-
-		hotelDto.ID = hotel.ID
-		hotelDto.Availability = hotel.Availability
-		hotelDto.Description = hotel.Description
-		hotelDto.Email = hotel.Email
-		hotelDto.Name = hotel.Name
-		hotelDto.Telephone = hotel.Telephone
-		hotelDto.Rooms = hotel.Rooms
-		hotelDto.Image = hotel.Image
-
-		hotelsDto = append(hotelsDto, hotelDto)
+	// Llama al cliente de hotel para guardar los cambios en la base de datos
+	err = s.hotelClient.UpdateHotel(hotelExistente)
+	if err != nil {
+		return err
 	}
 
-	return hotelsDto, nil
+	return nil
 }
 
-func (h *hotelService) InsertHotel(hotelDto dto.HotelDto) (dto.HotelDto, e.ApiError) {
 
-	var hotel model.Hotel
+// elimina un hotel por su ID
+func (s *HotelService) DeleteHotel(id int) error {
+	// Llama al cliente de hotel para eliminar el hotel por su ID
+	err := s.hotelClient.DeleteHotel(id)
+	if err != nil {
+		return err
+	}
 
-	hotel.Description = hotelDto.Description
-	hotel.Email = hotelDto.Email
-	hotel.Name = hotelDto.Name
-	hotel.Availability = hotelDto.Availability
-	hotel.Telephone = hotelDto.Telephone
-	hotel.Rooms = hotelDto.Rooms
-	hotel.Image = hotelDto.Image
-
-	hotel = hotelClient.Inserthotel(hotel)
-
-	hotelDto.ID = hotel.ID
-
-	return hotelDto, nil
+	return nil
 }
