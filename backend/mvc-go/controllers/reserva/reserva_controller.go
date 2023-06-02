@@ -4,6 +4,9 @@ import (
 	"net/http"
 	"strconv"
 
+	"mvc-go/dto"
+	"mvc-go/services"
+
 	"github.com/gin-gonic/gin"
 	log "github.com/sirupsen/logrus"
 )
@@ -12,9 +15,9 @@ func GetReservaById(c *gin.Context) {
 	log.Debug("Reserva id to load: " + c.Param("id"))
 
 	id, _ := strconv.Atoi(c.Param("id"))
-	var reservaDto dto.reservaDto
+	var reservaDto dto.ReservaDto
 
-	reservaDto, err := services.reservaService.GetReservaById(id)
+	reservaDto, err := services.ReservaService.GetReservaById(id)
 
 	if err != nil {
 		c.JSON(err.Status(), err)
@@ -24,8 +27,8 @@ func GetReservaById(c *gin.Context) {
 }
 
 func GetReservas(c *gin.Context) {
-	var reservasDto dto.reservasDto
-	reservasDto, err := services.reservaServices.GetReservas()
+	var reservasDto dto.ReservasDto
+	reservasDto, err := services.ReservaService.GetReservas()
 
 	if err != nil {
 		c.JSON(err.Status(), err)
@@ -36,7 +39,7 @@ func GetReservas(c *gin.Context) {
 }
 
 func ReservaInsert(c *gin.Context) {
-	var reservaDto dto.reservaDto
+	var reservaDto dto.ReservaDto
 	err := c.BindJSON(&reservaDto)
 
 	// Error Parsing json param
@@ -46,7 +49,7 @@ func ReservaInsert(c *gin.Context) {
 		return
 	}
 
-	reservaDto, er := services.reservaService.Insertreserva(reservaDto) // llama a la funcion del service
+	reservaDto, er := services.ReservaService.ReservaInsert(reservaDto) // llama a la funcion del service
 	// Error del Insert
 	if er != nil {
 		c.JSON(er.Status(), er)

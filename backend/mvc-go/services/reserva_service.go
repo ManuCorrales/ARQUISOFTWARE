@@ -1,14 +1,15 @@
 package services
 
 import (
+	"mvc-go/clients/reserva"
 	"mvc-go/model"
 )
 
 type ReservaService struct {
-	reservaClient *reserva.client
+	reservaClient *reserva.Client
 }
 
-func NewReservaService(client *reserva.client) *ReservaService {
+func NewReservaService(client *reserva.Client) *ReservaService {
 	return &ReservaService{
 		reservaClient: client,
 	}

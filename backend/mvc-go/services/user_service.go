@@ -46,16 +46,16 @@ func (u *userService) GetUserById(id int) (dto.UserDto, e.ApiError) {
 	userDto.Email = user.Email
 	userDto.IsAdmin = user.IsAdmin
 
-	for _, reserva := range user.reserva {
-		var dtoreserva dto.reservadto
+	for _, reserva := range user.Reserva {
+		var dtoreserva dto.ReservaDto
 
 		dtoreserva.DateFrom = reserva.DateFrom
 		dtoreserva.DateTo = reserva.DateTo
-		dtoreserva.Duration = reserva.Duration
-		dtoreserva.Price = reserva.Price
+		dtoreserva.Duracion = reserva.Duracion
+		dtoreserva.Precio = reserva.Precio
 		dtoreserva.HotelId = reserva.HotelId
 
-		userDto.reservasDto = append(userDto.reservasDto, dtoreserva)
+		userDto.ReservasDto = append(userDto.ReservasDto, dtoreserva)
 	}
 
 	return userDto, nil
