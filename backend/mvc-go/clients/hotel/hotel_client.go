@@ -17,13 +17,14 @@ func GetHotelById(id int) model.Hotel {
 
 	return hotel
 }
+
 func Gethotels() model.Hotels {
-	var hotel model.Hotel
-	Db.Preload("Hotel").Preload("reserva").Find(&hotel)
+	var hotels model.Hotels
+	Db.Preload("Hotel").Preload("reserva").Find(&hotels)
 
-	log.Debug("hotel: ", hotel)
+	log.Debug("hotels: ", hotels)
 
-	return hotel
+	return hotels
 }
 
 func Inserthotel(hotel model.Hotel) model.Hotel {

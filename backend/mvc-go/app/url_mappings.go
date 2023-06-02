@@ -22,7 +22,7 @@ func mapUrls() {
 
 	router.GET("/reserva/:id", reservaController.GetReservaById())
 	router.GET("/reservas", reservaController.GetReservas())
-	router.POST("/reserva", reservaController.ReservaInsert())
+	router.POST("/reserva", reservaController.createReserva())
 
 	log.Info("Finishing mappings configurations")
 }

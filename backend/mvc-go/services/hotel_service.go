@@ -1,9 +1,8 @@
 package services
 
 import (
-	"backend\mvc-go\utils\errors"
-	"backend\mvc-go\clients"
-	"backend\mvc-go\model"
+	"mvc-go/clients/hotel"
+	"mvc-go/model"
 )
 
 type HotelService struct {
@@ -56,7 +55,6 @@ func (s *HotelService) UpdateHotel(updatedHotel *model.Hotel) error {
 
 	return nil
 }
-
 
 // elimina un hotel por su ID
 func (s *HotelService) DeleteHotel(id int) error {

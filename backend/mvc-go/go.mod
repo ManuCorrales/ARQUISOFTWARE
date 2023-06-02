@@ -2,7 +2,10 @@ module mvc-go
 
 go 1.20
 
-require github.com/sirupsen/logrus v1.9.2
+require (
+	github.com/json-iterator/go v1.1.12
+	github.com/sirupsen/logrus v1.9.2
+)
 
 require (
 	github.com/bytedance/sonic v1.9.1 // indirect
@@ -15,7 +18,6 @@ require (
 	github.com/go-sql-driver/mysql v1.5.0 // indirect
 	github.com/goccy/go-json v0.10.2 // indirect
 	github.com/jinzhu/inflection v1.0.0 // indirect
-	github.com/json-iterator/go v1.1.12 // indirect
 	github.com/klauspost/cpuid/v2 v2.2.4 // indirect
 	github.com/leodido/go-urn v1.2.4 // indirect
 	github.com/mattn/go-isatty v0.0.19 // indirect
