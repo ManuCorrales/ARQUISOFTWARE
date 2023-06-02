@@ -49,7 +49,7 @@ func ReservaInsert(c *gin.Context) {
 		return
 	}
 
-	reservaDto, er := services.ReservaService.ReservaInsert(reservaDto) // llama a la funcion del service
+	reservaDto, er := services.ReservaService.Insertreserva(reservaDto)
 	// Error del Insert
 	if er != nil {
 		c.JSON(er.Status(), er)

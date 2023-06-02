@@ -32,7 +32,7 @@ func (s *ReservaService) CreateReserva(reserva *model.Reserva) error {
 
 func (s *ReservaService) UpdateReserva(updatedReserva *model.Reserva) error {
 	// Primero, busca la reserva existente por su ID
-	reservaExistente, err := s.reservaClient.GetReservaByID(updatedReserva.ID)
+	reservaExistente, err := s.reservaClient.GetReservaByID(updatedReserva.Id)
 	if err != nil {
 		return err
 	}

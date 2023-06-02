@@ -49,7 +49,7 @@ func HotelInsert(c *gin.Context) {
 		return
 	}
 
-	hotelDto, er := services.HotelService.HotelInsert(hotelDto) // llama a la funcion del service
+	hotelDto, er := services.HotelService.InsertHotel(hotelDto)
 	// Error del Insert
 	if er != nil {
 		c.JSON(er.Status(), er)

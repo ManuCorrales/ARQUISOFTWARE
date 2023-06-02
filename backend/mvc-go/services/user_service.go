@@ -18,7 +18,6 @@ type userServiceInterface interface {
 	CreateUser(userDto dto.UserDto) (dto.UserDto, e.ApiError)
 }
 
-// inicializo una variable de service para poder usar sus metodos
 var (
 	UserService userServiceInterface
 )
@@ -30,10 +29,9 @@ func init() {
 func (u *userService) GetUserById(id int) (dto.UserDto, e.ApiError) {
 
 	var user model.User = userclient.GetUserById(id)
-	//declaro un dto de usuario
+
 	var userDto dto.UserDto
 
-	//si no lo trae, me da error de que no encontró el usuario
 	if user.Id == 0 {
 		return userDto, e.NewBadRequestApiError("no se ha encontrado el usuario")
 	}
@@ -64,10 +62,9 @@ func (u *userService) GetUserById(id int) (dto.UserDto, e.ApiError) {
 func (u *userService) GetUserByUsername(username string) (dto.UserDto, e.ApiError) {
 
 	var user model.User = userclient.GetUserByUsername(username)
-	//declaro un dto de usuario
+
 	var userDto dto.UserDto
 
-	//si no lo trae, me da error de que no encontró el usuario
 	if user.UserName == "" {
 		return userDto, e.NewBadRequestApiError("no se ha encontrado el usuario")
 	}
