@@ -1,7 +1,7 @@
 package user
 
 import (
-	"mvc.go/model"
+	"mvc-go/model"
 
 	"github.com/jinzhu/gorm"
 	log "github.com/sirupsen/logrus"
@@ -28,8 +28,8 @@ func GetUserByUsername(username string) model.User {
 	return user
 }
 
-func GetUsers() model.Users {
-	var users model.Users
+func GetUsers() model.User {
+	var users model.User
 	Db.Preload("reserva").Find(&users)
 
 	log.Debug("Users: ", users)

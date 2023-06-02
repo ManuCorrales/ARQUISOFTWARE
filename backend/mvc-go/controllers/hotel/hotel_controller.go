@@ -28,7 +28,7 @@ func GetHotelById(c *gin.Context) {
 
 func GetHotels(c *gin.Context) {
 	var hotelsDto dto.HotelsDto
-	hotelsDto, err := services.HotelServices.GetHotels()
+	hotelsDto, err := services.HotelService.GetHotels()
 
 	if err != nil {
 		c.JSON(err.Status(), err)
@@ -49,7 +49,7 @@ func HotelInsert(c *gin.Context) {
 		return
 	}
 
-	hotelDto, er := services.HotelService.InsertHotel(hotelDto) // llama a la funcion del service
+	hotelDto, er := services.HotelService.HotelInsert(hotelDto) // llama a la funcion del service
 	// Error del Insert
 	if er != nil {
 		c.JSON(er.Status(), er)

@@ -1,9 +1,10 @@
 package reserva
 
 import (
+	"mvc-go/model"
+
 	"github.com/jinzhu/gorm"
 	log "github.com/sirupsen/logrus"
-	"mvc.go/model"
 )
 
 var Db *gorm.DB
@@ -26,7 +27,7 @@ func GetReservas() model.Reservas {
 	return Reservas
 }
 
-func InsertReserva(reserva model.reserva) model.reserva {
+func InsertReserva(reserva model.Reserva) model.Reserva {
 	result := Db.Create(&reserva)
 
 	if result.Error != nil {

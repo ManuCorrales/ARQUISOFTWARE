@@ -43,8 +43,8 @@ func init() {
 func StartDbEngine() {
 	// We need to migrate all classes model.
 	db.AutoMigrate(&model.User{})
-	db.AutoMigrate(&model.reserva{})
-	db.AutoMigrate(&model.hotel{})
+	db.AutoMigrate(&model.Reserva{})
+	db.AutoMigrate(&model.Hotel{})
 
 	log.Info("Finishing Migration Database Tables")
 }

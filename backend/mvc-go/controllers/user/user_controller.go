@@ -30,7 +30,7 @@ func GetUserById(c *gin.Context) {
 	id, _ := strconv.Atoi(c.Param("id"))
 	var userDto dto.UserDto
 	// el user service se encarga de buscar y devolver el usuario correspondiente al ID proporcionado
-	userDto, err := services.UserServices.GetUserById(id) // la variable user contiene el usuario obtenido y err contiene cualquier error
+	userDto, err := services.UserService.GetUserById(id) // la variable user contiene el usuario obtenido y err contiene cualquier error
 
 	if err != nil { //verifica si el usuario se encuentra o no
 		c.JSON(err.Status(), err)

@@ -1,6 +1,8 @@
 package app
 
 import (
+	hotelController "mvc-go/controllers/hotel"
+	reservaController "mvc-go/controllers/reserva"
 	userController "mvc-go/controllers/user"
 
 	log "github.com/sirupsen/logrus"
@@ -10,11 +12,17 @@ func mapUrls() {
 
 	// Users Mapping
 	router.GET("/user/:id", userController.GetUserById)
-	router.GET("/user", userController.GetUsers)
-	router.POST("/user", userController.UserInsert)
-	router.POST("/user/:id/telephone", userController.AddUserTelephone)
+	router.GET("/user/user_name/:user_name", userController.GetUserByUsername)
+	router.GET("/users", userController.GetUsers)
+	router.POST("/user", userController.CreateUser())
 
-	// Agrega aquí más mapeos de rutas según tus necesidades
+	router.GET("/hotel/:id", hotelController.GetHotelById)
+	router.GET("/hotels", hotelController.GetHotels)
+	router.POST("/hotel", hotelController.HotelInsert)
+
+	router.GET("/reserva/:id", reservaController.GetReservaById())
+	router.GET("/reservas", reservaController.GetReservas())
+	router.POST("/reserva", reservaController.ReservaInsert())
 
 	log.Info("Finishing mappings configurations")
 }
