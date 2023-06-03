@@ -17,8 +17,12 @@ type reservaServiceInterface interface {
 	Insertreserva(reservaDto dto.ReservaDto) (dto.ReservaDto, e.ApiError)
 }
 
+var (
+	ReservaService reservaServiceInterface
+)
+
 func init() {
-	ReservaService = &ReservaService{}
+	ReservaService = &reservaService{}
 }
 
 // busca una reserva por su ID
