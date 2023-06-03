@@ -5,7 +5,7 @@ import (
 	"strconv"
 
 	"mvc-go/dto"
-	"mvc-go/services"
+	services "mvc-go/services"
 
 	"github.com/gin-gonic/gin"
 	log "github.com/sirupsen/logrus"
@@ -17,7 +17,7 @@ func GetReservaById(c *gin.Context) {
 	id, _ := strconv.Atoi(c.Param("id"))
 	var reservaDto dto.ReservaDto
 
-	reservaDto, err := services.ReservaService.GetreservaById(id)
+	reservaDto, err := services.ReservaService.GetReservaById(id)
 
 	if err != nil {
 		c.JSON(err.Status(), err)
@@ -49,7 +49,7 @@ func ReservaInsert(c *gin.Context) {
 		return
 	}
 
-	reservaDto, er := services.ReservaService.Insertreserva(reservaDto)
+	reservaDto, er := services.ReservaService.InsertReserva(reservaDto)
 	// Error del Insert
 	if er != nil {
 		c.JSON(er.Status(), er)

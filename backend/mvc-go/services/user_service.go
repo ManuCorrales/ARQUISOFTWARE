@@ -107,6 +107,7 @@ func (u *userService) InsertUser(userDto dto.UserDto) (dto.UserDto, e.ApiError) 
 
 	return userDto, nil
 }
+
 func Auth(user model.User) (model.AuthResponse, error) {
 	token, err := GenerateToken(user.UserName)
 	if err != nil {

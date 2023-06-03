@@ -5,23 +5,12 @@ import (
 	"strconv"
 
 	"mvc-go/dto"
-	model "mvc-go/model"
+	"mvc-go/model"
 	services "mvc-go/services"
 
 	"github.com/gin-gonic/gin"
 	log "github.com/sirupsen/logrus"
 )
-
-type UserController struct {
-	userService services.UserService
-}
-
-// Constructor del controlador
-func NewUserController(userService services.UserService) *UserController {
-	return &UserController{
-		userService: userService,
-	}
-}
 
 // obtener un usuario por ID
 func GetUserById(c *gin.Context) {
@@ -45,50 +34,56 @@ func GetUserByUsername(c *gin.Context) {
 
 	// Obtener el nombre de usuario de los parámetros de la solicitud
 	username := c.Param("username")
+	var userDto dto.UserDto
 
 	// Obtener el usuario por su nombre de usuario utilizando el servicio de usuario
-	user, err := c.userService.GetUserByUsername(username)
-	if err != nil {
-		c.JSON(http.StatusNotFound, gin.H{"error": "Usuario no encontrado"})
+	userDto, err := services.UserService.GetUserByUsername(username)
+	if err != nil { //verifica si el usuario se encuentra o no
+		c.JSON(err.Status(), err)
 		return
 	}
 
 	// Devuelve el usuario en formato JSON
-	c.JSON(http.StatusOK, user)
+	c.JSON(http.StatusOK, userDto)
 }
 
 // obtener todos los usuarios
 func GetUsers(c *gin.Context) {
+	var usersDto dto.UsersDto
 	// Obtener todos los usuarios utilizando el servicio de usuario
-	users, err := c.userService.GetUsers()
-	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "Error al obtener los usuarios"})
+	usersDto, err := services.UserService.GetUsers()
+	if err != nil { //verifica si el usuario se encuentra o no
+		c.JSON(err.Status(), err)
 		return
 	}
 
 	// Devolver los usuarios como respuesta en formato JSON
-	c.JSON(http.StatusOK, users)
+	c.JSON(http.StatusOK, usersDto)
 }
 
 // crear un usuario
 func CreateUser(c *gin.Context) {
-	// Crear una variable para almacenar los datos del usuario recibidos en formato JSON
-	var user model.User
-	if err := c.ShouldBindJSON(&user); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Datos de usuario inválidos"})
+	var userDto dto.UserDto
+	err := c.BindJSON(&userDto)
+
+	// Error Parsing json param
+	if err != nil {
+		log.Error(err.Error())
+		c.JSON(http.StatusBadRequest, err.Error())
 		return
 	}
 
-	// crear un nuevo usuario
-	createdUser, err := c.userService.CreateUser(user)
-	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "Error al crear el usuario"})
+	userDto, er := services.UserService.CreateUser(userDto)
+	// Error del Insert
+	if er != nil {
+		c.JSON(er.Status(), er)
 		return
 	}
 
 	// Devolver el usuario creado en formato JSON
-	c.JSON(http.StatusCreated, createdUser)
+	c.JSON(http.StatusCreated, userDto)
 }
+
 func Auth(ctx *gin.Context) {
 	var user model.User
 
