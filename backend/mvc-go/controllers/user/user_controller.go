@@ -89,3 +89,19 @@ func CreateUser(c *gin.Context) {
 	// Devolver el usuario creado en formato JSON
 	c.JSON(http.StatusCreated, createdUser)
 }
+func Auth(ctx *gin.Context) {
+	var user model.User
+
+	if err := ctx.BindJSON(&user); err != nil {
+		ctx.Status(http.StatusBadRequest)
+		return
+	}
+
+	authResponse, err := services.Auth(user)
+	if err != nil {
+		ctx.Status(http.StatusForbidden)
+		return
+	}
+
+	ctx.JSON(http.StatusOK, authResponse)
+}

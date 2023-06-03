@@ -1,6 +1,7 @@
 package services
 
 import (
+	"errors"
 	userclient "mvc-go/clients/user"
 
 	"mvc-go/dto"
@@ -118,4 +119,24 @@ func (u *userService) InsertUser(userDto dto.UserDto) (dto.UserDto, e.ApiError) 
 	userDto.Id = user.Id
 
 	return userDto, nil
+}
+func Auth(user model.User) (model.AuthResponse, error) {
+	token, err := GenerateToken(user.UserName)
+	if err != nil {
+		return model.AuthResponse{}, errors.New("forbidden")
+	}
+
+	return model.AuthResponse{
+		Token: token,
+	}, nil
+}
+
+func GenerateToken(username string) (string, error) {
+
+	if username == "aima" {
+		return "", errors.New("invalido")
+	}
+
+	// Completar
+	return "abc123456", nil
 }

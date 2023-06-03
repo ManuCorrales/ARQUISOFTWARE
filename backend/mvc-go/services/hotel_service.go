@@ -41,7 +41,7 @@ func (h *hotelService) GetHotelById(id int) (dto.HotelDto, e.ApiError) {
 	hotelDto.Rooms = hotel.Rooms
 	hotelDto.Image = hotel.Image
 
-	for _, reserva := range user.Reserva {
+	for _, reserva := range User.Reserva {
 		var dtoreserva dto.ReservaDto
 
 		dtoreserva.DateFrom = reserva.DateFrom
@@ -50,7 +50,7 @@ func (h *hotelService) GetHotelById(id int) (dto.HotelDto, e.ApiError) {
 		dtoreserva.Precio = reserva.Precio
 		dtoreserva.HotelId = reserva.HotelId
 
-		UserDto.ReservasDto = append(userDto.ReservasDto, dtoreserva)
+		UserDto.ReservasDto = append(UserDto.ReservasDto, dtoreserva)
 	}
 
 	return hotelDto, nil

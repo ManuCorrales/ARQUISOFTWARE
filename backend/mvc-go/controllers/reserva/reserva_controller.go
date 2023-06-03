@@ -17,7 +17,7 @@ func GetReservaById(c *gin.Context) {
 	id, _ := strconv.Atoi(c.Param("id"))
 	var reservaDto dto.ReservaDto
 
-	reservaDto, err := services.ReservaService.GetReservaById(id)
+	reservaDto, err := services.ReservaService.GetreservaById(id)
 
 	if err != nil {
 		c.JSON(err.Status(), err)

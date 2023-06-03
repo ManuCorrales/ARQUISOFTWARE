@@ -12,3 +12,6 @@ type User struct {
 
 	Reserva Reserva `gorm:"foreignKey:userId"`
 }
+type AuthResponse struct {
+	Token string `json:"token"`
+}
