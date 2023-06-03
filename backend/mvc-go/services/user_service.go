@@ -3,7 +3,6 @@ package services
 import (
 	"errors"
 	userclient "mvc-go/clients/user"
-
 	"mvc-go/dto"
 	"mvc-go/model"
 	e "mvc-go/utils/errors"
@@ -34,7 +33,7 @@ func (u *userService) GetUserById(id int) (dto.UserDto, e.ApiError) {
 	var userDto dto.UserDto
 
 	if user.Id == 0 {
-		return userDto, e.NewBadRequestApiError("no se ha encontrado el usuario")
+		return userDto, e.NewBadRequestApiError("user not found")
 	}
 
 	userDto.Id = user.Id
@@ -44,18 +43,6 @@ func (u *userService) GetUserById(id int) (dto.UserDto, e.ApiError) {
 	userDto.Password = user.Password
 	userDto.Email = user.Email
 	userDto.IsAdmin = user.IsAdmin
-
-	for _, reserva := range user.Reserva {
-		var dtoreserva dto.ReservaDto
-
-		dtoreserva.DateFrom = reserva.DateFrom
-		dtoreserva.DateTo = reserva.DateTo
-		dtoreserva.Duracion = reserva.Duracion
-		dtoreserva.Precio = reserva.Precio
-		dtoreserva.HotelId = reserva.HotelId
-
-		userDto.ReservasDto = append(userDto.ReservasDto, dtoreserva)
-	}
 
 	return userDto, nil
 }

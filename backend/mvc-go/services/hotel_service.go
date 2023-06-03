@@ -30,7 +30,7 @@ func (h *hotelService) GetHotelById(id int) (dto.HotelDto, e.ApiError) {
 	var hotelDto dto.HotelDto
 
 	if hotel.ID == 0 {
-		return hotelDto, e.NewBadRequestApiError("no se ha encontrado la reserva")
+		return hotelDto, e.NewBadRequestApiError("reserva not found")
 	}
 	hotelDto.ID = hotel.ID
 	hotelDto.Name = hotel.Name
@@ -40,18 +40,6 @@ func (h *hotelService) GetHotelById(id int) (dto.HotelDto, e.ApiError) {
 	hotelDto.Telephone = hotel.Telephone
 	hotelDto.Rooms = hotel.Rooms
 	hotelDto.Image = hotel.Image
-
-	for _, reserva := range User.Reserva {
-		var dtoreserva dto.ReservaDto
-
-		dtoreserva.DateFrom = reserva.DateFrom
-		dtoreserva.DateTo = reserva.DateTo
-		dtoreserva.Duracion = reserva.Duracion
-		dtoreserva.Precio = reserva.Precio
-		dtoreserva.HotelId = reserva.HotelId
-
-		UserDto.ReservasDto = append(UserDto.ReservasDto, dtoreserva)
-	}
 
 	return hotelDto, nil
 }
