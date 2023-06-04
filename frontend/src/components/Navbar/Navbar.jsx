@@ -2,6 +2,7 @@ import { React, useState } from 'react';
 import { FaTimes } from 'react-icons/fa';
 import { CgMenuRight } from 'react-icons/cg';
 import { IconContext } from 'react-icons';
+import "./navbar.css";
 import {
     Nav, 
     NavbarContainer, 
@@ -13,7 +14,7 @@ import {
     NavLinks
 } from './NavbarStyles.js';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { data } from '../../data/NavbarData';
+import { data } from '../../data/NavbarData.js';
 
 const Navbar = () => {
     const [show, setShow] = useState(false);

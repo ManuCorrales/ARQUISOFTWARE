@@ -1,4 +1,4 @@
-import React from "react";
+import  "./../Home/home.css";
 import Carousel from "../components/Carousel/Carousel";
 
 const Home = () => {
