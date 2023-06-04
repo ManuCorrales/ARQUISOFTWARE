@@ -20,8 +20,8 @@ var (
 func init() {
 	// DB Connections Paramters
 	DBName := "ucc"
-	DBUser := "aima"
-	DBPass := "aima123"
+	DBUser := "ucc"
+	DBPass := "arqdeswucc123"
 	//DBPass := os.Getenv("MVC_DB_PASS")
 	DBHost := "127.0.0.1"
 	// ------------------------
