@@ -70,7 +70,7 @@ func (u *userService) GetUserByUsername(username string) (dto.UserDto, e.ApiErro
 
 func (u *userService) GetUsers() (dto.UsersDto, e.ApiError) {
 
-	var users model.User = userclient.GetUsers()
+	var users model.Users = userclient.GetUsers()
 	var usersDto dto.UsersDto
 
 	for _, user := range users {
@@ -90,7 +90,7 @@ func (u *userService) GetUsers() (dto.UsersDto, e.ApiError) {
 	return usersDto, nil
 }
 
-func (u *userService) InsertUser(userDto dto.UserDto) (dto.UserDto, e.ApiError) {
+func (u *userService) CreateUser(userDto dto.UserDto) (dto.UserDto, e.ApiError) {
 
 	var user model.User
 

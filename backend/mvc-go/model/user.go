@@ -15,3 +15,4 @@ type User struct {
 type AuthResponse struct {
 	Token string `json:"token"`
 }
+type Users []User

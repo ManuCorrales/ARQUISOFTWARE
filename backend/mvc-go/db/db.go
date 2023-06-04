@@ -19,11 +19,14 @@ var (
 
 func init() {
 	// DB Connections Paramters
+	//DBName es el nombre de la base de datos que creas cuando ya creaste el usuario (SIEMPRE PRIMERO CREAR EL USUARIO Y VERIFICAR QUE TENGA TODOS LOS PERMISOS)
+	//en mysql se hace despues de establecer la conexion
+	//en xampp se hace una vez este registrado el usuario, al costadito que tenes como un arbol creas la base de datos nueva
 	DBName := "ucc"
 	DBUser := "ucc"
 	DBPass := "arqdeswucc123"
 	//DBPass := os.Getenv("MVC_DB_PASS")
-	DBHost := "127.0.0.1"
+	DBHost := "localhost"
 	// ------------------------
 
 	db, err = gorm.Open("mysql", DBUser+":"+DBPass+"@tcp("+DBHost+":3306)/"+DBName+"?charset=utf8&parseTime=True")

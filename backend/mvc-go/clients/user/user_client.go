@@ -28,8 +28,8 @@ func GetUserByUsername(username string) model.User {
 	return user
 }
 
-func GetUsers() model.User {
-	var users model.User
+func GetUsers() model.Users {
+	var users model.Users
 	Db.Preload("reserva").Find(&users)
 
 	log.Debug("Users: ", users)
