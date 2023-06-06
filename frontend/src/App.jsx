@@ -1,5 +1,6 @@
 import React from 'react';
 import GlobalStyle from './globalStyles';
+
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 
@@ -7,9 +8,9 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar/Navbar'
 
 // Pages
-import Home from './pages/Home';
+import Home from './pages/home';
 
-import Login from './pages/login/login';
+import Login from './pages/login';
 /* 
 import Register from './pages/Register';
 import Administrador from './pages/Administrador';

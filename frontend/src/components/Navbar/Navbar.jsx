@@ -12,7 +12,7 @@ import {
     NavMenu,
     NavItem,
     NavLinks
-} from './NavbarStyles.js';
+} from './NavbarStyles.jsx';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { data } from '../../data/NavbarData.js';
 
