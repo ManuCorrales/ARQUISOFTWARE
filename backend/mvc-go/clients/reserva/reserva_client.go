@@ -36,3 +36,13 @@ func InsertReserva(reserva model.Reserva) model.Reserva {
 	log.Debug("reserva Created: ", reserva.Id)
 	return reserva
 }
+
+func GetReservaByUserId(id int) model.Reserva {
+	var reserva model.Reserva
+
+	Db.Where("user_id = ?", id).Preload("User").Preload("Hotel").First(&reserva)
+	log.Debug("Reserva: ", reserva)
+
+	return reserva
+
+}
