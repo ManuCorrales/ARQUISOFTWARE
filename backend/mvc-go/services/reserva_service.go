@@ -74,6 +74,8 @@ func (r *reservaService) Insertreserva(ReservaDto dto.ReservaDto) (dto.ReservaDt
 	return ReservaDto, nil
 }
 
+//func (r *reservaService) GetreservaByUserId (UserId )
+
 /*func (s *ReservaService) UpdateReserva(updatedReserva *model.Reserva) error {
 	// Primero, busca la reserva existente por su ID
 	reservaExistente, err := s.reservaClient.GetReservaByID(updatedReserva.Id)
