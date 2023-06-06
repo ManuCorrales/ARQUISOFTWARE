@@ -9,7 +9,6 @@ import Navbar from './components/Navbar/Navbar';
 
 // Pages
 import Home from './pages/home/Home';
-
 import Login from './pages/login/login';
 /* 
 import Register from './pages/Register';

@@ -63,7 +63,7 @@ const Navbar = () => {
             <Nav id="nav-container">
                 <NavbarContainer>
                     <NavLogo to="/">
-                        <NavIcon src="./assets/logo.png" alt="logo"/>
+                        <NavIcon src="./assets/logo.png" alt="logo" style={{ width: '111px', height: '111px'}}/>
                     </NavLogo>
                     <MobileIcon onClick={handleClick}>
                         {show ? <FaTimes/> : <CgMenuRight/>}
