@@ -84,6 +84,10 @@ func CreateUser(c *gin.Context) {
 	c.JSON(http.StatusCreated, userDto)
 }
 
+func GetUserByEmail(c *gin.Context) {
+
+}
+
 func Auth(ctx *gin.Context) {
 	var user model.User
 
@@ -100,3 +104,26 @@ func Auth(ctx *gin.Context) {
 
 	ctx.JSON(http.StatusOK, authResponse)
 }
+
+func Userlogin(c *gin.Context) {
+
+}
+
+/*func UserLogin(c *gin.Context) {
+	var loginDto dto2.LoginDto
+	err := c.BindJSON(&loginDto)
+
+	if err != nil {
+		log.Error(err.Error())
+		c.JSON(http.StatusBadRequest, err.Error())
+		return
+	}
+	tokenDto, er := service.UserService.LoginUser(loginDto)
+
+	if er != nil {
+		c.JSON(er.Status(), er)
+		return
+	}
+	c.JSON(http.StatusCreated, tokenDto)
+
+}*/
