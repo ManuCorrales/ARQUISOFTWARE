@@ -8,8 +8,9 @@ import Navbar from './components/Navbar/Navbar'
 
 // Pages
 import Home from './pages/Home';
+
+import Login from './pages/login/login';
 /* 
-import Login from './pages/Login';
 import Register from './pages/Register';
 import Administrador from './pages/Administrador';
 import Hotel from './pages/Hotel'; 
@@ -22,7 +23,7 @@ function App() {
       <Navbar/>
       <Routes>
         <Route exact path='/' element={<Home/>} />
-        {/* <Route path='/login' element={<Login/>} /> */}
+         <Route path='/login' element={<Login/>} /> 
         {/* <Route path='/register' element={<Register/>} /> */}
         {/* <Route path='/administrador' element={<Administrator/>} /> */}
         {/* <Route path='/hotel/:id' element={<Hotel/>} /> */}        
