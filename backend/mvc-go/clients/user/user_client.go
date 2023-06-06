@@ -47,3 +47,12 @@ func InsertUser(user model.User) model.User {
 	log.Debug("User Created: ", user.Id)
 	return user
 }
+
+func GetUserByEmail(email string) model.User {
+	var user model.User
+
+	Db.Where("email = ?", email).First(&user)
+	log.Debug("User: ", user)
+
+	return user
+}
