@@ -5,12 +5,12 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 
 // Components
-import Navbar from './components/Navbar/Navbar'
+import Navbar from './components/Navbar/Navbar';
 
 // Pages
-import Home from './pages/home';
+import Home from './pages/home/Home';
 
-import Login from './pages/login';
+import Login from './pages/login/login';
 /* 
 import Register from './pages/Register';
 import Administrador from './pages/Administrador';
@@ -23,7 +23,7 @@ function App() {
       <GlobalStyle/>
       <Navbar/>
       <Routes>
-        <Route exact path='/' element={<Home/>} />
+        <Route exact path='/' element={<Home />} />
          <Route path='/login' element={<Login/>} /> 
         {/* <Route path='/register' element={<Register/>} /> */}
         {/* <Route path='/administrador' element={<Administrator/>} /> */}

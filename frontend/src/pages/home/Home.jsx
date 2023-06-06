@@ -1,11 +1,11 @@
-import  "./home.css";
-import Carousel from "../components/Carousel/Carousel";
+import  "./Home.css";
+import Carousel from "./../../components/Carousel/Carousel";
 
 const Home = () => {
 
     return(
         <>
-            <Carousel/>
+            <Carousel />
             {/* list/card component  (componente que hace la lista de hoteles) */}
         </>
     );
