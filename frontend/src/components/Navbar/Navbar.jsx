@@ -24,12 +24,12 @@ const Navbar = () => {
 
     const handleClick = () => {
         if (show === true){
-            document.querySelector("#nav-container").style.position="absolute";
-            document.querySelector("#nav-container").style.backgroundColor="limegreen";
+            document.querySelector("#nav-container").style.position="relative";
+            
         }
         else{
             document.querySelector("#nav-container").style.position="sticky";
-            document.querySelector("#nav-container").style.backgroundColor="green";
+            
         }
 
         setShow(!show);
@@ -37,13 +37,13 @@ const Navbar = () => {
 
     const closeMobileMenu = (to, text) => {
 
-
-        if (text && location.pathname==='/') {
+        // No funciona
+        /*if (text && location.pathname==='/') {
             scrollTo(text);
-        }
+          }*/
 
-        document.querySelector("#nav-container").style.position="absolute";
-        document.querySelector("#nav-container").style.backgroundColor="limegreen";
+        document.querySelector("#nav-container").style.position="relative";
+        
         navigate(to);
         
         setShow(false);
@@ -62,7 +62,7 @@ const Navbar = () => {
         <IconContext.Provider value={{color:'black'}}>
             <Nav id="nav-container">
                 <NavbarContainer>
-                    <NavLogo to="/">
+                    <NavLogo to="/">  {/*me manda al home*/}
                         <NavIcon src="./assets/logo.png" alt="logo" style={{ width: '111px', height: '111px'}}/>
                     </NavLogo>
                     <MobileIcon onClick={handleClick}>

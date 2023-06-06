@@ -39,7 +39,7 @@ const Carousel = () => {
                     Paquetes y Promociones
                 </Heading>
                 <ButtonContainer>
-                    <IconContext.Provider value={{size:"4rem", color:"green", }}>
+                    <IconContext.Provider value={{size:"4rem", color:"#FACFCB", }}>
                         <FaArrowAltCircleLeft onClick={sliderRef?.slickPrev}/>
                         <FaArrowAltCircleRight onClick={sliderRef?.slickNext}/>
                     </IconContext.Provider>
