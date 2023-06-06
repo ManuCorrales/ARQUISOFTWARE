@@ -1,4 +1,4 @@
-const Login = () => {
+const Register = () => {
 
     return(
         <div style={{ 
@@ -22,7 +22,7 @@ const Login = () => {
                     width:" 100% ",
                     position:" Relative "
                 }}>    
-                    <label> User: </label>
+                    <label> Usuario: </label>
                     <input  style={{ right:" 10px ", position: " absolute"}}/> 
                 </div>
                 <div style={{ 
@@ -34,7 +34,7 @@ const Login = () => {
                    <input type="password" style={{ position:" absolute ", right:" 10px " }}/>
                 </div>   
                 <div style={{ width:" 100% ", margin:" 7px ", justifyContent:" center ", display:" Flex " }}>
-                     <button  > Enviar </button>
+                     <button  > Registrar </button>
                 </div>
             </div> 
             {/* list/card component  (componente que hace la lista de hoteles) */}
@@ -42,4 +42,4 @@ const Login = () => {
     );
 }
 
-export default Login;
+export default Register;

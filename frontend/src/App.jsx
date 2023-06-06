@@ -10,8 +10,9 @@ import Navbar from './components/Navbar/Navbar';
 // Pages
 import Home from './pages/home/Home';
 import Login from './pages/login/login';
+
+import Register from './pages/register/Register';
 /* 
-import Register from './pages/Register';
 import Administrador from './pages/Administrador';
 import Hotel from './pages/Hotel'; 
 */
@@ -24,7 +25,7 @@ function App() {
       <Routes>
         <Route exact path='/' element={<Home />} />
          <Route path='/login' element={<Login/>} /> 
-        {/* <Route path='/register' element={<Register/>} /> */}
+        <Route path='/register' element={<Register/>} /> 
         {/* <Route path='/administrador' element={<Administrator/>} /> */}
         {/* <Route path='/hotel/:id' element={<Hotel/>} /> */}        
       </Routes>
