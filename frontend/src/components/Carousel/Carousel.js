@@ -34,7 +34,7 @@ const Carousel = () => {
 
     return(
         <Section margin="auto" maxWidth="1280px" padding="150px, 70px, " inverse>
-            <Row justify="space-between" margin="1rem" wrap="wrap" paddingTop="100px">
+            <Row justify="space-between" margin="1rem" wrap="wrap" paddingTop="0px">
                 <Heading inverse>
                     Paquetes y Promociones
                 </Heading>
