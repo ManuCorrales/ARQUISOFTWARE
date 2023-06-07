@@ -8,13 +8,13 @@ export const data = [
     {
         title: "Hotel Continental",
         image: "https://live.staticflickr.com/65535/52129719199_c868c4951d_o.jpg",
-        description: "El legendario para los asesinos más picantes del mundo, la discresion y los codigos son sagrados, no querras encontrarte a John Wick.",
+        description: "El legendario hotel para los asesinos más picantes del mundo, la discresion y los codigos son sagrados, no querras encontrarte a John Wick.",
         rooms: "50",
     },
     {
         title: "Caesars Palace",
         image: "https://i.ytimg.com/vi/PXwcp2LymEc/maxresdefault.jpg",
-        description: "No olvidaras estas experiencias de desenfreno, fiesta y locura. Cuando te vayas diras: '¿Qué Pasó Ayer?'.",
+        description: "No olvidaras estas experiencias de desenfreno, fiesta y locura. Cuando te vayas diras: ¿Qué Pasó Ayer?.",
         rooms: "80",
     },
     {
