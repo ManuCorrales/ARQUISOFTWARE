@@ -75,15 +75,16 @@ func (r *reservaService) Insertreserva(ReservaDto dto.ReservaDto) (dto.ReservaDt
 	return ReservaDto, nil
 }
 
-/*func (r *reservaService) GetReservasByUserId(id int) (dto.ReservasDto, e.ApiError) {
+func (r *reservaService) GetReservasByUserId(id int) (dto.ReservasDto, e.ApiError) {
+	var reservas model.Reservas = reservaClient.GetReservas()
+	var reservasDto dto.ReservasDto
 
+	for _, reserva := range reservas {
+		if reserva.UserId == id {
+			reservaDto, _ := r.GetReservaById(reserva.Id)
+			reservasDto = append(reservasDto, reservaDto)
+		}
+	}
 
-
-
-
-
-
-	return ReservasDto, nil
-
-
-}*/
+	return reservasDto, nil
+}
