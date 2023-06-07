@@ -26,7 +26,7 @@ axios.get('/user/username/'+message)
                 borderRadius:" 5px ", 
                 width:" 350px ", 
                 position: "relative",
-                background:" #FACFCB ",
+                background: "#d5d8da",
                 borderColor:"black", 
                 padding:" 15px ",
                 border:" 1px solid black"

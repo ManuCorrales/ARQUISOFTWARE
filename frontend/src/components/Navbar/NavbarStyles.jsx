@@ -1,10 +1,11 @@
 import styled from 'styled-components';
 import {Container} from '../../globalStyles';
 import {Link} from 'react-router-dom';
+import './navbar.css'
 
 export const Nav = styled.nav`
-	background: #FACFCB ;
-	margin-bottom: 80px;
+	background: #48719b;
+	margin-bottom: 3rem;
 	height: 80px;
 	display: flex;
 	justify-content: center;
@@ -14,7 +15,6 @@ export const Nav = styled.nav`
 	top: 0;
 	z-index: 50;
 	width: 100%;
-
 	transition: background-color 0.3s ease-in;
 `;
 
@@ -77,7 +77,7 @@ export const NavMenu = styled.ul`
 		visibility: ${({ show }) => (show ? 'visible' : 'hidden')};
 		transform: translateY(${({ show }) => (show ? '0' : '-10px')});
 		transition: opacity 0.5s ease;
-		background-color: #FACFCB;
+		background-color: #355372;
 	}
 
 	> li:first-child {
@@ -99,15 +99,18 @@ export const NavItem = styled.li`
 `;
 
 export const NavLinks = styled.span`
-	color: black;
+	color: #d5d8da;
 	display: flex;
 	align-items: center;
 	text-decoration: none;
 	padding: 0.5rem 1rem;
 	height: 100%;
+    font-family: 'Roboto Condensed', sans-serif;
+	
 
 	&:hover {
-		color: #c8c9d8;
+		color: #ffffff;
+		text-decoration: underline;
 		transition: all 0.3s ease;
 	}
 
@@ -118,7 +121,7 @@ export const NavLinks = styled.span`
 		display: table;
 
 		&:hover {
-			color: #4b59f7;
+			color: #ffffff;
 			transition: all 0.3s ease;
 		}
 	}

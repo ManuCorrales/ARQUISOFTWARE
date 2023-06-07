@@ -41,6 +41,12 @@ export const data = [
         description: "La adrenalina y la accion no tienen limites, fijate bien donde pisas, que tocas y que respiras, hay trampas por doquier, necesitaras tus 5 sentidos muy despiertos.",
         rooms: "20",
     },
+    {
+        title: "El Gran Hotel Budapest",
+        image: "https://cf.bstatic.com/xdata/images/hotel/max1024x768/218279984.jpg?k=c2318bfa75b44a4fa61389ffdea5d1835d4fd5f6ef8edce184af46db79dc70a2&o=&hp=1",
+        description: "sangre corriente de la que necesitaba la tuaita.",
+        rooms: "20",
+    },
 ];
 
 export const sliderSettings = {

@@ -20,10 +20,10 @@ export const ImageWrapper = styled.div`
 	border-radius: 10px;
 	outline: none;
 	height: 430px;
-
 	@media screen and (min-width: 440px) {
 		border: 1px solid #bebebe;
 	}
+
 `;
 
 export const ButtonContainer = styled(Row)`

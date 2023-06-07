@@ -33,13 +33,13 @@ const Carousel = () => {
     }
 
     return(
-        <Section margin="auto" maxWidth="1280px" padding="150px, 70px, " inverse>
-            <Row justify="space-between" margin="1rem" wrap="wrap" paddingTop="0px">
+        <Section margin="0em auto 2em"  maxWidth="1280px" padding="150px, 70px, " inverse>
+            <Row justify="space-between" margin="1rem" wrap="wrap" paddingTop="2rem">
                 <Heading inverse>
                     Paquetes y Promociones
                 </Heading>
                 <ButtonContainer>
-                    <IconContext.Provider value={{size:"4rem", color:"#FACFCB", }}>
+                    <IconContext.Provider value={{size:"4rem", color:"#48719b", }}>
                         <FaArrowAltCircleLeft onClick={sliderRef?.slickPrev}/>
                         <FaArrowAltCircleRight onClick={sliderRef?.slickNext}/>
                     </IconContext.Provider>
@@ -54,7 +54,7 @@ const Carousel = () => {
                             <br/>
                             {data.description}
                         </TextWrapper>
-                        <CardButton> Ver más! </CardButton>
+                        <CardButton> Mas Información </CardButton>
                     </ImageWrapper>
                 ))}
             </ReviewSlider>

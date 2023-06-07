@@ -3,7 +3,8 @@ import styled, { createGlobalStyle } from 'styled-components';
 const GlobalStyle = createGlobalStyle`
   *{
     box-sizing: border-box;
-	margin: 0;
+
+	margin: 10;
 	padding: 0;
 	font-family: 'Montserrat', sans-serif;
   }
@@ -39,7 +40,7 @@ export const Heading = styled.h2`
 	width: ${({ width }) => (width ? width : '100%')};
 `;
 export const TextWrapper = styled.span`
-	color: ${({ color }) => (color ? color : '')};
+	color: ${({ color }) => (color ? color : '#575455')};
 	font-size: ${({ size }) => (size ? size : '')};
 	font-weight: ${({ weight }) => (weight ? weight : '')};
 	letter-spacing: ${({ spacing }) => (spacing ? spacing : '')};
@@ -51,7 +52,8 @@ export const TextWrapper = styled.span`
 export const Section = styled.section`
 	padding: ${({ padding }) => (padding ? padding : '100px 0')};
 	margin: ${({ margin }) => (margin ? margin : '')};
-	background: ${({ inverse }) => (inverse ? 'white' : '#071c2f')};
+	border-radius: 3em;
+	background: ${({ inverse }) => (inverse ? '#d5d8da' : '#071c2f')};
 	position: ${({ position }) => (position ? position : '')};
 	width: ${({ width }) => (width ? width : 'auto')};
 	min-width: ${({ minWidth }) => (minWidth ? minWidth : 'auto')};
@@ -61,6 +63,7 @@ export const Section = styled.section`
 	min-height: ${({ minHeight }) => (minHeight ? minHeight : 'auto')};
 	@media screen and (max-width: 768px) {
 		padding: ${({ smPadding }) => (smPadding ? smPadding : '70px 0')};
+		
 	}
 `;
 

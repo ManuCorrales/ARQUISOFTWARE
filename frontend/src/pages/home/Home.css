@@ -1,3 +1,4 @@
+
 .home-container {
     display: flex;
     flex-direction: column;
@@ -9,12 +10,14 @@
     width: 100%;
     max-width: 800px;
     margin-bottom: 20px;
+
   }
   
   .hotel-list {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-gap: 20px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
   }
   
   /* Estilos para los elementos individuales de la lista de hoteles */

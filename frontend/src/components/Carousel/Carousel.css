@@ -1,0 +1,5 @@
+.divisionImagen figure:hover > img{
+    transform: scale(1.3);
+    transition: all 400ms ease-out;
+}
+  
