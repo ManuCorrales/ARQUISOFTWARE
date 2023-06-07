@@ -75,4 +75,15 @@ func (r *reservaService) Insertreserva(ReservaDto dto.ReservaDto) (dto.ReservaDt
 	return ReservaDto, nil
 }
 
-//func (r *reservaService) GetreservaByUserId (UserId )
+/*func (r *reservaService) GetReservasByUserId(id int) (dto.ReservasDto, e.ApiError) {
+
+
+
+
+
+
+
+	return ReservasDto, nil
+
+
+}*/
