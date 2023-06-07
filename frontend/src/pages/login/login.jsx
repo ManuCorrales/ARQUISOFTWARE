@@ -1,5 +1,22 @@
-const Login = () => {
+import axios from "axios"
+import {useState} from 'react';
 
+function Login(){
+
+const [message, setMessage] = useState('');
+
+
+const handleChange = event => {
+    setMessage(event.target.value);
+  };
+
+function submitLogin(){
+axios.get('/user/username/'+message)
+     .then(function (res){console.log(res)}).catch(err=>{console.log(err)})
+
+
+
+}
     return(
         <div style={{ 
             width:" 100% ", 
@@ -23,7 +40,9 @@ const Login = () => {
                     position:" Relative "
                 }}>    
                     <label> User: </label>
-                    <input  style={{ right:" 10px ", position: " absolute"}}/> 
+                    <input  style={{ right:" 10px ", position: " absolute"}}
+                    onChange={handleChange}
+                    value={message}/> 
                 </div>
                 <div style={{ 
                     paddingBottom:" 7px ",
@@ -31,10 +50,11 @@ const Login = () => {
                     position:" Relative "
                 }}>  
                     <label>  Contraseña:  </label>
-                   <input type="password" style={{ position:" absolute ", right:" 10px " }}/>
+                   <input type="password"
+                        style={{ position:" absolute ", right:" 10px " }}/>
                 </div>   
                 <div style={{ width:" 100% ", margin:" 7px ", justifyContent:" center ", display:" Flex " }}>
-                     <button  > Enviar </button>
+                     <button onClick={submitLogin} > Enviar </button>
                 </div>
             </div> 
             {/* list/card component  (componente que hace la lista de hoteles) */}
