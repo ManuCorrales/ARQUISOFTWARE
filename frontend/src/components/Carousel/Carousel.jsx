@@ -34,7 +34,7 @@ const Carousel = () => {
 
     return(
         <Section margin="0em auto 2em"  maxWidth="1280px" padding="150px, 70px, " inverse>
-            <Row justify="space-between" margin="1rem" wrap="wrap" paddingTop="2rem">
+            <Row justify="cent" margin="1rem" wrap="wrap" paddingTop="2rem">
                 <Heading inverse>
                     Paquetes y Promociones
                 </Heading>
@@ -49,8 +49,8 @@ const Carousel = () => {
                 {data.map((data, index) => (
                     <ImageWrapper key={index} onClick={() => redirectLogic(data.title)}>
                         <CarouselImage src={data.image}/>
-                        <TextWrapper size="1.15rem" margin="1rem 0 0" weight="bold">
-                            {data.title}
+                        <TextWrapper size="1.1rem" margin="0.75rem 0 0" >
+                            <strong style={{ display: "block", textAlign: "center" }}>{data.title}</strong>
                             <br/>
                             {data.description}
                         </TextWrapper>

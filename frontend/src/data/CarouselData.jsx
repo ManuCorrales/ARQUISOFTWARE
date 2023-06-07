@@ -44,7 +44,7 @@ export const data = [
     {
         title: "El Gran Hotel Budapest",
         image: "https://images.adsttc.com/media/images/5318/9a36/c07a/806c/d900/0134/large_jpg/20140302-GRAND-slide-SOK2-superJumbo.jpg?1394121259",
-        description: "sangre corriente de la que necesitaba la tuaita.",
+        description: "Quieres vivir una historia donde la gravedad es desafiada, y no tienes miedo a perderte? ¡Prepárate para un viaje cómico que nunca olvidarás!.",
         rooms: "20",
     },
 ];
