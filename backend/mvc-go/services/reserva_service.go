@@ -15,6 +15,7 @@ type reservaServiceInterface interface {
 	GetreservaById(id int) (dto.ReservaDto, e.ApiError)
 	Getreservas() (dto.ReservasDto, e.ApiError)
 	Insertreserva(reservaDto dto.ReservaDto) (dto.ReservaDto, e.ApiError)
+	GetReservasByUserId(id int) (dto.ReservasDto, e.ApiError)
 }
 
 var (
@@ -75,36 +76,3 @@ func (r *reservaService) Insertreserva(ReservaDto dto.ReservaDto) (dto.ReservaDt
 }
 
 //func (r *reservaService) GetreservaByUserId (UserId )
-
-/*func (s *ReservaService) UpdateReserva(updatedReserva *model.Reserva) error {
-	// Primero, busca la reserva existente por su ID
-	reservaExistente, err := s.reservaClient.GetReservaByID(updatedReserva.Id)
-	if err != nil {
-		return err
-	}
-
-	// Actualiza los campos necesarios de la reserva existente con los valores del updatedReserva
-	reservaExistente.DateFrom = updatedReserva.DateFrom
-	reservaExistente.DateTo = updatedReserva.DateTo
-	reservaExistente.Duracion = updatedReserva.Duracion
-	reservaExistente.Precio = updatedReserva.Precio
-
-	// Llama al cliente de reserva para guardar los cambios en la base de datos
-	err = s.reservaClient.UpdateReserva(reservaExistente)
-	if err != nil {
-		return err
-	}
-
-	return nil
-}
-
-// DeleteReserva elimina una reserva por su ID
-func (s *ReservaService) DeleteReserva(id int) error {
-	// Llama al cliente de reserva para eliminar la reserva por su ID
-	err := s.reservaClient.DeleteReserva(id)
-	if err != nil {
-		return err
-	}
-
-	return nil
-}*/

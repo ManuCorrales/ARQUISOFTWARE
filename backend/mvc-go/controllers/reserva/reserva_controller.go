@@ -58,3 +58,18 @@ func ReservaInsert(c *gin.Context) {
 
 	c.JSON(http.StatusCreated, reservaDto)
 }
+
+func GetReservasByUserId(c *gin.Context) {
+	log.Debug("User id to load: " + c.Param("id"))
+
+	userId, _ := strconv.Atoi(c.Param("id"))
+
+	ReservasDto, err := services.ReservaService.GetReservasByUserId(userId)
+
+	if err != nil {
+		c.JSON(err.Status(), err)
+		return
+	}
+
+	c.JSON(http.StatusOK, ReservasDto)
+}
