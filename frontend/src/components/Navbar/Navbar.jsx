@@ -14,7 +14,7 @@ import {
     NavLinks
 } from './NavbarStyles.jsx';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { data } from '../../data/NavbarData.js';
+import { data } from '../../data/NavbarData.jsx';
 
 const Navbar = () => {
     const [show, setShow] = useState(false);

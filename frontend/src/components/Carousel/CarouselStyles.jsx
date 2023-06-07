@@ -8,6 +8,14 @@ export const CarouselImage = styled.img`
 	border-radius: 10px 10px 0 0;
 	object-fit: cover;
 	vertical-align: middle;
+	&:hover {
+		transform: scale(1.1);
+    	transition: all 400ms ease-out;
+	}
+`;
+
+export const CarouselTitle = styled.title`
+	margin-top: 400;
 `;
 
 export const ImageWrapper = styled.div`
@@ -20,6 +28,8 @@ export const ImageWrapper = styled.div`
 	border-radius: 10px;
 	outline: none;
 	height: 430px;
+    margin: 0 auto;
+	overflow: hidden;
 	@media screen and (min-width: 440px) {
 		border: 1px solid #bebebe;
 	}

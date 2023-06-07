@@ -26,7 +26,7 @@ export const data = [
     {
         title: "Mandalay Bay",
         image: "https://mandalaybay.mgmresorts.com/content/dam/MGM/mandalay-bay/hero-shots/mandalay-bay-architecture-hero-shot.tif",
-        description: "Lugar donde los sueños se convierten en realidad y la determinación te impulsa a la grandeza! Cada día es una oportunidad para superar tus límites y alcanzar la victoria, como Rocky lo hizo.",
+        description: "Lugar donde los sueños se convierten en realidad y cada día es una oportunidad para superar tus límites y alcanzar la victoria, como Rocky lo hizo.",
         rooms: "40",
     },
     {
@@ -43,7 +43,7 @@ export const data = [
     },
     {
         title: "El Gran Hotel Budapest",
-        image: "https://cf.bstatic.com/xdata/images/hotel/max1024x768/218279984.jpg?k=c2318bfa75b44a4fa61389ffdea5d1835d4fd5f6ef8edce184af46db79dc70a2&o=&hp=1",
+        image: "https://images.adsttc.com/media/images/5318/9a36/c07a/806c/d900/0134/large_jpg/20140302-GRAND-slide-SOK2-superJumbo.jpg?1394121259",
         description: "sangre corriente de la que necesitaba la tuaita.",
         rooms: "20",
     },

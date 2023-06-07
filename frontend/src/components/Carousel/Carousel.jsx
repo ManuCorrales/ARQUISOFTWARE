@@ -49,7 +49,7 @@ const Carousel = () => {
                 {data.map((data, index) => (
                     <ImageWrapper key={index} onClick={() => redirectLogic(data.title)}>
                         <CarouselImage src={data.image}/>
-                        <TextWrapper size="1.1rem" margin="0.4rem 0 0" weight="bold">
+                        <TextWrapper size="1.15rem" margin="1rem 0 0" weight="bold">
                             {data.title}
                             <br/>
                             {data.description}
