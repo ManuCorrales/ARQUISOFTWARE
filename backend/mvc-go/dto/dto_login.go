@@ -1,9 +1,6 @@
 package dto
 
-/*type UserLogin struct {
-
-
-
-
+type LoginDto struct {
+	Username string `json:"username"`
+	Password string `json:"password"`
 }
-type UserLogin [] UserLogin*/
