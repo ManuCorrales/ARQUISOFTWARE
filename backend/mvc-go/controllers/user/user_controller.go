@@ -106,7 +106,17 @@ func Auth(ctx *gin.Context) {
 }
 
 func Userlogin(c *gin.Context) {
+	var loginDto dto.UserDto
 
+	err := c.BindJSON(&loginDto)
+
+	if err != nil {
+		log.Error(err.Error())
+		c.JSON(http.StatusBadRequest, err.Error())
+		return
+	}
+
+	c.JSON(http.StatusOK, loginDto)
 }
 
 /*func UserLogin(c *gin.Context) {

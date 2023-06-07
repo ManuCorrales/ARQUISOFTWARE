@@ -46,3 +46,12 @@ func GetReservaByUserId(id int) model.Reserva {
 	return reserva
 
 }
+
+func GetreservaByHotelId(id int, DateFrom int, DateTo int) int {
+	var habitaciones int
+
+	Db.Model(&model.Reserva{}).Where("id = ? AND start_date < ? AND end_date > ?", id, DateFrom, DateTo).Preload("Hotel").Preload("User").Count(&habitaciones)
+	log.Debug("Count:", habitaciones)
+
+	return habitaciones
+}

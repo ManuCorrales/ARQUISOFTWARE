@@ -16,13 +16,17 @@ func mapUrls() {
 	router.GET("/users", userController.GetUsers)
 	router.POST("/user", userController.CreateUser)
 
+	//hotel mapping
 	router.GET("/hotel/:id", hotelController.GetHotelById)
 	router.GET("/hotels", hotelController.GetHotels)
 	router.POST("/hotel", hotelController.HotelInsert)
 
+	//reserva mapping
 	router.GET("/reserva/:id", reservaController.GetReservaById)
 	router.GET("/reservas", reservaController.GetReservas)
 	router.POST("/reserva", reservaController.ReservaInsert)
+
+	router.POST("/login", userController.Userlogin)
 
 	log.Info("Finishing mappings configurations")
 }
