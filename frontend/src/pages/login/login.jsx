@@ -1,4 +1,4 @@
-import axios from "axios"
+import axios from "axios";
 import {useState} from 'react';
 
 function Login(){
@@ -13,9 +13,6 @@ const handleChange = event => {
 function submitLogin(){
 axios.get('/user/username/'+message)
      .then(function (res){console.log(res)}).catch(err=>{console.log(err)})
-
-
-
 }
     return(
         <div style={{ 

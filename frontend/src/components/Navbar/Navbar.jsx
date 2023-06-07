@@ -2,7 +2,7 @@ import { React, useState } from 'react';
 import { FaTimes } from 'react-icons/fa';
 import { CgMenuRight } from 'react-icons/cg';
 import { IconContext } from 'react-icons';
-import "./Navbar.css";
+import "./navbar.css";
 import {
     Nav, 
     NavbarContainer, 
