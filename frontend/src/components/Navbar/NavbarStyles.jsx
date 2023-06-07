@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import {Container} from '../../globalStyles';
 import {Link} from 'react-router-dom';
-import './navbar.css'
+import './Navbar.css'
 
 export const Nav = styled.nav`
 	background: #48719b;
