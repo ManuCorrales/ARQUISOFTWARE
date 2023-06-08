@@ -10,11 +10,13 @@ import {
     CarouselImage,
     CardButton,
 } from "./CarouselStyles";
+import {Routes, Route, useNavigate} from 'react-router-dom';
 
 //agregar fetch to backend
 
 const Carousel = () => {
     const [sliderRef, setSliderRef] = useState(null);
+    const navigate = useNavigate();
 
     /*
     //agregar control de datos de la bd, (crear array de hoteles desde la bd)
@@ -29,6 +31,7 @@ const Carousel = () => {
 
 
     const redirectLogic = (dir) => { //Redireccionar a pagina del hotel seleccionado
+        navigate('/hotel/'+dir);
         console.log("Se redirigio a la página del hotel:" + dir)
     }
 

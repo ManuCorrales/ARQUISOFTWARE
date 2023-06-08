@@ -13,9 +13,9 @@ import Login from './pages/login/login';
 
 import Register from './pages/register/Register';
 /* 
-import Administrador from './pages/Administrador';
-import Hotel from './pages/Hotel'; 
-*/
+import Administrador from './pages/Administrador';*/
+import Hotel from './pages/Hotel/Hotel'; 
+
 
 function App() {
   return (
@@ -27,7 +27,7 @@ function App() {
          <Route path='/login' element={<Login/>} /> 
         <Route path='/register' element={<Register/>} /> 
         {/* <Route path='/administrador' element={<Administrator/>} /> */}
-        {/* <Route path='/hotel/:id' element={<Hotel/>} /> */}        
+        <Route path='/hotel/:id' element={<Hotel/>} />        
       </Routes>
     </Router>
   );
