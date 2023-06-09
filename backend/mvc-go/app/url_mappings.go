@@ -25,6 +25,8 @@ func mapUrls() {
 	router.GET("/reserva/:id", reservaController.GetReservaById)
 	router.GET("/reservas", reservaController.GetReservas)
 	router.POST("/reserva", reservaController.ReservaInsert)
+	router.GET("/reserva/user/:id", reservaController.GetReservasByUserId)
+
 
 	router.POST("/login", userController.Userlogin)
 
