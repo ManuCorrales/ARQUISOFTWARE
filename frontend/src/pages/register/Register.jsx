@@ -1,3 +1,5 @@
+import React, { useState, useContext } from "react";
+
 const Register = () => {
 
     return(
