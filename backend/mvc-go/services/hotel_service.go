@@ -2,7 +2,7 @@ package services
 
 import (
 	hotelclient "mvc-go/clients/hotel"
-
+	//"time"
 	"mvc-go/dto"
 	"mvc-go/model"
 	e "mvc-go/utils/errors"
@@ -14,6 +14,7 @@ type hotelServiceInterface interface {
 	GetHotelById(id int) (dto.HotelDto, e.ApiError)
 	GetHotels() (dto.HotelsDto, e.ApiError)
 	InsertHotel(hotelDto dto.HotelDto) (dto.HotelDto, e.ApiError)
+	//HabitacionesDisponibles () (dto.HotelDto, e.ApiError)
 }
 
 var (
@@ -85,3 +86,13 @@ func (h *hotelService) InsertHotel(hotelDto dto.HotelDto) (dto.HotelDto, e.ApiEr
 
 	return hotelDto, nil
 }
+
+/*func (h *hotelService) HabitacionesDisponibles (hotelID int, Datefrom time.Time, Dateto time.Time) (dto2.Disponibilidad, e.ApiError) {
+	var hotel model.Hotel 
+
+
+
+
+
+
+}*/

@@ -2,6 +2,7 @@ package hotel
 
 import (
 	"mvc-go/model"
+	"time"
 
 	"github.com/jinzhu/gorm"
 	log "github.com/sirupsen/logrus"
@@ -46,3 +47,20 @@ func Updatehotel(hotel model.Hotel) model.Hotel {
 	return hotel
 
 }
+
+func GethabitacionesDisponibles (hotelID int, totalHabitaciones int, Datefrom time.Time, Dateto time.Time) int {
+	var Availability int64
+		log.Debug("FECHA DESDE: ", Datefrom)
+		log.Debug ("FECHA HASTA: ", Dateto)
+		from := Datefrom.Format("2006-01-02")
+		to := Dateto.Format("2006-01-02")
+		Db.Where("id hotel= ?", hotelID).
+		Where(Db.
+			Where(Db.Where(Db.Where("date_from<= ?" , from).Where("? <=date_to",from))).
+			Or(Db.Where(Db.Where("date_from<= ?" , to).Where("?<=date_to", to))).
+			Or(Db.Where(Db.Where("? <=date_from", from).Where("date_to<= ?" , to)))).
+			Count (&Availability)
+
+		return totalHabitaciones - int(Availability)
+}
+

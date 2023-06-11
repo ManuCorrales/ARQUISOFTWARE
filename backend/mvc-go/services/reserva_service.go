@@ -33,8 +33,7 @@ func (r *reservaService) GetReservaById(id int) (dto.ReservaDto, e.ApiError) {
 	ReservaDto.Id = Reserva.Id
 	ReservaDto.DateFrom = Reserva.DateFrom // Fecha de inicio de la reserva
 	ReservaDto.DateTo = Reserva.DateTo     // Fecha de finalización de la reserva
-	ReservaDto.Duracion = Reserva.Duracion // Duración de la reserva
-	ReservaDto.Precio = Reserva.Precio     // Precio de la reserva
+	
 
 	return ReservaDto, nil
 
@@ -52,8 +51,7 @@ func (r *reservaService) GetReservas(id int) (dto.ReservasDto, e.ApiError) {
 		reservaDto.Id = reserva.Id
 		reservaDto.DateFrom = reserva.DateFrom // Fecha de inicio de la reserva
 		reservaDto.DateTo = reserva.DateTo     // Fecha de finalización de la reserva
-		reservaDto.Duracion = reserva.Duracion // Duración de la reserva
-		reservaDto.Precio = reserva.Precio     // Precio de la reserva
+		
 
 		ReservasDto = append(ReservasDto, reservaDto)
 	}
@@ -68,9 +66,7 @@ func (r *reservaService) Insertreserva(ReservaDto dto.ReservaDto) (dto.ReservaDt
 	ReservaDto.Id = Reserva.Id
 	ReservaDto.DateFrom = Reserva.DateFrom // Fecha de inicio de la reserva
 	ReservaDto.DateTo = Reserva.DateTo     // Fecha de finalización de la reserva
-	ReservaDto.Duracion = Reserva.Duracion // Duración de la reserva
-	ReservaDto.Precio = Reserva.Precio     // Precio de la reserva
-
+	
 	Reserva = reservaClient.InsertReserva(Reserva)
 	ReservaDto.Id = Reserva.Id
 

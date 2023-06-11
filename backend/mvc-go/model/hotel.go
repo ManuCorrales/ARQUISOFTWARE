@@ -9,6 +9,7 @@ type Hotel struct {
 	Telephone    string `gorm:"type:varchar(50);not null"`
 	Rooms        int    `gorm:"type:integer;not null"`
 	Image        string `gorm:"type:varchar(350);not null"`
+	Address      string `gorm:"not null;type:varchar(500)"`
 	Availability int    `gorm:"type:integer;not null"`
 
 	Reservas Reservas `gorm:"foreignKey:hotelId"`

@@ -58,3 +58,4 @@ func HotelInsert(c *gin.Context) {
 
 	c.JSON(http.StatusCreated, hotelDto)
 }
+

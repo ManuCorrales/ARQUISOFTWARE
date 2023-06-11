@@ -20,7 +20,7 @@ func GetReservaById(id int) model.Reserva {
 
 func GetReservas() model.Reservas {
 	var Reservas model.Reservas
-	Db.Find(&Reservas)
+	Db.Preload("Hotel").Preload("User").Find(&Reservas)
 
 	log.Debug("reservas: ", Reservas)
 

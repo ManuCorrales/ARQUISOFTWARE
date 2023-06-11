@@ -10,7 +10,7 @@ type User struct {
 	Password string `gorm:"type:varchar(150);not null"`
 	IsAdmin  bool   `gorm:"default:false"`
 
-	Reserva Reserva `gorm:"foreignKey:userId"`
+	Reservas Reservas `gorm:"foreignKey:userId"`
 }
 type AuthResponse struct {
 	Token string `json:"token"`
