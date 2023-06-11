@@ -6,6 +6,7 @@ import (
 
 	"mvc-go/dto"
 	services "mvc-go/services"
+	"time"
 
 	"github.com/gin-gonic/gin"
 	log "github.com/sirupsen/logrus"
@@ -59,3 +60,34 @@ func HotelInsert(c *gin.Context) {
 	c.JSON(http.StatusCreated, hotelDto)
 }
 
+func GethabitacionesDisponibles(c *gin.Context) {
+	stringhotelID := c.Param("id")
+	hotelID, err := strconv.Atoi(stringhotelID)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Formato de ID de hotel inválido"})
+		return
+	}
+
+	DateFromStr := c.Query("Date_from")
+	DateToStr := c.Query("Date_to")
+
+	DateFrom, err := time.Parse("2006-01-02", DateFromStr)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Formato Date_from inválido"})
+		return
+	}
+
+	DateTo, err := time.Parse("2006-01-02", DateToStr)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Formato Date_to inválido"})
+		return
+	}
+
+	Availability, err := services.HotelService.HabitacionesDisponibles(hotelID, DateFrom, DateTo)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, err.Error())
+		return
+	}
+
+	c.JSON(http.StatusOK, Availability)
+}
