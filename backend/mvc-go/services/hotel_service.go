@@ -89,18 +89,21 @@ func (h *hotelService) InsertHotel(hotelDto dto.HotelDto) (dto.HotelDto, e.ApiEr
 
 func (h *hotelService) HabitacionesDisponibles (hotelID int, Datefrom time.Time, Dateto time.Time) (dto.Disponibilidad, e.ApiError) {
 	hotel := hotelclient.GetHotelById(hotelID)
-	cantHDisponibles := hotelClient.GetHabitacionesDisponibles(hotelID, hotel.Rooms, Datefrom, Dateto)
+	cantHDisponibles := hotelclient.GethabitacionesDisponibles(hotelID, hotel.Rooms, Datefrom, Dateto)
 
+	return dto.Disponibilidad{
+		Availability: cantHDisponibles,
+		DetalleHotel: dto.HotelDto {
 
-	return DetalleHotel: dto.HotelDto{
-	    ID: hotel.ID,
-		Availability: hotel.Availability,
-		Description: hotel.Description,
-		Email: hotel.Email,
-		Name: hotel.Name,
-		Telephone:  hotel.Telephone,
-		Rooms:  hotel.Rooms,
-		Image: hotel.Image,
-}
+	    	ID: hotel.ID,
+			Availability: hotel.Availability,
+			Description: hotel.Description,
+			Email: hotel.Email,
+			Name: hotel.Name,
+			Telephone:  hotel.Telephone,
+			Rooms:  hotel.Rooms,
+			Image: hotel.Image,
+		},
+	},nil
 
 }
