@@ -2,7 +2,7 @@ package services
 
 import (
 	hotelclient "mvc-go/clients/hotel"
-	//"time"
+	"time"
 	"mvc-go/dto"
 	"mvc-go/model"
 	e "mvc-go/utils/errors"
@@ -14,7 +14,7 @@ type hotelServiceInterface interface {
 	GetHotelById(id int) (dto.HotelDto, e.ApiError)
 	GetHotels() (dto.HotelsDto, e.ApiError)
 	InsertHotel(hotelDto dto.HotelDto) (dto.HotelDto, e.ApiError)
-	//HabitacionesDisponibles () (dto.HotelDto, e.ApiError)
+	HabitacionesDisponibles (hotelID int, Datefrom time.Time, Dateto time.Time) (dto.Disponibilidad, e.ApiError)
 }
 
 var (
@@ -87,12 +87,20 @@ func (h *hotelService) InsertHotel(hotelDto dto.HotelDto) (dto.HotelDto, e.ApiEr
 	return hotelDto, nil
 }
 
-/*func (h *hotelService) HabitacionesDisponibles (hotelID int, Datefrom time.Time, Dateto time.Time) (dto2.Disponibilidad, e.ApiError) {
-	var hotel model.Hotel 
+func (h *hotelService) HabitacionesDisponibles (hotelID int, Datefrom time.Time, Dateto time.Time) (dto.Disponibilidad, e.ApiError) {
+	hotel := hotelclient.GetHotelById(hotelID)
+	cantHDisponibles := hotelClient.GetHabitacionesDisponibles(hotelID, hotel.Rooms, Datefrom, Dateto)
 
 
+	return DetalleHotel: dto.HotelDto{
+	    ID: hotel.ID,
+		Availability: hotel.Availability,
+		Description: hotel.Description,
+		Email: hotel.Email,
+		Name: hotel.Name,
+		Telephone:  hotel.Telephone,
+		Rooms:  hotel.Rooms,
+		Image: hotel.Image,
+}
 
-
-
-
-}*/
+}
