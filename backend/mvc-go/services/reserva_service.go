@@ -38,7 +38,6 @@ func (r *reservaService) GetReservaById(id int) (dto.ReservaDto, e.ApiError) {
 	ReservaDto.Id = Reserva.Id
 	ReservaDto.DateFrom = Reserva.DateFrom // Fecha de inicio de la reserva
 	ReservaDto.DateTo = Reserva.DateTo     // Fecha de finalización de la reserva
-	
 
 	return ReservaDto, nil
 
@@ -46,22 +45,21 @@ func (r *reservaService) GetReservaById(id int) (dto.ReservaDto, e.ApiError) {
 
 // devuelve todas las reservas disponibles
 func (r *reservaService) GetReservas() (dto.ReservasDto, e.ApiError) {
-	var reservas  = reservaClient.GetReservas()
+	reservas := reservaClient.GetReservas()
 	var ReservasDto dto.ReservasDto
-    ReservasDto.Reservas = []dto.ReservaDto{} 
 
 	for _, reserva := range reservas {
 		var reservaDto dto.ReservaDto
 
 		reservaDto.Id = reserva.Id
-		reservaDto.DateFrom = reserva.DateFrom 
-		reservaDto.DateTo = reserva.DateTo     
-		
+		reservaDto.DateFrom = reserva.DateFrom
+		reservaDto.DateTo = reserva.DateTo
 
-		ReservasDto.Reservas = append(ReservasDto.Reservas, reservaDto)
+		ReservasDto = append(ReservasDto, reservaDto)
 	}
 	return ReservasDto, nil
 }
+
 // crea una nueva reserva
 func (r *reservaService) Insertreserva(ReservaDto dto.ReservaDto) (dto.ReservaDto, e.ApiError) {
 	var Reserva model.Reserva
@@ -69,7 +67,7 @@ func (r *reservaService) Insertreserva(ReservaDto dto.ReservaDto) (dto.ReservaDt
 	ReservaDto.Id = Reserva.Id
 	ReservaDto.DateFrom = Reserva.DateFrom // Fecha de inicio de la reserva
 	ReservaDto.DateTo = Reserva.DateTo     // Fecha de finalización de la reserva
-	
+
 	Reserva = reservaClient.InsertReserva(Reserva)
 	ReservaDto.Id = Reserva.Id
 
@@ -78,20 +76,17 @@ func (r *reservaService) Insertreserva(ReservaDto dto.ReservaDto) (dto.ReservaDt
 
 func (r *reservaService) GetReservasByUserId(id int) (dto.ReservasDto, e.ApiError) {
 	var reservas = reservaClient.GetReservasByUserId(id)
-	var reservasDto dto.ReservaDto
-	reservasDto.Reservas = []dto.ReservaDto{}
+	var reservasDto dto.ReservasDto
 
 	for _, reserva := range reservas {
 		var reservaDto dto.ReservaDto
-        reservaDto.Id = reserva.Id
+		reservaDto.Id = reserva.Id
 		reservaDto.DateFrom = reserva.DateFrom // Fecha de inicio de la reserva
 		reservaDto.DateTo = reserva.DateTo
 
+		reservasDto = append(reservasDto, reservaDto)
 
-		reservasDto.Reservas = append(reservasDto.Reservas, reservaDto)
-		
-		}
-
-		return reservasDto, nil
 	}
 
+	return reservasDto, nil
+}

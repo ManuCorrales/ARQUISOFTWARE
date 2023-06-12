@@ -16,6 +16,4 @@ type ReservaDto struct {
 }
 
 // Reservas es una colección de reservas
-type ReservasDto struct { 	
-	Reservas []ReservaDto `json:"reservas"`
-}
+type ReservasDto []ReservaDto

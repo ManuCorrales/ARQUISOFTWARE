@@ -20,7 +20,7 @@ func GetReservaById(id int) model.Reserva {
 
 func GetReservas() model.Reservas {
 	var Reservas model.Reservas
-	Db.Preload("Hotel").Preload("User").Find(&Reservas)
+	Db.Find(&Reservas)
 
 	log.Debug("reservas: ", Reservas)
 
@@ -47,7 +47,7 @@ func GetReservaByUserId(id int) model.Reserva {
 
 }
 
-func GetreservaByHotelId(id int, DateFrom int, DateTo int) int {
+func GetReservaByHotelId(id int, DateFrom int, DateTo int) int {
 	var habitaciones int
 
 	Db.Model(&model.Reserva{}).Where("id = ? AND start_date < ? AND end_date > ?", id, DateFrom, DateTo).Preload("Hotel").Preload("User").Count(&habitaciones)
