@@ -1,7 +1,8 @@
 import { React, useState } from "react";
+import { config } from "../../config";
 import { FaArrowAltCircleLeft, FaArrowAltCircleRight } from "react-icons/fa";
 import { IconContext } from "react-icons";
-import { data /*reemplazar data pro bd*/, sliderSettings } from "../../data/CarouselData";
+import { data /*reemplazar data por bd*/, sliderSettings } from "../../data/CarouselData";
 import { Row, Heading, Section, TextWrapper } from "../../globalStyles";
 import {
     ButtonContainer,
@@ -13,11 +14,22 @@ import {
 import {Routes, Route, useNavigate} from 'react-router-dom';
 
 //agregar fetch to backend
+async function getHotelData() {
+    return await fetch(config.HOST + ":" + config.PORT + "/hotels").then(response => response.json());
+}
+
+
 
 const Carousel = () => {
     const [sliderRef, setSliderRef] = useState(null);
     const navigate = useNavigate();
+    const [ data, setData ] = useState([]);
+    const [ needData, setNeedData ] = useState(true);
 
+    if (needData){
+        setData(getHotelData());
+        setNeedData(false);
+    }
     /*
     //agregar control de datos de la bd, (crear array de hoteles desde la bd)
     const [ data, setData ] = useState([]);
