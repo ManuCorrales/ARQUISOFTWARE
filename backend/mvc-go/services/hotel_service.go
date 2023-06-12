@@ -2,10 +2,10 @@ package services
 
 import (
 	hotelclient "mvc-go/clients/hotel"
-	"time"
 	"mvc-go/dto"
 	"mvc-go/model"
 	e "mvc-go/utils/errors"
+	"time"
 )
 
 type hotelService struct{}
@@ -13,8 +13,9 @@ type hotelService struct{}
 type hotelServiceInterface interface {
 	GetHotelById(id int) (dto.HotelDto, e.ApiError)
 	GetHotels() (dto.HotelsDto, e.ApiError)
-	InsertHotel(hotelDto dto.HotelDto) (dto.HotelDto, e.ApiError)
-	HabitacionesDisponibles (hotelID int, Datefrom time.Time, Dateto time.Time) (dto.Disponibilidad, e.ApiError)
+	InsertHotel(hotelDto dto.HotelRequestDto) (dto.HotelDto, e.ApiError)
+	InsertHotels(hotelsDto dto.HotelsRequestDto) (dto.HotelsDto, e.ApiError)
+	HabitacionesDisponibles(hotelID int, Datefrom time.Time, Dateto time.Time) (dto.Disponibilidad, e.ApiError)
 }
 
 var (
@@ -68,11 +69,10 @@ func (h *hotelService) GetHotels() (dto.HotelsDto, e.ApiError) {
 	return hotelsDto, nil
 }
 
-func (h *hotelService) InsertHotel(hotelDto dto.HotelDto) (dto.HotelDto, e.ApiError) {
+func (h *hotelService) InsertHotel(hotelDto dto.HotelRequestDto) (dto.HotelDto, e.ApiError) {
 
 	var hotel model.Hotel
 
-	hotel.Availability = hotelDto.Availability
 	hotel.Description = hotelDto.Description
 	hotel.Email = hotelDto.Email
 	hotel.Name = hotelDto.Name
@@ -82,27 +82,65 @@ func (h *hotelService) InsertHotel(hotelDto dto.HotelDto) (dto.HotelDto, e.ApiEr
 
 	hotel = hotelclient.Inserthotel(hotel)
 
-	hotelDto.ID = hotel.ID
+	var hotelRespDto dto.HotelDto
+	hotelRespDto.ID = hotel.ID
+	hotelRespDto.Description = hotel.Description
+	hotelRespDto.Email = hotel.Email
+	hotelRespDto.Name = hotel.Name
+	hotelRespDto.Telephone = hotel.Telephone
+	hotelRespDto.Rooms = hotel.Rooms
+	hotelRespDto.Image = hotel.Image
 
-	return hotelDto, nil
+	return hotelRespDto, nil
 }
 
-func (h *hotelService) HabitacionesDisponibles (hotelID int, Datefrom time.Time, Dateto time.Time) (dto.Disponibilidad, e.ApiError) {
+func (h *hotelService) InsertHotels(hotelsDto dto.HotelsRequestDto) (dto.HotelsDto, e.ApiError) {
+
+	var hotelsRespDto dto.HotelsDto
+	for _, hotelDto := range hotelsDto {
+
+		var hotel model.Hotel
+
+		hotel.Description = hotelDto.Description
+		hotel.Email = hotelDto.Email
+		hotel.Name = hotelDto.Name
+		hotel.Telephone = hotelDto.Telephone
+		hotel.Rooms = hotelDto.Rooms
+		hotel.Image = hotelDto.Image
+		hotel = hotelclient.Inserthotel(hotel)
+
+		var hotelRespDto dto.HotelDto
+		hotelRespDto.ID = hotel.ID
+		hotelRespDto.Description = hotel.Description
+		hotelRespDto.Email = hotel.Email
+		hotelRespDto.Name = hotel.Name
+		hotelRespDto.Telephone = hotel.Telephone
+		hotelRespDto.Rooms = hotel.Rooms
+		hotelRespDto.Image = hotel.Image
+		hotelRespDto.Availability = hotel.Availability
+
+		hotelsRespDto = append(hotelsRespDto, hotelRespDto)
+	}
+
+	return hotelsRespDto, nil
+}
+
+func (h *hotelService) HabitacionesDisponibles(hotelID int, Datefrom time.Time, Dateto time.Time) (dto.Disponibilidad, e.ApiError) {
 	hotel := hotelclient.GetHotelById(hotelID)
-	cantHDisponibles := hotelclient.GethabitacionesDisponibles(hotelID, hotel.Rooms, Datefrom, Dateto) 
+	cantHDisponibles := hotelclient.GethabitacionesDisponibles(hotelID, hotel.Rooms, Datefrom, Dateto)
 	return dto.Disponibilidad{
 		Availability: cantHDisponibles,
-		DetalleHotel: dto.HotelDto {
+		DetalleHotel: dto.HotelDto{
 
-	    	ID: hotel.ID,
+			ID:           hotel.ID,
 			Availability: hotel.Availability,
-			Description: hotel.Description,
-			Email: hotel.Email,
-			Name: hotel.Name,
-			Telephone:  hotel.Telephone,
-			Rooms:  hotel.Rooms,
-			Image: hotel.Image,
+			Description:  hotel.Description,
+			Email:        hotel.Email,
+			Name:         hotel.Name,
+			Telephone:    hotel.Telephone,
+			Rooms:        hotel.Rooms,
+			Image:        hotel.Image,
 		},
-	},nil
+	}, nil
 
 }

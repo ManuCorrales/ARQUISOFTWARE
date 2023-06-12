@@ -40,7 +40,7 @@ func GetHotels(c *gin.Context) {
 }
 
 func HotelInsert(c *gin.Context) {
-	var hotelDto dto.HotelDto
+	var hotelDto dto.HotelRequestDto
 	err := c.BindJSON(&hotelDto)
 
 	// Error Parsing json param
@@ -50,14 +50,39 @@ func HotelInsert(c *gin.Context) {
 		return
 	}
 
-	hotelDto, er := services.HotelService.InsertHotel(hotelDto)
+	var hotelRespDto dto.HotelDto
+
+	hotelRespDto, er := services.HotelService.InsertHotel(hotelDto)
 	// Error del Insert
 	if er != nil {
 		c.JSON(er.Status(), er)
 		return
 	}
 
-	c.JSON(http.StatusCreated, hotelDto)
+	c.JSON(http.StatusCreated, hotelRespDto)
+}
+
+func HotelInsertMultiple(c *gin.Context) {
+	var hotelsDto dto.HotelsRequestDto
+	err := c.BindJSON(&hotelsDto)
+
+	// Error Parsing json param
+	if err != nil {
+		log.Error(err.Error())
+		c.JSON(http.StatusBadRequest, err.Error())
+		return
+	}
+
+	var hotelsRespDto dto.HotelsDto
+
+	hotelsRespDto, er := services.HotelService.InsertHotels(hotelsDto)
+	// Error del Insert
+	if er != nil {
+		c.JSON(er.Status(), er)
+		return
+	}
+
+	c.JSON(http.StatusCreated, hotelsRespDto)
 }
 
 func GethabitacionesDisponibles(c *gin.Context) {
