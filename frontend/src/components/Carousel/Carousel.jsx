@@ -1,4 +1,4 @@
-import { React, useState } from "react";
+import { React, useState, useEffect } from "react";
 import { config } from "../../config";
 import { FaArrowAltCircleLeft, FaArrowAltCircleRight } from "react-icons/fa";
 import { IconContext } from "react-icons";
@@ -14,9 +14,7 @@ import {
 import {Routes, Route, useNavigate} from 'react-router-dom';
 
 //agregar fetch to backend
-async function getHotelData() {
-    return await fetch(config.HOST + ":" + config.PORT + "/hotels").then(response => response.json());
-}
+
 
 
 
@@ -24,20 +22,19 @@ const Carousel = () => {
     const [sliderRef, setSliderRef] = useState(null);
     const navigate = useNavigate();
     const [ data, setData ] = useState([]);
-    const [ needData, setNeedData ] = useState(true);
 
-    if (needData){
-        setData(getHotelData());
-        setNeedData(false);
+    useEffect( () => {
+        getHotelData();
+    }, [])
+
+    const getHotelData = () => {
+        fetch(config.HOST + ":" + config.PORT + "/hotels")
+        .then(response => response.json())
+        .then(data => {
+            setData(data);
+        });
     }
-    /*
-    //agregar control de datos de la bd, (crear array de hoteles desde la bd)
-    const [ data, setData ] = useState([]);
-    const [ needData, setNeedData ] = useState(true);
 
-    if (needData){
-        //fetch db fill data array with setData
-    }*/
 
     
 
@@ -52,6 +49,7 @@ const Carousel = () => {
             <Row justify="cent" margin="1rem" wrap="wrap" paddingTop="2rem">
                 <Heading inverse>
                     Paquetes y Promociones
+                    {console.log(data)}
                 </Heading>
                 <ButtonContainer>
                     <IconContext.Provider value={{size:"4rem", color:"#48719b", }}>

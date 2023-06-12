@@ -21,7 +21,7 @@ func GetHotelById(id int) model.Hotel {
 
 func Gethotels() model.Hotels {
 	var hotels model.Hotels
-	Db.Preload("Hotel").Preload("reserva").Find(&hotels)
+	Db.Find(&hotels)
 
 	log.Debug("hotels: ", hotels)
 
@@ -48,19 +48,18 @@ func Updatehotel(hotel model.Hotel) model.Hotel {
 
 }
 
-func GethabitacionesDisponibles (hotelID int, totalHabitaciones int, Datefrom time.Time, Dateto time.Time) int {
+func GethabitacionesDisponibles(hotelID int, totalHabitaciones int, Datefrom time.Time, Dateto time.Time) int {
 	var Availability int64
-		log.Debug("FECHA DESDE: ", Datefrom)
-		log.Debug ("FECHA HASTA: ", Dateto)
-		from := Datefrom.Format("2006-01-02")
-		to := Dateto.Format("2006-01-02")
-		Db.Where("id hotel= ?", hotelID).
+	log.Debug("FECHA DESDE: ", Datefrom)
+	log.Debug("FECHA HASTA: ", Dateto)
+	from := Datefrom.Format("2006-01-02")
+	to := Dateto.Format("2006-01-02")
+	Db.Where("id hotel= ?", hotelID).
 		Where(Db.
-			Where(Db.Where(Db.Where("date_from<= ?" , from).Where("? <=date_to",from))).
-			Or(Db.Where(Db.Where("date_from<= ?" , to).Where("?<=date_to", to))).
-			Or(Db.Where(Db.Where("? <=date_from", from).Where("date_to<= ?" , to)))).
-			Count (&Availability)
+			Where(Db.Where(Db.Where("date_from<= ?", from).Where("? <=date_to", from))).
+			Or(Db.Where(Db.Where("date_from<= ?", to).Where("?<=date_to", to))).
+			Or(Db.Where(Db.Where("? <=date_from", from).Where("date_to<= ?", to)))).
+		Count(&Availability)
 
-		return totalHabitaciones - int(Availability)
+	return totalHabitaciones - int(Availability)
 }
-
