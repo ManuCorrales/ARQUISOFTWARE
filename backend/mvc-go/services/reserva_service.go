@@ -14,7 +14,7 @@ type reservaService struct{}
 
 type reservaServiceInterface interface {
 	GetreservaById(id int) (dto.ReservaDto, e.ApiError)
-	Getreservas() (dto.ReservasDto, e.ApiError)
+	GetReservas() (dto.ReservasDto, e.ApiError)
 	Insertreserva(reservaDto dto.ReservaDto) (dto.ReservaDto, e.ApiError)
 	GetReservasByUserId(id int) (dto.ReservasDto, e.ApiError)
 }
@@ -42,9 +42,9 @@ func (r *reservaService) GetReservaById(id int) (dto.ReservaDto, e.ApiError) {
 
 // devuelve todas las reservas disponibles
 func (r *reservaService) GetReservas() (dto.ReservasDto, e.ApiError) {
-	var reservas model.Reservas = reservaClient.GetReservas()
+	var reservas  = reservaClient.GetReservas()
 	var ReservasDto dto.ReservasDto
-    ReservasDto = []dto.ReservaDto{} 
+    ReservasDto.Reservas = []dto.ReservaDto{} 
 
 	for _, reserva := range reservas {
 		var reservaDto dto.ReservaDto
@@ -54,12 +54,10 @@ func (r *reservaService) GetReservas() (dto.ReservasDto, e.ApiError) {
 		reservaDto.DateTo = reserva.DateTo     
 		
 
-		ReservasDto = append(ReservasDto, reservaDto)
+		ReservasDto.Reservas = append(ReservasDto.Reservas, reservaDto)
 	}
 	return ReservasDto, nil
 }
-
-
 // crea una nueva reserva
 func (r *reservaService) Insertreserva(ReservaDto dto.ReservaDto) (dto.ReservaDto, e.ApiError) {
 	var Reserva model.Reserva
@@ -74,9 +72,9 @@ func (r *reservaService) Insertreserva(ReservaDto dto.ReservaDto) (dto.ReservaDt
 	return ReservaDto, nil
 }
 
-func (r *reservaService) GetReservasByUserId(id int) (dto.ReservasDto, e.ApiError) {
+func (r *reservaService) GetReservasByUserId(id int) ([]dto.ReservaDto, e.ApiError) {
 	var reservas model.Reservas = reservaClient.GetReservas()
-	var reservasDto dto.ReservasDto
+	var reservasDto []dto.ReservaDto
 
 	for _, reserva := range reservas {
 		if reserva.UserId == id {

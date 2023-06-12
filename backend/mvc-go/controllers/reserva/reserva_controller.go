@@ -28,7 +28,7 @@ func GetReservaById(c *gin.Context) {
 
 func GetReservas(c *gin.Context) {
 	var reservasDto dto.ReservasDto
-	reservasDto, err := services.ReservaService.Getreservas()
+	reservasDto, err := services.ReservaService.GetReservas()
 
 	if err != nil {
 		c.JSON(err.Status(), err)
