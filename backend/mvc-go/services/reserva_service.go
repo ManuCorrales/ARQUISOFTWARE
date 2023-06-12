@@ -84,6 +84,9 @@ func (r *reservaService) GetReservasByUserId(id int) (dto.ReservasDto, e.ApiErro
 		reservaDto.DateFrom = reserva.DateFrom // Fecha de inicio de la reserva
 		reservaDto.DateTo = reserva.DateTo
 
+		reservaDto.HotelId = reserva.HotelId
+		reservaDto.UserId = reserva.UserId
+
 		reservasDto = append(reservasDto, reservaDto)
 
 	}
