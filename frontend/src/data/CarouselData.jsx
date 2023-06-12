@@ -4,7 +4,7 @@ export const data = [
         name: "Hotel Transylvania",
         image: "https://media.lacapital.com.ar/p/0170d1bbb6dc9efd3603950594e87d15/adjuntos/203/imagenes/007/401/0007401921/642x0/smart/el-hotel-transylvania-donde-los-monstruos-estan-como-su-casa-y-lejos-sus-horrorosas-pesadilla-los-humanos.jpg",
         description: "¡Disfruta de unas vacaciones asombrosas mientras tus monstruos favoritos te cuentan sus mejores historias!",
-        rooms: "30",
+        rooms: 30,
         email: "hotel@transylvania.spook",
         telephone: "+66 666-666",
     },
