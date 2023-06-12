@@ -6,6 +6,7 @@ import (
 	"mvc-go/dto"
 	"mvc-go/model"
 	e "mvc-go/utils/errors"
+	//"testing/quick"
 )
 
 type userService struct{}
@@ -14,6 +15,7 @@ type userService struct{}
 type userServiceInterface interface {
 	GetUserById(id int) (dto.UserDto, e.ApiError)
 	GetUserByUsername(username string) (dto.UserDto, e.ApiError)
+	GetUserByEmail(mail string) (dto.UserDto, e.ApiError)
 	GetUsers() (dto.UsersDto, e.ApiError)
 	CreateUser(userDto dto.UserDto) (dto.UserDto, e.ApiError)
 }
@@ -67,6 +69,27 @@ func (u *userService) GetUserByUsername(username string) (dto.UserDto, e.ApiErro
 
 	return userDto, nil
 }
+func (u *userService) GetUserByEmail(mail string) (dto.UserDto, e.ApiError) {
+
+	var user model.User = userclient.GetUserByEmail(mail)
+	
+	var userDto dto.UserDto
+
+	//si no lo trae, me da error de que no encontró el usuario
+	if user.Email== "" {
+		return userDto, e.NewBadRequestApiError("no se ha encontrado el usuario")
+	}
+
+		userDto.Id = user.Id
+		userDto.Name = user.Name
+		userDto.LastName = user.LastName
+		userDto.UserName = user.UserName
+		userDto.Password = user.Password
+		userDto.Email = user.Email
+		userDto.IsAdmin = user.IsAdmin
+
+	return userDto, nil
+}
 
 func (u *userService) GetUsers() (dto.UsersDto, e.ApiError) {
 
@@ -107,6 +130,12 @@ func (u *userService) CreateUser(userDto dto.UserDto) (dto.UserDto, e.ApiError) 
 
 	return userDto, nil
 }
+
+/*func (u *userService) Login(loginDto dto.LoginDto) (dto.LoginDto, e.ApiError) {
+
+	
+}*/
+
 
 func Auth(user model.User) (model.AuthResponse, error) {
 	token, err := GenerateToken(user.UserName)

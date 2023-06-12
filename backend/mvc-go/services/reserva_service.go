@@ -43,7 +43,7 @@ func (r *reservaService) GetReservaById(id int) (dto.ReservaDto, e.ApiError) {
 func (r *reservaService) GetReservas(id int) (dto.ReservasDto, e.ApiError) {
 	var reservas model.Reservas = reservaClient.GetReservas()
 	var ReservasDto dto.ReservasDto
-	//ReservasDto = []dto.ReservaDto{} // Crear un nuevo slice vacío
+    ReservasDto = []dto.ReservaDto{} // Crear un nuevo slice vacío
 
 	for _, reserva := range reservas {
 		var reservaDto dto.ReservaDto
