@@ -60,10 +60,10 @@ const Carousel = () => {
             </Row>
             <ReviewSlider {...sliderSettings} ref={setSliderRef}>
                 {data.map((data, index) => (
-                    <ImageWrapper key={index} onClick={() => redirectLogic(data.title)}>
+                    <ImageWrapper key={index} onClick={() => redirectLogic(data.id)}>
                         <CarouselImage src={data.image}/>
                         <TextWrapper size="1.1rem" margin="0.75rem 0 0" >
-                            <strong style={{ display: "block", textAlign: "center" }}>{data.title}</strong>
+                            <strong style={{ display: "block", textAlign: "center" }}>{data.id}</strong>
                             <br/>
                             {data.description}
                         </TextWrapper>

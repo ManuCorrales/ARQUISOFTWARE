@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'; 
-import {data} from '../../data/CarouselData'
+import {config} from '../../config'
 
 import Calendar from "@demark-pro/react-booking-calendar";
 
@@ -33,18 +33,21 @@ function Hotel() {
 
 
 
-
     useEffect(() => {
         const pathArray = window.location.pathname.split('/');
         const lastPath = pathArray[pathArray.length - 1];
         setLastDirectory(lastPath);
-        data.forEach(element => {
-            if(decodeURIComponent(lastDirectory.replace(/\+/g, ' '))==element.title){
-                setHotel(element)
-            }})
-    });
+        
+        getHotelData(lastPath);
+    }, []);
 
-
+    const getHotelData = (id) => {
+      fetch(config.HOST + ":" + config.PORT + "/hotel/" + id)
+      .then(response => response.json())
+      .then(hotel => {
+        setHotel(hotel);
+            });
+  }
 
     return (
         <div style={{marginTop:"30px",width:"100vw",height:"100%",display:"flex",alignContent:"center",justifyContent:"center"}}>
