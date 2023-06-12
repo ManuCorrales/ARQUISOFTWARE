@@ -55,3 +55,11 @@ func GetreservaByHotelId(id int, DateFrom int, DateTo int) int {
 
 	return habitaciones
 }
+
+func GetReservasByUserId(userId int) model.Reservas {
+	var reservas model.Reservas
+
+	Db.Where("user_id = ?", userId).Preload("Hotel").Preload("User").Find(&reservas)
+
+	return reservas
+}

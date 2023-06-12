@@ -88,7 +88,7 @@ func (r *reservaService) GetReservasByUserId(id int) (dto.ReservasDto, e.ApiErro
 		reservaDto.DateTo = reserva.DateTo
 
 
-	reservasDto.Reservas = append(reservasDto.Reservas, reservaDto)
+		reservasDto.Reservas = append(reservasDto.Reservas, reservaDto)
 		
 		}
 
