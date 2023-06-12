@@ -2,6 +2,7 @@ package services
 
 import (
 	reservaClient "mvc-go/clients/reserva"
+	//"net/http"
 	//hotelClient "mvc-go/clients/hotel"
 	"mvc-go/dto"
 	"mvc-go/model"
@@ -40,17 +41,17 @@ func (r *reservaService) GetReservaById(id int) (dto.ReservaDto, e.ApiError) {
 }
 
 // devuelve todas las reservas disponibles
-func (r *reservaService) GetReservas(id int) (dto.ReservasDto, e.ApiError) {
+func (r *reservaService) GetReservas() (dto.ReservasDto, e.ApiError) {
 	var reservas model.Reservas = reservaClient.GetReservas()
 	var ReservasDto dto.ReservasDto
-    ReservasDto = []dto.ReservaDto{} // Crear un nuevo slice vacío
+    ReservasDto = []dto.ReservaDto{} 
 
 	for _, reserva := range reservas {
 		var reservaDto dto.ReservaDto
 
 		reservaDto.Id = reserva.Id
-		reservaDto.DateFrom = reserva.DateFrom // Fecha de inicio de la reserva
-		reservaDto.DateTo = reserva.DateTo     // Fecha de finalización de la reserva
+		reservaDto.DateFrom = reserva.DateFrom 
+		reservaDto.DateTo = reserva.DateTo     
 		
 
 		ReservasDto = append(ReservasDto, reservaDto)
