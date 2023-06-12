@@ -13,7 +13,7 @@ import (
 type reservaService struct{}
 
 type reservaServiceInterface interface {
-	GetreservaById(id int) (dto.ReservaDto, e.ApiError)
+	GetReservaById(id int) (dto.ReservaDto, e.ApiError)
 	GetReservas() (dto.ReservasDto, e.ApiError)
 	Insertreserva(reservaDto dto.ReservaDto) (dto.ReservaDto, e.ApiError)
 	GetReservasByUserId(id int) (dto.ReservasDto, e.ApiError)
@@ -22,6 +22,10 @@ type reservaServiceInterface interface {
 var (
 	ReservaService reservaServiceInterface
 )
+
+func init() {
+	ReservaService = &reservaService{}
+}
 
 // busca una reserva por su ID
 func (r *reservaService) GetReservaById(id int) (dto.ReservaDto, e.ApiError) {
@@ -72,16 +76,22 @@ func (r *reservaService) Insertreserva(ReservaDto dto.ReservaDto) (dto.ReservaDt
 	return ReservaDto, nil
 }
 
-func (r *reservaService) GetReservasByUserId(id int) ([]dto.ReservaDto, e.ApiError) {
-	var reservas model.Reservas = reservaClient.GetReservas()
-	var reservasDto []dto.ReservaDto
+func (r *reservaService) GetReservasByUserId(id int) (dto.ReservasDto, e.ApiError) {
+	var reservas = reservaClient.GetReservasByUserId(id)
+	var reservasDto dto.ReservaDto
+	reservasDto.Reservas = []dto.ReservaDto{}
 
 	for _, reserva := range reservas {
-		if reserva.UserId == id {
-			reservaDto, _ := r.GetReservaById(reserva.Id)
-			reservasDto = append(reservasDto, reservaDto)
+		var reservaDto dto.ReservaDto
+        reservaDto.Id = reserva.Id
+		reservaDto.DateFrom = reserva.DateFrom // Fecha de inicio de la reserva
+		reservaDto.DateTo = reserva.DateTo
+
+
+	reservasDto.Reservas = append(reservasDto.Reservas, reservaDto)
+		
 		}
+
+		return reservasDto, nil
 	}
 
-	return reservasDto, nil
-}
