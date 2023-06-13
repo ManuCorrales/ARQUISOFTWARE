@@ -10,6 +10,16 @@ const handleChange = event => {
     setMessage(event.target.value);
   };
 
+
+
+  const getLoginData = (username) => {
+    fetch(config.HOST + ":" + config.PORT + "/login/" + username)
+    .then(response => response.json())
+    .then(user => {
+      setUser(user);
+          });
+}
+
 function submitLogin(){
 axios.get('/user/username/'+message)
      .then(function (res){console.log(res)}).catch(err=>{console.log(err)})
