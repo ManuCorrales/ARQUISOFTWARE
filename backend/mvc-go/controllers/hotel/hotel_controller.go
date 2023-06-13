@@ -116,3 +116,23 @@ func GethabitacionesDisponibles(c *gin.Context) {
 
 	c.JSON(http.StatusOK, Availability)
 }
+
+/*func GetHotelbyName (c *gin.Context) {
+	log.Debug("Name to load: " + c.Param("Name"))
+
+	// Obtener el nombre de usuario de los parámetros de la solicitud
+	name := c.Param("Name")
+	var hotelDto dto.HotelDto
+
+	// Obtener el usuario por su nombre de usuario utilizando el servicio de usuario
+	hotelDto, err := services.HotelService.GetHotelbyName(name)
+	if err != nil { //verifica si el usuario se encuentra o no
+		c.JSON(err.Status(), err)
+		return
+	}
+
+	// Devuelve el usuario en formato JSON
+	c.JSON(http.StatusOK, hotelDto)
+
+
+}*/

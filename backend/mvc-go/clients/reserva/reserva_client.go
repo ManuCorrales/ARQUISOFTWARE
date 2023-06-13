@@ -37,7 +37,7 @@ func InsertReserva(reserva model.Reserva) model.Reserva {
 	return reserva
 }
 
-func GetReservaByUserId(id int) model.Reserva {
+/*func GetReservaByUserId(id int) model.Reserva {
 	var reserva model.Reserva
 
 	Db.Where("user_id = ?", id).Preload("User").Preload("Hotel").First(&reserva)
@@ -45,7 +45,7 @@ func GetReservaByUserId(id int) model.Reserva {
 
 	return reserva
 
-}
+}*/
 
 func GetReservaByHotelId(id int, DateFrom int, DateTo int) int {
 	var habitaciones int

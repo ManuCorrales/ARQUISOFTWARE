@@ -63,3 +63,14 @@ func GethabitacionesDisponibles(hotelID int, totalHabitaciones int, Datefrom tim
 
 	return totalHabitaciones - int(Availability)
 }
+
+/*func GetHotelbyName (name string )  model.Hotel {
+	var hotel model.Hotel
+
+	Db.Where("name = ?", name).First(&hotel)
+
+	log.Debug("Hotel: ", hotel)
+
+	return hotel
+}*/
+

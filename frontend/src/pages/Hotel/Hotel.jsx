@@ -5,7 +5,6 @@ import Calendar from "@demark-pro/react-booking-calendar";
 
 
 
-
 function Hotel() {
     const [lastDirectory, setLastDirectory] = useState('');
     const [hotel, setHotel] = useState({});

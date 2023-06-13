@@ -16,7 +16,9 @@ type hotelServiceInterface interface {
 	InsertHotel(hotelDto dto.HotelRequestDto) (dto.HotelDto, e.ApiError)
 	InsertHotels(hotelsDto dto.HotelsRequestDto) (dto.HotelsDto, e.ApiError)
 	HabitacionesDisponibles(hotelID int, Datefrom time.Time, Dateto time.Time) (dto.Disponibilidad, e.ApiError)
+	//GetHotelbyName (name string) (dto.HotelDto, e.ApiError)
 }
+
 
 var (
 	HotelService hotelServiceInterface
@@ -144,3 +146,27 @@ func (h *hotelService) HabitacionesDisponibles(hotelID int, Datefrom time.Time, 
 	}, nil
 
 }
+/*func (h *hotelService) GetHotelbyName (name string) (dto.HotelDto, e.ApiError){
+
+	var hotel model.Hotel = hotelclient.GetHotelbyName (name)
+	
+	var hotelDto dto.HotelDto
+
+	//si no lo trae, me da error de que no encontró el usuario
+	if hotel.Name== "" {
+		return hotelDto, e.NewBadRequestApiError("no se ha encontrado el usuario")
+	}
+
+		hotelDto.ID = hotel.ID
+		hotelDto.Name = hotel.Name
+		hotelDto.Description = hotel.Description
+		hotelDto.Email = hotel.Email
+		hotelDto.Telephone = hotel.Telephone
+		hotelDto.Rooms = hotel.Rooms
+		hotelDto.Image = hotel.Image
+		hotelDto.Availability = hotel.Availability
+
+	return hotelDto, nil
+
+
+}*/
