@@ -10,6 +10,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	log "github.com/sirupsen/logrus"
+	
 )
 
 // obtener un usuario por ID
@@ -119,8 +120,8 @@ func Userlogin(c *gin.Context) {
 	c.JSON(http.StatusOK, loginDto)
 }
 
-/*func UserLogin(c *gin.Context) {
-	var loginDto dto2.LoginDto
+func UserLogin(c *gin.Context) {
+	var loginDto dto.LoginDto
 	err := c.BindJSON(&loginDto)
 
 	if err != nil {
@@ -128,12 +129,12 @@ func Userlogin(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, err.Error())
 		return
 	}
-	tokenDto, er := service.UserService.LoginUser(loginDto)
 
-	if er != nil {
-		c.JSON(er.Status(), er)
-		return
-	}
-	c.JSON(http.StatusCreated, tokenDto)
 
-}*/
+	loginResponseDto, err := services.UserService.Login(loginDto)
+	if err != nil {
+			c.JSON(http.StatusBadRequest, err.Error())
+			return
+		}
+	c.JSON(http.StatusOK, loginResponseDto)
+}

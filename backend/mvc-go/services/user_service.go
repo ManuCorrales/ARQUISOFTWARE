@@ -1,6 +1,8 @@
 package services
 
 import (
+
+	log "github.com/sirupsen/logrus"
 	"errors"
 	userclient "mvc-go/clients/user"
 	"mvc-go/dto"
@@ -18,6 +20,7 @@ type userServiceInterface interface {
 	GetUserByEmail(mail string) (dto.UserDto, e.ApiError)
 	GetUsers() (dto.UsersDto, e.ApiError)
 	CreateUser(userDto dto.UserDto) (dto.UserDto, e.ApiError)
+	Login(loginDto dto.LoginDto) (dto.LoginResponseDto, e.ApiError)
 }
 
 var (
@@ -131,10 +134,24 @@ func (u *userService) CreateUser(userDto dto.UserDto) (dto.UserDto, e.ApiError) 
 	return userDto, nil
 }
 
-/*func (u *userService) Login(loginDto dto.LoginDto) (dto.LoginDto, e.ApiError) {
+func (u *userService) Login(loginDto dto.LoginDto) (dto.LoginResponseDto, e.ApiError) {
+	var user model.User
+	user = userclient.GetUserByUsername(loginDto.Username)
+	var loginResponseDto dto.LoginResponseDto
+	if user.Id == 0 {
 
-	
-}*/
+		return loginResponseDto, e.NewNotFoundApiError("user not found")
+	}
+	loginResponseDto.UserId = -1
+
+
+	loginResponseDto.UserId = user.Id
+	loginResponseDto.Isadmin = user.IsAdmin
+	log.Debug(loginResponseDto)
+
+	return loginResponseDto, nil
+}
+
 
 
 func Auth(user model.User) (model.AuthResponse, error) {

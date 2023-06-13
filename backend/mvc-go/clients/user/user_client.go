@@ -5,6 +5,7 @@ import (
 
 	"github.com/jinzhu/gorm"
 	log "github.com/sirupsen/logrus"
+	//"mvc-go/utils/errors"
 )
 
 var Db *gorm.DB
@@ -20,10 +21,11 @@ func GetUserById(id int) model.User {
 
 func GetUserByUsername(username string) model.User {
 	var user model.User
-
+	
 	Db.Where("username = ?", username).Preload("reserva").First(&user)
 
 	log.Debug("User: ", user)
+
 
 	return user
 }
