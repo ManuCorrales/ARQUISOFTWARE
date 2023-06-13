@@ -36,9 +36,12 @@ function Hotel() {
         const pathArray = window.location.pathname.split('/');
         const lastPath = pathArray[pathArray.length - 1];
         setLastDirectory(lastPath);
-        
-        getHotelData(lastPath);
-    }, []);
+        data.forEach(element => {
+            if(decodeURIComponent(lastDirectory.replace(/\+/g, ' '))==element.name){
+                setHotel(element)
+            }})
+    });
+
 
     const getHotelData = (id) => {
       fetch(config.HOST + ":" + config.PORT + "/hotel/" + id)
@@ -51,7 +54,7 @@ function Hotel() {
     return (
         <div style={{marginTop:"30px",width:"100vw",height:"100%",display:"flex",alignContent:"center",justifyContent:"center"}}>
             <div style={{marginTop:"30px",width:"900px",height:"1200px", padding:"40px", borderRadius:"10px", backgroundColor:"white"}}>
-                <div style={{width:"100%",fontSize:"40px"}}>{hotel.title}</div>
+                <div style={{width:"100%",fontSize:"40px"}}>{hotel.name}</div>
                 <div style={{padding:"10px"}}>{hotel.description}</div>
                 <img src={hotel.image} style={{width:"100%"}}/> 
                 <div style={{border:" 1px solid gray", borderRadius:"10px",paddingTop:"20px",marginTop:"20px"}}>

@@ -58,6 +58,9 @@ const Navbar = () => {
         })
     }
 
+    
+    var Administrador = false
+
     return(
         <IconContext.Provider value={{color:'black'}}>
             <Nav id="nav-container">
@@ -69,7 +72,8 @@ const Navbar = () => {
                         {show ? <FaTimes/> : <CgMenuRight/>}
                     </MobileIcon>
                     <NavMenu show={show}>
-                        {data.map((item, index) => (
+                        {data.filter(item => item.text !== "Administrador" || Administrador) // sera true siermpre que no sea administrador ,
+                             .map((item, index) => (
                             <NavItem key={index}>
                                 <NavLinks onClick={() => closeMobileMenu(item.to, item.text)}> {item.text} </NavLinks>
                             </NavItem>
