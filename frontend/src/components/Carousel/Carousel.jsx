@@ -36,9 +36,6 @@ const Carousel = () => {
     }
 
 
-    
-
-
     const redirectLogic = (dir) => { //Redireccionar a pagina del hotel seleccionado
         navigate('/hotel/'+dir);
         console.log("Se redirigio a la página del hotel:" + dir)

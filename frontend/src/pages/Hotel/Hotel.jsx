@@ -30,8 +30,6 @@ function Hotel() {
   }
 
 
-
-
     useEffect(() => {
         const pathArray = window.location.pathname.split('/');
         const lastPath = pathArray[pathArray.length - 1];

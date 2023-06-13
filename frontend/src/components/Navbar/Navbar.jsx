@@ -15,12 +15,25 @@ import {
 } from './NavbarStyles.jsx';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { data } from '../../data/NavbarData.jsx';
+import {Routes, Route, useNavigate} from 'react-router-dom';
 
 const Navbar = () => {
     const [show, setShow] = useState(false);
 
     let navigate = useNavigate();
     let location = useLocation();
+
+    useEffect( () => {
+        getLoginData();
+    }, [])
+
+    const getLoginData = () => {
+        fetch(config.HOST + ":" + config.PORT + "/login")
+        .then(response => response.json())
+        .then(data => {
+            setData(data);
+        });
+    }
 
     const handleClick = () => {
         if (show === true){
