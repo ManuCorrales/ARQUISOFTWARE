@@ -55,19 +55,21 @@ const Carousel = () => {
                     </IconContext.Provider>
                 </ButtonContainer>
             </Row>
-            <ReviewSlider {...sliderSettings} ref={setSliderRef}>
-                {data.map((data, index) => (
-                    <ImageWrapper key={index} onClick={() => redirectLogic(data.name)}>
-                        <CarouselImage src={data.image}/>
-                        <TextWrapper size="1.1rem" margin="0.75rem 0 0" >
-                            <strong style={{ display: "block", textAlign: "center" }}>{data.name}</strong>
-                            <br/>
-                            {data.description}
-                        </TextWrapper>
-                        <CardButton> Mas Información </CardButton>
-                    </ImageWrapper>
-                ))}
-            </ReviewSlider>
+            {data && data.length > 0 && (
+  <ReviewSlider {...sliderSettings} ref={setSliderRef}>
+    {data.map((data, index) => (
+      <ImageWrapper key={index} onClick={() => redirectLogic(data.name)}>
+        <CarouselImage src={data.image} />
+        <TextWrapper size="1.1rem" margin="0.75rem 0 0">
+          <strong style={{ display: "block", textAlign: "center" }}>{data.name}</strong>
+          <br />
+          {data.description}
+        </TextWrapper>
+        <CardButton> Mas Información </CardButton>
+      </ImageWrapper>
+    ))}
+  </ReviewSlider>
+)}
         </Section>
     );
 }

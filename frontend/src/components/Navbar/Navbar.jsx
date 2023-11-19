@@ -1,4 +1,4 @@
-import { React, useState } from 'react';
+import { React, useState, useEffect } from 'react';
 import { FaTimes } from 'react-icons/fa';
 import { CgMenuRight } from 'react-icons/cg';
 import { IconContext } from 'react-icons';
@@ -13,13 +13,17 @@ import {
     NavItem,
     NavLinks
 } from './NavbarStyles.jsx';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { data } from '../../data/NavbarData.jsx';
-import {Routes, Route, useNavigate} from 'react-router-dom';
+import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
+
+
 
 const Navbar = () => {
+    let config = {
+        HOST: "http://localhost",
+        PORT: 8090
+    }
     const [show, setShow] = useState(false);
-
+    const [data, setData] = useState([]);
     let navigate = useNavigate();
     let location = useLocation();
 

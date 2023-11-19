@@ -17,6 +17,18 @@ function Hotel() {
           endDate: new Date(2023, 7, 15),
         },
       ])
+      const [data, setData] = useState([]);
+      useEffect( () => {
+        getLoginData();
+    }, [])
+
+    const getLoginData = () => {
+        fetch(config.HOST + ":" + config.PORT + "/login")
+        .then(response => response.json())
+        .then(data => {
+            setData(data);
+        });
+    }
 
 // desde el back, guardar y devolver las fechas reservadas asi:
 //un objeto asi se manda para reservarlo, las reservas para bloquearlas se tienen que mandar en un array de estos. Al guardar una reserva nueva, añadirla al fin del array
