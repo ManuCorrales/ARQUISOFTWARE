@@ -1,0 +1,36 @@
+version: '3'
+
+services:
+  mysql:
+    image: mariadb:10.4
+    environment:
+    - MYSQL_ROOT_PASSWORD=arqdeswucc123
+    - MYSQL_DATABASE=ucc
+    - MYSQL_USER=ucc
+    - MYSQL_PASSWORD=arqdeswucc123
+    - MYSQL_MAX_CONNECTIONS=1000
+    volumes:
+    - mysql-data:/var/lib/mysql
+  
+  backend:
+    restart: unless-stopped
+    build: ./backend/
+    ports:
+    - "8090:8090"
+    volumes:
+    - backend-files:/app/server/files
+
+  frontend:
+    container_name: frontend
+    restart: unless-stopped
+    image: frontend
+    build:
+      context: ./frontend/
+    volumes:
+      - ./src:/app/src
+    ports:
+      - 3000:80
+
+volumes:
+  mysql-data:
+  backend-files:

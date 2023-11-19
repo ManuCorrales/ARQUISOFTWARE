@@ -26,7 +26,7 @@ func init() {
 	DBUser := "ucc"
 	DBPass := "arqdeswucc123"
 	//DBPass := os.Getenv("MVC_DB_PASS")
-	DBHost := "host.docker.internal"
+	DBHost := "mysql"
 	// ------------------------
 
 	db, err = gorm.Open("mysql", DBUser+":"+DBPass+"@tcp("+DBHost+":3306)/"+DBName+"?charset=utf8&parseTime=True")
