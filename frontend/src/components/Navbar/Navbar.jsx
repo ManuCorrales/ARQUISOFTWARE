@@ -41,6 +41,14 @@ const Navbar = () => {
         setShow(!show);
     }
 
+    const [userData, setUserData] = useState(() => {
+        // getting stored value
+        const saved = localStorage.getItem("userData");
+        const initialValue = JSON.parse(saved);
+        return initialValue || "";
+      });
+
+
     const closeMobileMenu = (to, text) => {
 
         // No funciona
@@ -74,16 +82,25 @@ const Navbar = () => {
                     <NavLogo to="/">  {/*me manda al home*/}
                         <NavIcon src="../assets/logo.png" alt="logo" style={{ width: '111px', height: '111px'}}/>
                     </NavLogo>
+                    {userData&&
+                    <div style={{color:"white"}}>Hola!  {userData.user_name&&userData.user_name}</div>
+                    }
                     <MobileIcon onClick={handleClick}>
                         {show ? <FaTimes/> : <CgMenuRight/>}
                     </MobileIcon>
                     <NavMenu show={show}>
-                        {data.filter(item => item.text !== "Administrador" || Administrador) // sera true siermpre que no sea administrador ,
+                        {!userData&&data.filter(item => item.text !== "Administrador" || Administrador) // sera true siermpre que no sea administrador ,
                              .map((item, index) => (
                             <NavItem key={index}>
                                 <NavLinks onClick={() => closeMobileMenu(item.to, item.text)}> {item.text} </NavLinks>
                             </NavItem>
                         ))}
+                        {userData&&<NavItem key={0}>
+                                <NavLinks onClick={() => {
+                                localStorage.removeItem("userData");
+                                window.location.href = '/';
+                                }}>Cerrar Sesion </NavLinks>
+                            </NavItem>}
                     </NavMenu>
                 </NavbarContainer>
             </Nav>

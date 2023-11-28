@@ -23,7 +23,7 @@ const Register = () => {
 
       function submitForm(){
         console.log( formValues )
-        axios.post("http://localHost:8090/user", formValues).then( function (res){console.log(res)}).catch(err=>{console.log(err)} )
+        axios.post("http://localHost:8090/user", formValues).then( function (res){localStorage.setItem("userData", JSON.stringify(res.data));window.location.href = '/';}).catch(err=>{console.log(err)} )
 
       }
 

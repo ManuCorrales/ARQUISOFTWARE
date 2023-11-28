@@ -1,5 +1,7 @@
 import axios from "axios";
 import {useState} from 'react';
+import { useNavigate } from 'react-router-dom';
+
 
 function Login(){
 
@@ -16,12 +18,11 @@ const [formValues, setFormValues] = useState({
     }));
   };
 
-
 function submitLogin(){
      console.log(formValues)
 axios.post('http://localHost:8090/login', formValues)
-     .then(function (res){console.log(res)}).catch(err=>{console.log(err)})
-}
+     .then(function (res){localStorage.setItem("userData", JSON.stringify(res.data));window.location.href = '/';}).catch(err=>{console.log(err)})
+    }
     return(
         <div style={{ 
             width:" 100% ", 
