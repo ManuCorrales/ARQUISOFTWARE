@@ -11,13 +11,46 @@ function Hotel() {
 
     const [selectedDates, setSelectedDates] = useState([]);//mandar al apretar reservar
     const handleChange = (e) => {setSelectedDates(e);}
+          const [data, setData] = useState([]);
     const[reserved, setReserved] = useState([
         {
           startDate: new Date(2023, 7, 10),
           endDate: new Date(2023, 7, 15),
         },
       ])
-      const [data, setData] = useState([]);
+      useEffect(() => {
+        console.log("sejecuta")
+          const pathArray = window.location.pathname.split('/');
+          const lastPath = pathArray[pathArray.length - 1];
+          setLastDirectory(lastPath);
+          fetch('http://localhost:8090/hotels')
+          .then(response => {
+            // Check if the request was successful (status code 200)
+            if (!response.ok) {
+              throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+        
+            // Parse the response body as JSON
+            return response.json();
+          })
+          .then(data => {
+            data.forEach(element => {
+
+              console.log(decodeURIComponent(lastPath))
+              if(decodeURIComponent(lastPath)==element.name){
+                  setHotel(element)
+
+              }})
+          })
+          .catch(error => {
+            // Handle any errors that occurred during the fetch
+            console.error('Error:', error);
+          });
+        
+
+            }, [])
+
+
       useEffect( () => {
         getLoginData();
     }, [])
@@ -40,20 +73,7 @@ function Hotel() {
     console.log(temp)
 
   }
-
-
-    useEffect(() => {
-        const pathArray = window.location.pathname.split('/');
-        const lastPath = pathArray[pathArray.length - 1];
-        setLastDirectory(lastPath);
-        data.forEach(element => {
-            if(decodeURIComponent(lastDirectory.replace(/\+/g, ' '))==element.name){
-                setHotel(element)
-            }})
-    });
-
-
-    const getHotelData = (id) => {
+ const getHotelData = (id) => {
       fetch(config.HOST + ":" + config.PORT + "/hotel/" + id)
       .then(response => response.json())
       .then(hotel => {

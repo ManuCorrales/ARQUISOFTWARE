@@ -61,7 +61,7 @@ export const sliderSettings = {
 		{
 			breakpoint: 1280,
 			settings: {
-				slidesToShow: 2, // Cambiar a 2 máximo, POR DEFECTO 2
+				slidesToShow: 1, // Cambiar a 2 máximo, POR DEFECTO 2
 			},
 		},
 		{

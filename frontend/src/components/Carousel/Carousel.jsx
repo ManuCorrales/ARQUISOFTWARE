@@ -30,9 +30,12 @@ const Carousel = () => {
     const getHotelData = () => {
         fetch(config.HOST + ":" + config.PORT + "/hotels")
         .then(response => response.json())
-        .then(data => {
-            setData(data);
+        .then(getData => {
+            if(data.length==0){setData(getData);}
+            
+            console.log(getData)
         });
+
     }
 
 
@@ -46,7 +49,6 @@ const Carousel = () => {
             <Row justify="cent" margin="1rem" wrap="wrap" paddingTop="2rem">
                 <Heading inverse>
                     Paquetes y Promociones
-                    {console.log(data)}
                 </Heading>
                 <ButtonContainer>
                     <IconContext.Provider value={{size:"4rem", color:"#48719b", }}>
@@ -57,13 +59,13 @@ const Carousel = () => {
             </Row>
             {data && data.length > 0 && (
   <ReviewSlider {...sliderSettings} ref={setSliderRef}>
-    {data.map((data, index) => (
-      <ImageWrapper key={index} onClick={() => redirectLogic(data.name)}>
-        <CarouselImage src={data.image} />
+    {data.map((datai) => (
+      <ImageWrapper key={datai.name} onClick={() => redirectLogic(datai.name)}>
+        <CarouselImage src={datai.image} />
         <TextWrapper size="1.1rem" margin="0.75rem 0 0">
-          <strong style={{ display: "block", textAlign: "center" }}>{data.name}</strong>
+          <strong style={{ display: "block", textAlign: "center" }}>{datai.name}</strong>
           <br />
-          {data.description}
+          {datai.description}
         </TextWrapper>
         <CardButton> Mas Información </CardButton>
       </ImageWrapper>
