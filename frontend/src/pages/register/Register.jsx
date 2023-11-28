@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 
 
 
@@ -24,7 +24,7 @@ const Register = () => {
       function submitForm(){
         console.log( formValues )
         axios.post("http://localHost:8090/user", formValues).then( function (res){console.log(res)}).catch(err=>{console.log(err)} )
-             
+
       }
 
     return(
@@ -108,7 +108,7 @@ const Register = () => {
                             style={{ position:" absolute ", right:" 10px " }}/>
                 </div>   
                 <div style={{ width:" 100% ", margin:" 7px ", justifyContent:" center ", display:" Flex " }}>
-                     <button  onClick={submitForm()}> Registrar </button>
+                     <button  onClick={submitForm}> Registrar </button>
                 </div>
             </div> 
             {/* list/card component  (componente que hace la lista de hoteles) */}

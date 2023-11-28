@@ -4,14 +4,22 @@ import {useState} from 'react';
 function Login(){
 
 const [message, setMessage] = useState('');
-
-
-const handleChange = event => {
-    setMessage(event.target.value);
+const [formValues, setFormValues] = useState({
+    user_name: "",
+    password: "",
+  });
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormValues((prevValues) => ({
+      ...prevValues,
+      [name]: value,
+    }));
   };
 
+
 function submitLogin(){
-axios.get('/user/username/'+message)
+     console.log(formValues)
+axios.post('http://localHost:8090/login', formValues)
      .then(function (res){console.log(res)}).catch(err=>{console.log(err)})
 }
     return(
@@ -39,7 +47,10 @@ axios.get('/user/username/'+message)
                     <label> User: </label>
                     <input  style={{ right:" 10px ", position: " absolute"}}
                     onChange={handleChange}
-                    value={message}/> 
+                    value={formValues.user_name}
+                    name={"user_name"}
+                    /> 
+                    
                 </div>
                 <div style={{ 
                     paddingBottom:" 7px ",
@@ -48,7 +59,9 @@ axios.get('/user/username/'+message)
                 }}>  
                     <label>  Contraseña:  </label>
                    <input type="password"
-                        style={{ position:" absolute ", right:" 10px " }}/>
+                   onChange={handleChange}
+                        style={{ position:" absolute ", right:" 10px " }}
+                        name={"password"}/>
                 </div>   
                 <div style={{ width:" 100% ", margin:" 7px ", justifyContent:" center ", display:" Flex " }}>
                      <button onClick={submitLogin} > Enviar </button>

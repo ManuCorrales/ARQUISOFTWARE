@@ -1,5 +1,6 @@
 import { React, useState, useEffect } from 'react';
 import { FaTimes } from 'react-icons/fa';
+import {data} from "../../data/NavbarData.jsx"
 import { CgMenuRight } from 'react-icons/cg';
 import { IconContext } from 'react-icons';
 import "./Navbar.css";
@@ -23,21 +24,9 @@ const Navbar = () => {
         PORT: 8090
     }
     const [show, setShow] = useState(false);
-    const [data, setData] = useState([]);
+
     let navigate = useNavigate();
     let location = useLocation();
-
-    useEffect( () => {
-        getLoginData();
-    }, [])
-
-    const getLoginData = () => {
-        fetch(config.HOST + ":" + config.PORT + "/login")
-        .then(response => response.json())
-        .then(data => {
-            setData(data);
-        });
-    }
 
     const handleClick = () => {
         if (show === true){
