@@ -8,6 +8,7 @@ type Hotel struct {
 	Email        string `gorm:"type:varchar(250);not null;unique"`
 	Telephone    string `gorm:"type:varchar(50);not null"`
 	Rooms        int    `gorm:"type:integer;not null"`
+	Amenities    string `gorm:"type:varchar(250);not null"`
 	Image        string `gorm:"type:varchar(350);not null"`
 	Address      string `gorm:"not null;type:varchar(500)"`
 	Availability int    `gorm:"type:integer;not null"`

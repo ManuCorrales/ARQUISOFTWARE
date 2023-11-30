@@ -3,7 +3,7 @@ import React, { useState } from "react";
 
 
 
-const Register = () => {
+const Register = ({home, funcToggle}) => {
     const [formValues, setFormValues] = useState({
         name: "",
         last_name: "",
@@ -23,7 +23,7 @@ const Register = () => {
 
       function submitForm(){
         console.log( formValues )
-        axios.post("http://localHost:8090/user", formValues).then( function (res){localStorage.setItem("userData", JSON.stringify(res.data));window.location.href = '/';}).catch(err=>{console.log(err)} )
+        axios.post("http://localHost:8090/user", formValues).then( function (res){localStorage.setItem("userData", JSON.stringify(res.data));console.log(home);if(home==true){window.location.href = '/';}else{window.location.reload()}}).catch(err=>{console.log(err)} )
 
       }
 

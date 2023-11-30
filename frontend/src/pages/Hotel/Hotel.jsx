@@ -1,25 +1,31 @@
 import { useEffect, useState } from 'react'; 
 import {config} from '../../config'
-
+import axios from "axios";
 import Calendar from "@demark-pro/react-booking-calendar";
+import Modal from '../../components/Modal/Modal';
 
 
 
 function Hotel() {
     const [lastDirectory, setLastDirectory] = useState('');
     const [hotel, setHotel] = useState({});
-
+    const [modalVisible, setModalVisible] = useState(false);
     const [selectedDates, setSelectedDates] = useState([]);//mandar al apretar reservar
     const handleChange = (e) => {setSelectedDates(e);}
-          const [data, setData] = useState([]);
+    const [data, setData] = useState([]);
+    const [userData, setUserData] = useState(() => {
+      const saved = localStorage.getItem("userData");
+      const initialValue = JSON.parse(saved);
+      return initialValue || "";
+    });
     const[reserved, setReserved] = useState([
         {
           startDate: new Date(2023, 7, 10),
           endDate: new Date(2023, 7, 15),
         },
       ])
-      useEffect(() => {
-        console.log("sejecuta")
+
+    useEffect(() => {
           const pathArray = window.location.pathname.split('/');
           const lastPath = pathArray[pathArray.length - 1];
           setLastDirectory(lastPath);
@@ -39,6 +45,7 @@ function Hotel() {
               console.log(decodeURIComponent(lastPath))
               if(decodeURIComponent(lastPath)==element.name){
                   setHotel(element)
+                  console.log(element)
 
               }})
           })
@@ -55,6 +62,10 @@ function Hotel() {
         getLoginData();
     }, [])
 
+    function funcToggle(){
+      setModalVisible(false)
+    }
+
     const getLoginData = () => {
         fetch(config.HOST + ":" + config.PORT + "/login")
         .then(response => response.json())
@@ -68,10 +79,17 @@ function Hotel() {
 
 
   function reserveDate(){
-    var temp=reserved
-    temp.push({startDate:selectedDates[0],endDate:selectedDates[1]}) //en vez de guardar esto localmente se manda al back y ahi se añade al array de reservas
-    console.log(temp)
-
+    if(userData){
+    var formValues = {
+      DateFrom : selectedDates[0],
+      DateTo : selectedDates[1],
+      Precio: 6,
+      UserId: JSON.parse(localStorage.getItem("userData")).Id,
+      HotelId: hotel.Id
+    }
+    axios.post("http://localHost:8090/reserva", formValues).then( function (res){console.log(res)}).catch(err=>{console.log(err)} )
+    }
+    else{setModalVisible(true)}
   }
  const getHotelData = (id) => {
       fetch(config.HOST + ":" + config.PORT + "/hotel/" + id)
@@ -82,10 +100,13 @@ function Hotel() {
   }
 
     return (
-        <div style={{marginTop:"30px",width:"100vw",height:"100%",display:"flex",alignContent:"center",justifyContent:"center"}}>
+      <div>
+        {modalVisible&&<Modal funcToggle={funcToggle}/>}
+        <div style={{width:"100%",height:"100%",display:"flex",alignContent:"center",justifyContent:"center"}}>
             <div style={{marginTop:"30px",width:"900px",height:"1200px", padding:"40px", borderRadius:"10px", backgroundColor:"white"}}>
                 <div style={{width:"100%",fontSize:"40px"}}>{hotel.name}</div>
                 <div style={{padding:"10px"}}>{hotel.description}</div>
+                <div style={{padding:"10px"}}>Amenities: {hotel.Amenities}</div>
                 <img src={hotel.image} style={{width:"100%"}}/> 
                 <div style={{border:" 1px solid gray", borderRadius:"10px",paddingTop:"20px",marginTop:"20px"}}>
                   <Calendar
@@ -109,6 +130,7 @@ function Hotel() {
                  </div>
             </div>
         </div>
+      </div>
     );
   }
   export default Hotel

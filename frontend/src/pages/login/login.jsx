@@ -3,7 +3,7 @@ import {useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 
 
-function Login(){
+function Login({home, funcToggle}){
 
 const [message, setMessage] = useState('');
 const [formValues, setFormValues] = useState({
@@ -21,7 +21,7 @@ const [formValues, setFormValues] = useState({
 function submitLogin(){
      console.log(formValues)
 axios.post('http://localHost:8090/login', formValues)
-     .then(function (res){localStorage.setItem("userData", JSON.stringify(res.data));window.location.href = '/';}).catch(err=>{console.log(err)})
+     .then(function (res){localStorage.setItem("userData", JSON.stringify(res.data));console.log(home);if(home==true){window.location.href = '/';}else{window.location.reload()}}).catch(err=>{console.log(err)})
     }
     return(
         <div style={{ 
