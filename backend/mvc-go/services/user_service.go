@@ -147,6 +147,11 @@ func (u *userService) Login(loginDto dto.LoginDto) (dto.LoginResponseDto, e.ApiE
 
 	loginResponseDto.UserId = user.Id
 	loginResponseDto.Isadmin = user.IsAdmin
+	loginResponseDto.Name = user.Name
+	loginResponseDto.LastName = user.LastName
+	loginResponseDto.Email = user.Email
+	loginResponseDto.UserName = user.UserName
+
 	log.Debug(loginResponseDto)
 
 	return loginResponseDto, nil

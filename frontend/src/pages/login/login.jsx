@@ -7,7 +7,7 @@ function Login({home, funcToggle}){
 
 const [message, setMessage] = useState('');
 const [formValues, setFormValues] = useState({
-    user_name: "",
+    username: "",
     password: "",
   });
   const handleChange = (event) => {
@@ -21,7 +21,7 @@ const [formValues, setFormValues] = useState({
 function submitLogin(){
      console.log(formValues)
 axios.post('http://localHost:8090/login', formValues)
-     .then(function (res){localStorage.setItem("userData", JSON.stringify(res.data));console.log(home);if(home==true){window.location.href = '/';}else{window.location.reload()}}).catch(err=>{console.log(err)})
+     .then(function (res){console.log(res.data);localStorage.setItem("userData", JSON.stringify(res.data));if(home==true){window.location.href = '/';}else{window.location.reload()}}).catch(err=>{console.log(err)})
     }
     return(
         <div style={{ 
@@ -48,7 +48,7 @@ axios.post('http://localHost:8090/login', formValues)
                     <label> User: </label>
                     <input  style={{ right:" 10px ", position: " absolute"}}
                     onChange={handleChange}
-                    value={formValues.user_name}
+                    value={formValues.name}
                     name={"user_name"}
                     /> 
                     

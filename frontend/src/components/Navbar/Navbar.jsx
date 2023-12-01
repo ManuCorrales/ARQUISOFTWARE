@@ -45,6 +45,7 @@ const Navbar = () => {
         // getting stored value
         const saved = localStorage.getItem("userData");
         const initialValue = JSON.parse(saved);
+        console.log(initialValue)
         return initialValue || "";
       });
 
@@ -100,6 +101,11 @@ const Navbar = () => {
                                 localStorage.removeItem("userData");
                                 window.location.href = '/';
                                 }}>Cerrar Sesion </NavLinks>
+                            </NavItem>}
+                        {userData.isadmin==1&&<NavItem key={0}>
+                                <NavLinks onClick={() => {
+                                window.location.href = '/admin';
+                        }}>Administrador </NavLinks>
                             </NavItem>}
                     </NavMenu>
                 </NavbarContainer>
