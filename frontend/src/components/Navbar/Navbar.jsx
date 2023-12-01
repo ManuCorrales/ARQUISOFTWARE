@@ -96,13 +96,13 @@ const Navbar = () => {
                                 <NavLinks onClick={() => closeMobileMenu(item.to, item.text)}> {item.text} </NavLinks>
                             </NavItem>
                         ))}
-                        {userData&&<NavItem key={0}>
+                        {userData&&<NavItem>
                                 <NavLinks onClick={() => {
                                 localStorage.removeItem("userData");
                                 window.location.href = '/';
                                 }}>Cerrar Sesion </NavLinks>
                             </NavItem>}
-                        {userData.isadmin==1&&<NavItem key={0}>
+                        {userData.isadmin==1&&<NavItem>
                                 <NavLinks onClick={() => {
                                 window.location.href = '/admin';
                         }}>Administrador </NavLinks>

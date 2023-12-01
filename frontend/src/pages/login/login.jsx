@@ -49,7 +49,7 @@ axios.post('http://localHost:8090/login', formValues)
                     <input  style={{ right:" 10px ", position: " absolute"}}
                     onChange={handleChange}
                     value={formValues.name}
-                    name={"user_name"}
+                    name={"username"}
                     /> 
                     
                 </div>
