@@ -1,7 +1,7 @@
 package services
 
 import (
-
+	"fmt"
 	log "github.com/sirupsen/logrus"
 	"errors"
 	userclient "mvc-go/clients/user"
@@ -136,17 +136,22 @@ func (u *userService) CreateUser(userDto dto.UserDto) (dto.UserDto, e.ApiError) 
 
 func (u *userService) Login(loginDto dto.LoginDto) (dto.LoginResponseDto, e.ApiError) {
 	var user model.User
+	fmt.Printf("Login request: %+v\n", loginDto)
 	user = userclient.GetUserByUsername(loginDto.Username)
+	
 	var loginResponseDto dto.LoginResponseDto
 	if user.Id == 0 {
 
 		return loginResponseDto, e.NewNotFoundApiError("user not found")
 	}
-	loginResponseDto.UserId = -1
-
 
 	loginResponseDto.UserId = user.Id
 	loginResponseDto.Isadmin = user.IsAdmin
+	loginResponseDto.Name = user.Name
+	loginResponseDto.LastName = user.LastName
+	loginResponseDto.Email = user.Email
+	loginResponseDto.UserName = user.UserName
+	fmt.Printf("Login response details: %+v\n", loginResponseDto)
 	log.Debug(loginResponseDto)
 
 	return loginResponseDto, nil

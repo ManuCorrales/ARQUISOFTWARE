@@ -41,6 +41,7 @@ func (h *hotelService) GetHotelById(id int) (dto.HotelDto, e.ApiError) {
 	hotelDto.Availability = hotel.Availability
 	hotelDto.Description = hotel.Description
 	hotelDto.Email = hotel.Email
+	hotelDto.Amenities = hotel.Amenities
 	hotelDto.Telephone = hotel.Telephone
 	hotelDto.Rooms = hotel.Rooms
 	hotelDto.Image = hotel.Image
@@ -61,6 +62,7 @@ func (h *hotelService) GetHotels() (dto.HotelsDto, e.ApiError) {
 		hotelDto.Description = hotel.Description
 		hotelDto.Email = hotel.Email
 		hotelDto.Name = hotel.Name
+		hotelDto.Amenities = hotel.Amenities
 		hotelDto.Telephone = hotel.Telephone
 		hotelDto.Rooms = hotel.Rooms
 		hotelDto.Image = hotel.Image
@@ -80,6 +82,7 @@ func (h *hotelService) InsertHotel(hotelDto dto.HotelRequestDto) (dto.HotelDto, 
 	hotel.Name = hotelDto.Name
 	hotel.Telephone = hotelDto.Telephone
 	hotel.Rooms = hotelDto.Rooms
+	hotel.Amenities = hotelDto.Amenities
 	hotel.Image = hotelDto.Image
 
 	hotel = hotelclient.Inserthotel(hotel)
@@ -91,6 +94,7 @@ func (h *hotelService) InsertHotel(hotelDto dto.HotelRequestDto) (dto.HotelDto, 
 	hotelRespDto.Name = hotel.Name
 	hotelRespDto.Telephone = hotel.Telephone
 	hotelRespDto.Rooms = hotel.Rooms
+	hotelRespDto.Amenities = hotel.Amenities
 	hotelRespDto.Image = hotel.Image
 
 	return hotelRespDto, nil
@@ -108,6 +112,7 @@ func (h *hotelService) InsertHotels(hotelsDto dto.HotelsRequestDto) (dto.HotelsD
 		hotel.Name = hotelDto.Name
 		hotel.Telephone = hotelDto.Telephone
 		hotel.Rooms = hotelDto.Rooms
+		hotel.Amenities = hotelDto.Amenities
 		hotel.Image = hotelDto.Image
 		hotel = hotelclient.Inserthotel(hotel)
 
@@ -116,6 +121,7 @@ func (h *hotelService) InsertHotels(hotelsDto dto.HotelsRequestDto) (dto.HotelsD
 		hotelRespDto.Description = hotel.Description
 		hotelRespDto.Email = hotel.Email
 		hotelRespDto.Name = hotel.Name
+		hotelRespDto.Amenities = hotel.Amenities
 		hotelRespDto.Telephone = hotel.Telephone
 		hotelRespDto.Rooms = hotel.Rooms
 		hotelRespDto.Image = hotel.Image
@@ -140,6 +146,7 @@ func (h *hotelService) HabitacionesDisponibles(hotelID int, Datefrom time.Time, 
 			Email:        hotel.Email,
 			Name:         hotel.Name,
 			Telephone:    hotel.Telephone,
+			Amenities:    hotel.Amenities,
 			Rooms:        hotel.Rooms,
 			Image:        hotel.Image,
 		},

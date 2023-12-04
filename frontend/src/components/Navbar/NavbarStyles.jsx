@@ -5,7 +5,6 @@ import './Navbar.css'
 
 export const Nav = styled.nav`
 	background: #48719b;
-	margin-bottom: 3rem;
 	height: 80px;
 	display: flex;
 	justify-content: center;

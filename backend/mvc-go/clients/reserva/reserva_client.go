@@ -1,6 +1,7 @@
 package reserva
 
 import (
+	"fmt"
 	"mvc-go/model"
 
 	"github.com/jinzhu/gorm"
@@ -34,6 +35,7 @@ func InsertReserva(reserva model.Reserva) model.Reserva {
 		log.Error("no se pudo agregar la reserva")
 	}
 	log.Debug("reserva Created: ", reserva.Id)
+	fmt.Printf("Resultado db create: %+v\n", result)
 	return reserva
 }
 

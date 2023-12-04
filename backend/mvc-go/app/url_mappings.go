@@ -29,7 +29,7 @@ func mapUrls() {
 	router.POST("/reserva", reservaController.ReservaInsert)
 	router.GET("/reserva/user/:id", reservaController.GetReservasByUserId)
 
-	router.POST("/login", userController.Userlogin)
+	router.POST("/login", userController.UserLogin)
 
 	log.Info("Finishing mappings configurations")
 }

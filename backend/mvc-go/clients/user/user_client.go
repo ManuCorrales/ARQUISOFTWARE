@@ -22,7 +22,7 @@ func GetUserById(id int) model.User {
 func GetUserByUsername(username string) model.User {
 	var user model.User
 	
-	Db.Where("username = ?", username).Preload("reserva").First(&user)
+	Db.Where("user_name = ?", username).Preload("Reservas").First(&user)
 
 	log.Debug("User: ", user)
 

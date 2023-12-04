@@ -1,13 +1,21 @@
 import axios from "axios";
 import {useState} from 'react';
+import { useNavigate } from 'react-router-dom';
 
-function Login(){
+
+function Login({home, funcToggle}){
 
 const [message, setMessage] = useState('');
-
-
-const handleChange = event => {
-    setMessage(event.target.value);
+const [formValues, setFormValues] = useState({
+    username: "",
+    password: "",
+  });
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormValues((prevValues) => ({
+      ...prevValues,
+      [name]: value,
+    }));
   };
 
 
@@ -21,9 +29,10 @@ const handleChange = event => {
 }
 
 function submitLogin(){
-axios.get('/user/username/'+message)
-     .then(function (res){console.log(res)}).catch(err=>{console.log(err)})
-}
+     console.log(formValues)
+axios.post('http://localHost:8090/login', formValues)
+     .then(function (res){console.log(res.data);localStorage.setItem("userData", JSON.stringify(res.data));if(home==true){window.location.href = '/';}else{window.location.reload()}}).catch(err=>{console.log(err)})
+    }
     return(
         <div style={{ 
             width:" 100% ", 
@@ -49,7 +58,10 @@ axios.get('/user/username/'+message)
                     <label> User: </label>
                     <input  style={{ right:" 10px ", position: " absolute"}}
                     onChange={handleChange}
-                    value={message}/> 
+                    value={formValues.name}
+                    name={"username"}
+                    /> 
+                    
                 </div>
                 <div style={{ 
                     paddingBottom:" 7px ",
@@ -58,7 +70,9 @@ axios.get('/user/username/'+message)
                 }}>  
                     <label>  Contraseña:  </label>
                    <input type="password"
-                        style={{ position:" absolute ", right:" 10px " }}/>
+                   onChange={handleChange}
+                        style={{ position:" absolute ", right:" 10px " }}
+                        name={"password"}/>
                 </div>   
                 <div style={{ width:" 100% ", margin:" 7px ", justifyContent:" center ", display:" Flex " }}>
                      <button onClick={submitLogin} > Enviar </button>

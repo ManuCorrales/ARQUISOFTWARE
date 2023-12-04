@@ -8,5 +8,10 @@ type LoginDto struct {
 
 type LoginResponseDto struct {
 	UserId int    `json:"user_id"`
-	Isadmin   bool   `json:"type"`
+	Isadmin   bool   `json:"isadmin"`
+	Name     string `json:"name"`
+	LastName string `json:"last_name"`
+	Email    string `json:"email"`
+	UserName string `json:"user_name"`
+
 }

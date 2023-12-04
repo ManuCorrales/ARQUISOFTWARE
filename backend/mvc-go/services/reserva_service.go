@@ -1,7 +1,9 @@
 package services
 
 import (
+	"fmt"
 	reservaClient "mvc-go/clients/reserva"
+
 	//"net/http"
 	//hotelClient "mvc-go/clients/hotel"
 	"mvc-go/dto"
@@ -54,6 +56,8 @@ func (r *reservaService) GetReservas() (dto.ReservasDto, e.ApiError) {
 		reservaDto.Id = reserva.Id
 		reservaDto.DateFrom = reserva.DateFrom
 		reservaDto.DateTo = reserva.DateTo
+		reservaDto.UserId = reserva.UserId
+		reservaDto.HotelId = reserva.HotelId
 
 		ReservasDto = append(ReservasDto, reservaDto)
 	}
@@ -64,12 +68,14 @@ func (r *reservaService) GetReservas() (dto.ReservasDto, e.ApiError) {
 func (r *reservaService) Insertreserva(ReservaDto dto.ReservaDto) (dto.ReservaDto, e.ApiError) {
 	var Reserva model.Reserva
 
-	ReservaDto.Id = Reserva.Id
-	ReservaDto.DateFrom = Reserva.DateFrom // Fecha de inicio de la reserva
-	ReservaDto.DateTo = Reserva.DateTo     // Fecha de finalización de la reserva
+	Reserva.DateFrom = ReservaDto.DateFrom // Fecha de inicio de la reserva
+	Reserva.DateTo = ReservaDto.DateTo     // Fecha de finalización de la reserva
+	Reserva.UserId = ReservaDto.UserId
+	Reserva.HotelId = ReservaDto.HotelId
+	fmt.Printf("Reservas service: %+v\n", Reserva)
 
 	Reserva = reservaClient.InsertReserva(Reserva)
-	ReservaDto.Id = Reserva.Id
+	//ReservaDto.Id = Reserva.Id
 
 	return ReservaDto, nil
 }
