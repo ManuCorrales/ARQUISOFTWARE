@@ -1,6 +1,6 @@
+import { data } from '../../data/NavbarData.jsx'
 import { React, useState, useEffect } from 'react';
 import { FaTimes } from 'react-icons/fa';
-import {data} from "../../data/NavbarData.jsx"
 import { CgMenuRight } from 'react-icons/cg';
 import { IconContext } from 'react-icons';
 import "./Navbar.css";
@@ -28,6 +28,8 @@ const Navbar = () => {
     let navigate = useNavigate();
     let location = useLocation();
 
+
+
     const handleClick = () => {
         if (show === true){
             document.querySelector("#nav-container").style.position="relative";
@@ -40,15 +42,6 @@ const Navbar = () => {
 
         setShow(!show);
     }
-
-    const [userData, setUserData] = useState(() => {
-        // getting stored value
-        const saved = localStorage.getItem("userData");
-        const initialValue = JSON.parse(saved);
-        console.log(initialValue)
-        return initialValue || "";
-      });
-
 
     const closeMobileMenu = (to, text) => {
 
@@ -83,30 +76,19 @@ const Navbar = () => {
                     <NavLogo to="/">  {/*me manda al home*/}
                         <NavIcon src="../assets/logo.png" alt="logo" style={{ width: '111px', height: '111px'}}/>
                     </NavLogo>
-                    {userData&&
-                    <div style={{color:"white"}}>Hola!  {userData.user_name&&userData.user_name}</div>
-                    }
                     <MobileIcon onClick={handleClick}>
                         {show ? <FaTimes/> : <CgMenuRight/>}
                     </MobileIcon>
                     <NavMenu show={show}>
-                        {!userData&&data.filter(item => item.text !== "Administrador" || Administrador) // sera true siermpre que no sea administrador ,
+                        {data.filter(item => item.text !== "Administrador" || Administrador) // sera true siermpre que no sea administrador ,
                              .map((item, index) => (
                             <NavItem key={index}>
                                 <NavLinks onClick={() => closeMobileMenu(item.to, item.text)}> {item.text} </NavLinks>
                             </NavItem>
                         ))}
-                        {userData&&<NavItem>
-                                <NavLinks onClick={() => {
-                                localStorage.removeItem("userData");
-                                window.location.href = '/';
-                                }}>Cerrar Sesion </NavLinks>
-                            </NavItem>}
-                        {userData.isadmin==1&&<NavItem>
-                                <NavLinks onClick={() => {
-                                window.location.href = '/admin';
-                        }}>Administrador </NavLinks>
-                            </NavItem>}
+                        <NavItem key={5}>
+                                <NavLinks onClick={() => closeMobileMenu("/listaReservas", "Reservas")}> Reservas </NavLinks>
+                            </NavItem>
                     </NavMenu>
                 </NavbarContainer>
             </Nav>

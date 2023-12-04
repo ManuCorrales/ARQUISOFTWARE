@@ -60,14 +60,30 @@ const reservasFiltradas = reservas.filter((reserva) => {
   
   return(
   <div style={{
+    backgroundColor:"white",
+    borderRadius:"10px",
     justifyContent:"center", 
     display:"flex", 
     flexDirection:"column", 
     marginTop:"30px", 
-    margin:"50px"}} >
-    <div>
-  <label for="hotel">Selecciona un hotel:</label>
+    margin:"50px"
+    }} >
 
+  <div style={{
+    margin:"20px",
+    display:"grid",
+    gridTemplateColumns:"1fr, 1fr"
+  }}>
+  <div style={{
+    gridColumn:"1",
+    marginRight:"20px",
+    borderColor:"black",
+    borderRadius:"10px",
+    borderStyle:"solid",
+    borderWidth:"1px",
+    padding:"10px"
+  }}>
+  <label for="hotel">Selecciona un hotel:</label>
   <select name="hotel" id="hotel" onChange={handleHotelChange}>     
     <option key={-1} value={"todos"}> Todos </option> 
     {hotels.map((item, index) => (
@@ -76,24 +92,70 @@ const reservasFiltradas = reservas.filter((reserva) => {
           </option>
         ))}
   </select>
+  </div>
+  <div style={{
+    gridColumn:"2",
+    marginRight:"20px",
+    borderColor:"black",
+    borderRadius:"10px",
+    borderStyle:"solid",
+    borderWidth:"1px",
+    padding:"10px",
+    justifyContent:"center"
+  }}>
   <label htmlFor="fecha">Selecciona una fecha:</label>
       <input type="date" id="fecha" name="fecha" onChange={handleFechaChange} value={fechaSeleccionada} />
-  </div>
+ </div> 
+ </div>
   <div style={{display:"flex", flexDirection:"column"}}>
-  <table>
+  <table style={{
+    marginLeft:"80px",
+    marginRight:"80px",
+    marginBottom:"80px"
+  }}>
         <thead>
           <tr>
-            <th>Date From</th>
-            <th>Date To</th>
-            <th>Hotel ID</th>
+            <th style={{textAlign:"left",
+                        marginRight:"20px",
+                        borderColor:"black",
+                        borderStyle:"solid",
+                        borderWidth:"1px",
+                        }}>Date From</th>
+            <th style={{textAlign:"left",
+                        marginRight:"20px",
+                        borderColor:"black",
+                        borderStyle:"solid",
+                        borderWidth:"1px",
+                         }}>Date To</th>
+            <th style={{textAlign:"left",
+                        marginRight:"20px",
+                        borderColor:"black",
+                        borderStyle:"solid",
+                        borderWidth:"1px",
+                        }}>Hotel</th>
           </tr>
         </thead>
         <tbody>
           {reservasFiltradas.map((reserva, index) => (
             <tr key={index}>
-              <td>{reserva.date_from}</td>
-              <td>{reserva.date_to}</td>
-              <td>{reserva.hotel_id}</td>
+              <td style={{textAlign:"left",
+                        marginRight:"20px",
+                        borderColor:"black",
+                        borderStyle:"solid",
+                        borderWidth:"1px",
+                        }}>{reserva.date_from}</td>
+              <td style={{textAlign:"left",
+                        marginRight:"20px",
+                        borderColor:"black",
+                        borderStyle:"solid",
+                        borderWidth:"1px",
+                        }}>{reserva.date_to}</td>
+              <td style={{textAlign:"left",
+                        marginRight:"20px",
+                        borderColor:"black",
+                        borderStyle:"solid",
+                        borderWidth:"1px",
+                        }}>{hotels.filter((hotelj)=> hotelj.id==reserva.hotel_id).map((hoteli)=> (hoteli.name))}</td>
             </tr>
           ))}
         </tbody>
