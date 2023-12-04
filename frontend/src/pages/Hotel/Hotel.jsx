@@ -6,6 +6,7 @@ import Modal from '../../components/Modal/Modal';
 
 
 
+
 function Hotel() {
     const [lastDirectory, setLastDirectory] = useState('');
     const [hotel, setHotel] = useState({});
@@ -16,6 +17,7 @@ function Hotel() {
     const [userData, setUserData] = useState(() => {
       const saved = localStorage.getItem("userData");
       const initialValue = JSON.parse(saved);
+      console.log(initialValue);
       return initialValue || "";
     });
     const[reserved, setReserved] = useState([
@@ -81,12 +83,13 @@ function Hotel() {
   function reserveDate(){
     if(userData){
     var formValues = {
-      DateFrom : selectedDates[0],
-      DateTo : selectedDates[1],
-      Precio: 6,
-      UserId: JSON.parse(localStorage.getItem("userData")).Id,
-      HotelId: hotel.Id
+      date_from : selectedDates[0],
+      date_to : selectedDates[1],
+      precio: 6,
+      user_id: userData.user_id,
+      hotel_id: hotel.id
     }
+    console.log(formValues)
     axios.post("http://localHost:8090/reserva", formValues).then( function (res){console.log(res)}).catch(err=>{console.log(err)} )
     }
     else{setModalVisible(true)}
@@ -125,7 +128,7 @@ function Hotel() {
                              dateFnsOptions={{ weekStartsOn: 1 }}
                              range={true}
                              isStart={true}
-                  />
+                  />  
                      <button style={{marginTop:"30px",width:"10%",position:"relative",bottom:"10px",left:"45%" }} onClick={reserveDate}> Reservar </button>
                  </div>
             </div>
