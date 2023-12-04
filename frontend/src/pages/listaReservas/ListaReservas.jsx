@@ -7,18 +7,24 @@ import { useEffect } from "react";
 function ListaReservas(){
     //const [formValues, setFormValues] = useState(fetch('http://localhost:8090/hotels'))
     const [hotels, setHotels] = useState([])
+    const [usuarios, setUsuarios] = useState([])
     const[hotelSeleccionado, setHotelSeleccionado] = useState({})
     const[reservas, setReservas] = useState([])
     const [fechaSeleccionada, setFechaSeleccionada] = useState("");
     const handleHotelChange = (event) => {
         const selectedValue = event.target.value;
         setHotelSeleccionado(selectedValue);
-        console.log(selectedValue)
       };
     const handleFechaChange = (event) => {
         const selectedDate = event.target.value;
         setFechaSeleccionada(selectedDate);
       };
+      const [userData, setUserData] = useState(() => {
+        // getting stored value
+        const saved = localStorage.getItem("userData");
+        const initialValue = JSON.parse(saved);
+        return initialValue || "";
+      });
 
     useEffect(() => {
       fetch('http://localhost:8090/hotels')
@@ -29,10 +35,16 @@ function ListaReservas(){
           setHotels(dataRequest)
         })
     }, [])
-
-    useEffect(()=>{
-        console.log(hotels)
-    }, [hotels])
+    useEffect(() => {
+        fetch('http://localhost:8090/users')
+          .then((response) => {
+            return response.json()
+          })
+          .then((dataRequest) => {
+            setUsuarios(dataRequest)
+            console.log(dataRequest)
+          })
+      }, [])
 
     useEffect(() => {
         fetch('http://localhost:8090/reservas')
@@ -41,7 +53,6 @@ function ListaReservas(){
           })
           .then((dataRequest) => {
             setReservas(dataRequest)
-            console.log(dataRequest)
           })
       }, [])
 
@@ -133,6 +144,12 @@ const reservasFiltradas = reservas.filter((reserva) => {
                         borderStyle:"solid",
                         borderWidth:"1px",
                         }}>Hotel</th>
+            {userData.isadmin&&<th style={{textAlign:"left",
+                        marginRight:"20px",
+                        borderColor:"black",
+                        borderStyle:"solid",
+                        borderWidth:"1px",
+                        }}>Usuario & Email</th>}
           </tr>
         </thead>
         <tbody>
@@ -156,6 +173,12 @@ const reservasFiltradas = reservas.filter((reserva) => {
                         borderStyle:"solid",
                         borderWidth:"1px",
                         }}>{hotels.filter((hotelj)=> hotelj.id==reserva.hotel_id).map((hoteli)=> (hoteli.name))}</td>
+              {userData.isadmin&&<td style={{textAlign:"left",
+                        marginRight:"20px",
+                        borderColor:"black",
+                        borderStyle:"solid",
+                        borderWidth:"1px",
+                        }}>{usuarios.filter((userj)=> userj.id==reserva.user_id).map((useri)=> (useri.user_name + " | " + useri.email))}</td>}
             </tr>
           ))}
         </tbody>
