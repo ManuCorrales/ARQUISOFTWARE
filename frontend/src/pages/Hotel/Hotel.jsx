@@ -3,6 +3,8 @@ import {config} from '../../config'
 import axios from "axios";
 import Calendar from "@demark-pro/react-booking-calendar";
 import Modal from '../../components/Modal/Modal';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 
@@ -79,21 +81,52 @@ function Hotel() {
 // desde el back, guardar y devolver las fechas reservadas asi:
 //un objeto asi se manda para reservarlo, las reservas para bloquearlas se tienen que mandar en un array de estos. Al guardar una reserva nueva, añadirla al fin del array
 
-
-  function reserveDate(){
-    if(userData){
+async function reserveDate(){
+  if (userData) {
     var formValues = {
-      date_from : selectedDates[0],
-      date_to : selectedDates[1],
+      date_from: selectedDates[0],
+      date_to: selectedDates[1],
       precio: 6,
       user_id: userData.user_id,
-      hotel_id: hotel.id
+      hotel_id: hotel.id,
+    };
+
+    try {
+      // Show "Your reservation is in progress" toast
+      const progressToastId = toast.promise(
+        axios.post("http://localhost:8090/reserva", formValues)
+          .then((res) => {
+            console.log(res);
+            // You can return any value you want to use after the toast is resolved
+            return 'Reservation successful';
+          })
+          .catch((err) => {
+            console.log(err);
+            throw new Error('Reservation failed. Please try again.');
+          }),
+        {
+          pending: 'Tu reserva esta en progreso.',
+          success: 'Se ha realizado la reserva exitosamente.',
+          error: 'La reserva ha fallado.',
+        }
+      );
+
+      // Wait for the toast to be resolved
+      const result = await toast.promise(progressToastId);
+      console.log('Toast resolved with result:', result);
+    } catch (error) {
+      console.error('Error:', error);
     }
-    console.log(formValues)
-    axios.post("http://localHost:8090/reserva", formValues).then( function (res){console.log(res)}).catch(err=>{console.log(err)} )
-    }
-    else{setModalVisible(true)}
+  } else {
+    setModalVisible(true);
   }
+};
+
+
+
+
+
+  
  const getHotelData = (id) => {
       fetch(config.HOST + ":" + config.PORT + "/hotel/" + id)
       .then(response => response.json())
@@ -104,6 +137,7 @@ function Hotel() {
 
     return (
       <div>
+        <ToastContainer />
         {modalVisible&&<Modal funcToggle={funcToggle}/>}
         <div style={{width:"100%",height:"100%",display:"flex",alignContent:"center",justifyContent:"center"}}>
             <div style={{marginTop:"30px",width:"900px",height:"1200px", padding:"40px", borderRadius:"10px", backgroundColor:"white"}}>
