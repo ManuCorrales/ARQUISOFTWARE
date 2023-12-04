@@ -59,7 +59,12 @@ const reservasFiltradas = reservas.filter((reserva) => {
   
   
   return(
-  <div style={{justifyContent:"center", display:"flex", flexDirection:"column"}} >
+  <div style={{
+    justifyContent:"center", 
+    display:"flex", 
+    flexDirection:"column", 
+    marginTop:"30px", 
+    margin:"50px"}} >
     <div>
   <label for="hotel">Selecciona un hotel:</label>
 
@@ -74,7 +79,7 @@ const reservasFiltradas = reservas.filter((reserva) => {
   <label htmlFor="fecha">Selecciona una fecha:</label>
       <input type="date" id="fecha" name="fecha" onChange={handleFechaChange} value={fechaSeleccionada} />
   </div>
-  <div>
+  <div style={{display:"flex", flexDirection:"column"}}>
   <table>
         <thead>
           <tr>
