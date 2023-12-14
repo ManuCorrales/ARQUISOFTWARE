@@ -13,7 +13,8 @@ var Db *gorm.DB
 func GetHotelById(id int) model.Hotel {
 	var hotel model.Hotel
 
-	Db.Where("id = ?", id).Preload("reserva").First(&hotel)
+	//Db.Where("id = ?", id).Preload("Amenities").Preload("Images").First(&hotel)
+	Db.Where("id = ?", id).First(&hotel)
 	log.Debug("Hotel: ", hotel)
 
 	return hotel
@@ -38,14 +39,20 @@ func Inserthotel(hotel model.Hotel) model.Hotel {
 	log.Debug("hotel Created: ", hotel.ID)
 	return hotel
 }
-
-func Updatehotel(hotel model.Hotel) model.Hotel {
-
+func UpdateHotel(hotel model.Hotel) {
 	Db.Save(&hotel)
-	log.Debug("Hotel Updated : ", hotel.ID)
+	log.Debug("Hotel Updated: ", hotel.ID)
+}
 
-	return hotel
+func DeleteHotel(hotel model.Hotel) error {
+	err := Db.Delete(&hotel).Error
 
+	if err != nil {
+		log.Debug("Failed to delete hotel")
+	} else {
+		log.Debug("Hotel deleted: ", hotel.ID)
+	}
+	return err
 }
 
 func GethabitacionesDisponibles(hotelID int, totalHabitaciones int, Datefrom time.Time, Dateto time.Time) int {
@@ -73,4 +80,3 @@ func GethabitacionesDisponibles(hotelID int, totalHabitaciones int, Datefrom tim
 
 	return hotel
 }*/
-
