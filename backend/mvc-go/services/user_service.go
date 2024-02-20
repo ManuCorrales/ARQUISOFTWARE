@@ -1,9 +1,7 @@
 package services
 
 import (
-	"fmt"
 	log "github.com/sirupsen/logrus"
-	"errors"
 	userclient "mvc-go/clients/user"
 	"mvc-go/dto"
 	"mvc-go/model"
@@ -136,7 +134,7 @@ func (u *userService) CreateUser(userDto dto.UserDto) (dto.UserDto, e.ApiError) 
 
 func (u *userService) Login(loginDto dto.LoginDto) (dto.LoginResponseDto, e.ApiError) {
 	var user model.User
-	fmt.Printf("Login request: %+v\n", loginDto)
+	
 	user = userclient.GetUserByUsername(loginDto.Username)
 	
 	var loginResponseDto dto.LoginResponseDto
@@ -151,7 +149,7 @@ func (u *userService) Login(loginDto dto.LoginDto) (dto.LoginResponseDto, e.ApiE
 	loginResponseDto.LastName = user.LastName
 	loginResponseDto.Email = user.Email
 	loginResponseDto.UserName = user.UserName
-	fmt.Printf("Login response details: %+v\n", loginResponseDto)
+
 	log.Debug(loginResponseDto)
 
 	return loginResponseDto, nil
@@ -159,7 +157,7 @@ func (u *userService) Login(loginDto dto.LoginDto) (dto.LoginResponseDto, e.ApiE
 
 
 
-func Auth(user model.User) (model.AuthResponse, error) {
+/*func Auth(user model.User) (model.AuthResponse, error) {
 	token, err := GenerateToken(user.UserName)
 	if err != nil {
 		return model.AuthResponse{}, errors.New("forbidden")
@@ -178,4 +176,4 @@ func GenerateToken(username string) (string, error) {
 
 	// Completar
 	return "abc123456", nil
-}
+}*/

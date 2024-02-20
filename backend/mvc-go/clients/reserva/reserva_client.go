@@ -1,7 +1,6 @@
 package reserva
 
 import (
-	"fmt"
 	"mvc-go/model"
 
 	"github.com/jinzhu/gorm"
@@ -13,7 +12,7 @@ var Db *gorm.DB
 func GetReservaById(id int) model.Reserva {
 	var Reserva model.Reserva
 
-	Db.Where("id = ?", id).First(&Reserva)
+	Db.Where("id = ?", id).Preload("User").Preload("Hotel").First(&Reserva)
 	log.Debug("Reserva: ", Reserva)
 
 	return Reserva
@@ -35,7 +34,6 @@ func InsertReserva(reserva model.Reserva) model.Reserva {
 		log.Error("no se pudo agregar la reserva")
 	}
 	log.Debug("reserva Created: ", reserva.Id)
-	fmt.Printf("Resultado db create: %+v\n", result)
 	return reserva
 }
 

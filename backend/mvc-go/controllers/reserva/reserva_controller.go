@@ -1,7 +1,6 @@
 package hotelController
 
 import (
-	"fmt"
 	"net/http"
 	"strconv"
 
@@ -49,7 +48,6 @@ func ReservaInsert(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, err.Error())
 		return
 	}
-	fmt.Printf("Reserva controler: %+v\n", reservaDto)
 	reservaDto, er := services.ReservaService.Insertreserva(reservaDto)
 	// Error del Insert
 	if er != nil {

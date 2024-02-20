@@ -6,6 +6,7 @@ import (
 
 	"mvc-go/dto"
 	services "mvc-go/services"
+
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -50,7 +51,7 @@ func HotelInsert(c *gin.Context) {
 		return
 	}
 
-	var hotelRespDto dto.HotelDto
+	//var hotelRespDto dto.HotelDto
 
 	hotelRespDto, er := services.HotelService.InsertHotel(hotelDto)
 	// Error del Insert
@@ -62,7 +63,81 @@ func HotelInsert(c *gin.Context) {
 	c.JSON(http.StatusCreated, hotelRespDto)
 }
 
-func HotelInsertMultiple(c *gin.Context) {
+// func DeleteHotel(c *gin.Context) {
+// 	log.Debug("Hotel id to load: " + c.Param("id"))
+
+// 	id, _ := strconv.Atoi(c.Param("id"))
+
+// 	err := services.HotelService.DeleteHotel(id)
+
+// 	if err != nil {
+// 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+// 		return
+// 	}
+
+// 	c.JSON(http.StatusOK, gin.H{"message": "Hotel deleted"})
+
+// }
+
+// func AddHotelAmenitie(c *gin.Context) {
+
+// 	hotelID, err := strconv.Atoi(c.Param("id"))
+// 	if err != nil {
+// 		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid hotel ID"})
+// 		return
+// 	}
+
+// 	amenitieID, err := strconv.Atoi(c.Param("id_amenitie"))
+// 	if err != nil {
+// 		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid amenitie ID"})
+// 		return
+// 	}
+
+// 	er := services.HotelService.AddHotelAmenitie(hotelID, amenitieID)
+// 	if er != nil {
+// 		c.JSON(er.Status(), er)
+// 		return
+// 	}
+
+// 	c.JSON(http.StatusOK, gin.H{"message": "Amenitie added to hotel successfully"})
+// }
+
+func CheckAvailability(c *gin.Context) {
+	log.Debug("Hotel id to load: " + c.Param("id"))
+
+	hotel_id, _ := strconv.Atoi(c.Param("id"))
+
+	date_from_str := c.Param("date_from")
+	date_to_str := c.Param("date_to")
+
+	date_from, err_t1 := time.Parse("2006-01-02", date_from_str)
+	if err_t1 != nil{
+		log.Error(err_t1.Error())
+		return
+	}
+	date_to, err_t2 := time.Parse("2006-01-02", date_to_str)
+	if err_t2 != nil{
+		log.Error(err_t2.Error())
+		return
+	}
+
+	//Validar fechas
+
+	var availabilityResponseDto dto.Availability
+	availabilityResponseDto, err := services.HotelService.HabitacionesDisponibles(hotel_id, date_from, date_to)
+	if err != nil {
+		if err.Status() == 400 {
+			c.JSON(http.StatusBadRequest, err.Error())
+			return
+		}
+		c.JSON(http.StatusForbidden, err.Error())
+		return
+	}
+
+	c.JSON(http.StatusOK, availabilityResponseDto)
+}
+
+/*func HotelInsertMultiple(c *gin.Context) {
 	var hotelsDto dto.HotelsRequestDto
 	err := c.BindJSON(&hotelsDto)
 
@@ -85,7 +160,8 @@ func HotelInsertMultiple(c *gin.Context) {
 	c.JSON(http.StatusCreated, hotelsRespDto)
 }
 
-func GethabitacionesDisponibles(c *gin.Context) {
+
+/*func GethabitacionesDisponibles(c *gin.Context) {
 	stringhotelID := c.Param("id")
 	hotelID, err := strconv.Atoi(stringhotelID)
 	if err != nil {
@@ -115,24 +191,4 @@ func GethabitacionesDisponibles(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, Availability)
-}
-
-/*func GetHotelbyName (c *gin.Context) {
-	log.Debug("Name to load: " + c.Param("Name"))
-
-	// Obtener el nombre de usuario de los parámetros de la solicitud
-	name := c.Param("Name")
-	var hotelDto dto.HotelDto
-
-	// Obtener el usuario por su nombre de usuario utilizando el servicio de usuario
-	hotelDto, err := services.HotelService.GetHotelbyName(name)
-	if err != nil { //verifica si el usuario se encuentra o no
-		c.JSON(err.Status(), err)
-		return
-	}
-
-	// Devuelve el usuario en formato JSON
-	c.JSON(http.StatusOK, hotelDto)
-
-
 }*/

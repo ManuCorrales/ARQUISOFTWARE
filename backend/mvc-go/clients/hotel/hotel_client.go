@@ -13,7 +13,6 @@ var Db *gorm.DB
 func GetHotelById(id int) model.Hotel {
 	var hotel model.Hotel
 
-	//Db.Where("id = ?", id).Preload("Amenities").Preload("Images").First(&hotel)
 	Db.Where("id = ?", id).First(&hotel)
 	log.Debug("Hotel: ", hotel)
 
@@ -44,6 +43,18 @@ func UpdateHotel(hotel model.Hotel) {
 	log.Debug("Hotel Updated: ", hotel.ID)
 }
 
+func DeleteHotelAmenitie (hotelID int, amenitieID int) bool {
+
+	result := Db.Table("hotels_amenities").
+		Where("hotel_id = ? AND amenitie_id = ?", hotelID, amenitieID).
+		Delete(nil)
+	if result.Error != nil {
+		return false
+	}
+	return true
+
+}
+
 func DeleteHotel(hotel model.Hotel) error {
 	err := Db.Delete(&hotel).Error
 
@@ -55,8 +66,14 @@ func DeleteHotel(hotel model.Hotel) error {
 	return err
 }
 
-func GethabitacionesDisponibles(hotelID int, totalHabitaciones int, Datefrom time.Time, Dateto time.Time) int {
+
+
+
+func HabitacionesDisponibles(hotelID int, Datefrom time.Time, Dateto time.Time) int {
 	var Availability int64
+
+	var hotel model.Hotel
+	Db.Where("id = ?", hotelID).First(&hotel)
 	log.Debug("FECHA DESDE: ", Datefrom)
 	log.Debug("FECHA HASTA: ", Dateto)
 	from := Datefrom.Format("2006-01-02")
@@ -68,7 +85,7 @@ func GethabitacionesDisponibles(hotelID int, totalHabitaciones int, Datefrom tim
 			Or(Db.Where(Db.Where("? <=date_from", from).Where("date_to<= ?", to)))).
 		Count(&Availability)
 
-	return totalHabitaciones - int(Availability)
+	return hotel.Rooms - int(Availability)
 }
 
 /*func GetHotelbyName (name string )  model.Hotel {

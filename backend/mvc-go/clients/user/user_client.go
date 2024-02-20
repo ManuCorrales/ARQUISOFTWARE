@@ -13,7 +13,7 @@ var Db *gorm.DB
 func GetUserById(id int) model.User {
 	var user model.User
 
-	Db.Where("id = ?", id).Preload("reserva").Preload("hotel").First(&user)
+	Db.Where("id = ?", id).First(&user)
 	log.Debug("User: ", user)
 
 	return user
@@ -22,18 +22,25 @@ func GetUserById(id int) model.User {
 func GetUserByUsername(username string) model.User {
 	var user model.User
 	
-	Db.Where("user_name = ?", username).Preload("Reservas").First(&user)
-
+	Db.Where("user_name = ?", username).First(&user)
 	log.Debug("User: ", user)
 
 
 	return user
 }
 
+func GetUserByEmail(email string) model.User {
+	var user model.User
+
+	Db.Where("email = ?", email).First(&user)
+	log.Debug("User: ", user)
+
+	return user
+}
+
 func GetUsers() model.Users {
 	var users model.Users
-	Db.Preload("reserva").Find(&users)
-
+	Db.Find(&users)
 	log.Debug("Users: ", users)
 
 	return users
@@ -47,14 +54,5 @@ func InsertUser(user model.User) model.User {
 		log.Error("no se pudo crear el usuario")
 	}
 	log.Debug("User Created: ", user.Id)
-	return user
-}
-
-func GetUserByEmail(email string) model.User {
-	var user model.User
-
-	Db.Where("email = ?", email).First(&user)
-	log.Debug("User: ", user)
-
 	return user
 }

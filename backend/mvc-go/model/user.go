@@ -8,11 +8,11 @@ type User struct {
 	UserName string `gorm:"type:varchar(150);not null;unique"`
 	Email    string `gorm:"type:varchar(250);not null;unique"`
 	Password string `gorm:"type:varchar(150);not null"`
-	IsAdmin  bool   `gorm:"default:false"`
+	IsAdmin  bool   `gorm:"not null;default:false"`
 
 	Reservas Reservas `gorm:"foreignKey:userId"`
 }
-type AuthResponse struct {
+/*type AuthResponse struct {
 	Token string `json:"token"`
-}
+}*/
 type Users []User

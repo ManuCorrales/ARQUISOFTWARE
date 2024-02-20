@@ -3,17 +3,16 @@ package userController
 import (
 	"net/http"
 	"strconv"
+	"time"
 
 	"mvc-go/dto"
-	"mvc-go/model"
 	services "mvc-go/services"
 
+	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
 	log "github.com/sirupsen/logrus"
-	
 )
 
-// obtener un usuario por ID
 func GetUserById(c *gin.Context) {
 	log.Debug("User id to load: " + c.Param("id"))
 	// c.Param("id") obtiene el valor del "id" y strconv.Atoi() lo convierte en un entero
@@ -29,7 +28,6 @@ func GetUserById(c *gin.Context) {
 	c.JSON(http.StatusOK, userDto)
 }
 
-// obtener un usuario por nombre de usuario
 func GetUserByUsername(c *gin.Context) {
 	log.Debug("Username to load: " + c.Param("username"))
 
@@ -39,20 +37,35 @@ func GetUserByUsername(c *gin.Context) {
 
 	// Obtener el usuario por su nombre de usuario utilizando el servicio de usuario
 	userDto, err := services.UserService.GetUserByUsername(username)
+
 	if err != nil { //verifica si el usuario se encuentra o no
 		c.JSON(err.Status(), err)
 		return
 	}
 
-	// Devuelve el usuario en formato JSON
-	c.JSON(http.StatusOK, userDto)
+	// token, err2 := generateToken(userDto)
+	// if err2 != nil {
+	// 	log.Error(err.Error())
+	// 	c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to generate token"})
+	// 	return
+	// }
+
+	response := struct {
+		// Token string      `json:"token"`
+		User dto.UserDto `json:"user"`
+	}{
+		// Token: token,
+		User: userDto,
+	}
+
+	c.JSON(http.StatusOK, response)
 }
 
-// obtener todos los usuarios
 func GetUsers(c *gin.Context) {
 	var usersDto dto.UsersDto
 	// Obtener todos los usuarios utilizando el servicio de usuario
 	usersDto, err := services.UserService.GetUsers()
+
 	if err != nil { //verifica si el usuario se encuentra o no
 		c.JSON(err.Status(), err)
 		return
@@ -62,7 +75,6 @@ func GetUsers(c *gin.Context) {
 	c.JSON(http.StatusOK, usersDto)
 }
 
-// crear un usuario
 func CreateUser(c *gin.Context) {
 	var userDto dto.UserDto
 	err := c.BindJSON(&userDto)
@@ -85,11 +97,7 @@ func CreateUser(c *gin.Context) {
 	c.JSON(http.StatusCreated, userDto)
 }
 
-func GetUserByEmail(c *gin.Context) {
-
-}
-
-func Auth(ctx *gin.Context) {
+/*func Auth(ctx *gin.Context) {
 	var user model.User
 
 	if err := ctx.BindJSON(&user); err != nil {
@@ -104,22 +112,59 @@ func Auth(ctx *gin.Context) {
 	}
 
 	ctx.JSON(http.StatusOK, authResponse)
-}
+}*/
 
 func Userlogin(c *gin.Context) {
-	var loginDto dto.UserDto
+	var loginDto dto.LoginDto
 	err := c.BindJSON(&loginDto)
 
 	if err != nil {
 		log.Error(err.Error())
-		c.JSON(http.StatusBadRequest, err.Error())
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
-	c.JSON(http.StatusOK, loginDto)
+	loginResponseDto, er := services.UserService.Login(loginDto)
+	if er != nil {
+		log.Error(er.Error())
+		c.JSON(http.StatusUnauthorized, gin.H{"error": er.Error()})
+		return
+	}
+
+	token, err := generateToken(loginResponseDto)
+	if err != nil {
+		log.Error(err.Error())
+		c.JSON(http.StatusInternalServerError, "Failed to generate token")
+		return
+	}
+
+	response := struct {
+		Token string               `json:"token"`
+		User  dto.LoginResponseDto `json:"user"`
+	}{
+		Token: token,
+		User:  loginResponseDto,
+	}
+
+	c.JSON(http.StatusAccepted, response)
 }
 
-func UserLogin(c *gin.Context) {
+func generateToken(loginDto dto.LoginResponseDto) (string, error) {
+	token := jwt.New(jwt.SigningMethodHS256)
+	claims := token.Claims.(jwt.MapClaims)
+	claims["id"] = loginDto.UserId
+	claims["rol"] = loginDto.Isadmin
+	claims["expiration"] = time.Now().Add(time.Hour * 24).Unix()
+
+	tokenString, err := token.SignedString([]byte("your-secret-key"))
+	if err != nil {
+		return "", err
+	}
+
+	return tokenString, nil
+}
+
+/*func UserLogin(c *gin.Context) {
 	var loginDto dto.LoginDto
 	err := c.BindJSON(&loginDto)
 
@@ -136,4 +181,4 @@ func UserLogin(c *gin.Context) {
 			return
 		}
 	c.JSON(http.StatusOK, loginResponseDto)
-}
+}*/
