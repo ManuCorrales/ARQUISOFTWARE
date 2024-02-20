@@ -8,17 +8,53 @@ function ListaReservas(){
     //const [formValues, setFormValues] = useState(fetch('http://localhost:8090/hotels'))
     const [hotels, setHotels] = useState([])
     const [usuarios, setUsuarios] = useState([])
-    const[hotelSeleccionado, setHotelSeleccionado] = useState({})
+    const[hotelSeleccionado, setHotelSeleccionado] = useState("todos")
     const[reservas, setReservas] = useState([])
-    const [fechaSeleccionada, setFechaSeleccionada] = useState("");
+    const [fechaSalida, setFechaSalida] = useState("");
+    const [fechaLlegada, setFechaLlegada] = useState("");
+    const [reservasFiltradas, setReservasFiltradas] = useState([])
+
+
+    const handleDateChange = (event) => {
+
+    }
+
     const handleHotelChange = (event) => {
         const selectedValue = event.target.value;
         setHotelSeleccionado(selectedValue);
       };
-    const handleFechaChange = (event) => {
+    const handleFechaSalidaChange = (event) => {
         const selectedDate = event.target.value;
-        setFechaSeleccionada(selectedDate);
+        setFechaSalida(selectedDate);
+
+        let filtradas = []
+        reservas.forEach(reserva => {
+          console.log(hotelSeleccionado);
+          if(hotelSeleccionado === "todos" || reserva.hotel_id == hotelSeleccionado){
+            if(fechaLlegada === "" && fechaSalida === "" ||  (new Date(reserva.date_from) <= new Date(fechaSalida) && new Date(fechaLlegada) <= new Date(reserva.date_to)))
+              filtradas.push(reserva);
+          }
+        });
+        
+        setReservasFiltradas(filtradas);
+        console.log(reservasFiltradas);
       };
+      
+    const handleFechaLlegadaChange = (event) => {
+      const selectedDate = event.target.value;
+      setFechaLlegada(selectedDate);
+
+      let filtradas = []
+      reservas.forEach(reserva => {
+        if(hotelSeleccionado === "todos" || reserva.hotel_id == hotelSeleccionado){
+          if(fechaLlegada === "" ||  (new Date(reserva.date_from) >= new Date(fechaLlegada) && new Date(fechaSalida) >= new Date(reserva.date_to)))
+            filtradas.push(reserva);
+        }
+      });
+      
+      setReservasFiltradas(filtradas);
+  
+    };
       const [userData, setUserData] = useState(() => {
         // getting stored value
         const saved = localStorage.getItem("userData");
@@ -59,14 +95,8 @@ function ListaReservas(){
 
       // Filtrar las reservas por hotelSeleccionado
   // Filtrar las reservas por hotel y fecha seleccionada
-const reservasFiltradas = reservas.filter((reserva) => {
-    const matchHotel = hotelSeleccionado === "todos" || reserva.hotel_id == hotelSeleccionado;
-    const matchFecha = fechaSeleccionada === "" || (
-      new Date(reserva.date_from) <= new Date(fechaSeleccionada) &&
-      new Date(fechaSeleccionada) <= new Date(reserva.date_to)
-    );
-    return matchHotel && matchFecha;
-  });
+
+
   
   
   return(
@@ -79,7 +109,6 @@ const reservasFiltradas = reservas.filter((reserva) => {
     marginTop:"30px", 
     margin:"50px"
     }} >
-
   <div style={{
     margin:"20px",
     display:"grid",
@@ -94,7 +123,7 @@ const reservasFiltradas = reservas.filter((reserva) => {
     borderWidth:"1px",
     padding:"10px"
   }}>
-  <label for="hotel">Selecciona un hotel:</label>
+      <label htmlFor="hotel">Selecciona un hotel:</label>
   <select name="hotel" id="hotel" onChange={handleHotelChange}>     
     <option key={-1} value={"todos"}> Todos </option> 
     {hotels.map((item, index) => (
@@ -114,8 +143,11 @@ const reservasFiltradas = reservas.filter((reserva) => {
     padding:"10px",
     justifyContent:"center"
   }}>
-  <label htmlFor="fecha">Selecciona una fecha:</label>
-      <input type="date" id="fecha" name="fecha" onChange={handleFechaChange} value={fechaSeleccionada} />
+  <label htmlFor="fecha_llegada">Selecciona una fecha de llegada:</label>
+      <input type="date" id="fecha_llegada" name="fecha_llegada" onChange={handleFechaLlegadaChange} value={fechaLlegada} />
+      
+  <label htmlFor="fecha_salida">Selecciona una fecha de salida:</label>
+      <input type="date" id="fecha_salida" name="fecha_salida" onChange={handleFechaSalidaChange} value={fechaSalida} />
  </div> 
  </div>
   <div style={{display:"flex", flexDirection:"column"}}>
@@ -172,7 +204,7 @@ const reservasFiltradas = reservas.filter((reserva) => {
                         borderColor:"black",
                         borderStyle:"solid",
                         borderWidth:"1px",
-                        }}>{hotels.filter((hotelj)=> hotelj.id==reserva.hotel_id).map((hoteli)=> (hoteli.name))}</td>
+                        }}>{hotels.filter((hotelj)=> hotelj.hotel_id==reserva.hotel_id).map((hoteli)=> (hoteli.name))}</td>
               {userData.isadmin&&<td style={{textAlign:"left",
                         marginRight:"20px",
                         borderColor:"black",

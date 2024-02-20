@@ -1,7 +1,8 @@
 import axios from "axios";
 import {useState} from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom'; 
 
+import {config} from '../../config.js';
 
 function Login({home, funcToggle}){
 
@@ -10,6 +11,7 @@ const [formValues, setFormValues] = useState({
     username: "",
     password: "",
   });
+  const [user, setUser] = useState("")
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormValues((prevValues) => ({
