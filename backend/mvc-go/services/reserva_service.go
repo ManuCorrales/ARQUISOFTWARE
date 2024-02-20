@@ -72,6 +72,7 @@ func (r *reservaService) Insertreserva(ReservaDto dto.ReservaDto) (dto.ReservaDt
 	Reserva.DateTo = ReservaDto.DateTo     // Fecha de finalización de la reserva
 	Reserva.UserId = ReservaDto.UserId
 	Reserva.HotelId = ReservaDto.HotelId
+	Reserva.Precio = ReservaDto.Precio
 	fmt.Printf("Reservas service: %+v\n", Reserva)
 
 	Reserva = reservaClient.InsertReserva(Reserva)

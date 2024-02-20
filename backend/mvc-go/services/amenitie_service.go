@@ -14,6 +14,7 @@ type amenitieServiceInterface interface {
 	GetAmenities() (dto.AmenitiesDto, e.ApiError)
 	GetAmenitieById(id int) (dto.AmenitieDto, e.ApiError)
 	InsertAmenitie(amenitieDto dto.AmenitieDto) (dto.AmenitieDto, e.ApiError)
+	//GetAmenitiesByHotelId(hotelId int) (dto.AmenitieDto, e.ApiError)
 	DeleteAmenitieById(amenitieId int) e.ApiError
 }
 
@@ -74,6 +75,23 @@ func (a *amenitieService) InsertAmenitie(amenitieDto dto.AmenitieDto) (dto.Ameni
 
 	return amenitieDto, nil
 }
+
+/*func (a *amenitieService) GetAmenitiesByHotelId(hotelId int) (dto.AmenitieDto, e.ApiError) {
+	var amenities model.Amenities = amenitieClient.GetAmenitiesByHotelId(hotelId)
+	amenitiesList := make([]dto.AmenitieDto, 0)
+
+	for _, amenitie := range amenities {
+		var amenitieDto dto.AmenitieDto
+		amenitieDto.Id = amenitie.Id
+		amenitieDto.Name = amenitie.Name
+		amenitieDto.Description = amenitie.Description
+		amenitiesList = append(amenitiesList, amenitieDto)
+	}
+
+	return dto.AmenitieDto{
+		Amenities: amenitiesList,
+	}, nil
+}*/
 
 func (a *amenitieService) DeleteAmenitieById(amenitieId int) e.ApiError {
 	_, err := a.GetAmenitieById(amenitieId)

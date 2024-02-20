@@ -60,6 +60,21 @@ func InsertAmenitie(c *gin.Context) {
 	c.JSON(http.StatusCreated, amenitieDto) 
 }
 
+/*func GetAmenitiesByHotelId(c *gin.Context) {
+	log.Debug("Hotel id to load: " + c.Param("id"))
+
+	id, _ := strconv.Atoi(c.Param("id"))
+
+	amenitiesDto, err := service.AmenitieService.GetAmenitiesByHotelId(id)
+
+	if err != nil {
+		c.JSON(err.Status(), err)
+		return
+	}
+
+	c.JSON(http.StatusOK, amenitieDto)
+}*/
+
 func DeleteAmenitieById(c *gin.Context) {
 	hotelID, err := strconv.Atoi(c.Param("id"))
 	if err != nil {

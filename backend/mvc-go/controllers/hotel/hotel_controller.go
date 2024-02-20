@@ -137,28 +137,7 @@ func CheckAvailability(c *gin.Context) {
 	c.JSON(http.StatusOK, availabilityResponseDto)
 }
 
-/*func HotelInsertMultiple(c *gin.Context) {
-	var hotelsDto dto.HotelsRequestDto
-	err := c.BindJSON(&hotelsDto)
 
-	// Error Parsing json param
-	if err != nil {
-		log.Error(err.Error())
-		c.JSON(http.StatusBadRequest, err.Error())
-		return
-	}
-
-	var hotelsRespDto dto.HotelsDto
-
-	hotelsRespDto, er := services.HotelService.InsertHotels(hotelsDto)
-	// Error del Insert
-	if er != nil {
-		c.JSON(er.Status(), er)
-		return
-	}
-
-	c.JSON(http.StatusCreated, hotelsRespDto)
-}
 
 
 /*func GethabitacionesDisponibles(c *gin.Context) {

@@ -48,6 +48,7 @@ func StartDbEngine() {
 	db.AutoMigrate(&model.User{})
 	db.AutoMigrate(&model.Reserva{})
 	db.AutoMigrate(&model.Hotel{})
+	db.AutoMigrate(&model.Amenitie{})
 
 	log.Info("Finishing Migration Database Tables")
 }

@@ -32,6 +32,7 @@ func InsertReserva(reserva model.Reserva) model.Reserva {
 
 	if result.Error != nil {
 		log.Error("no se pudo agregar la reserva")
+		log.Error(result.Error)
 	}
 	log.Debug("reserva Created: ", reserva.Id)
 	return reserva
